@@ -1,0 +1,130 @@
+@import url(./variables.scss);
+
+html {
+	scroll-behavior: smooth;
+}
+
+* {
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+	font-size: var(--font-size-base);
+	font-family: var(--fonts-paragraphs);
+	text-rendering: optimizeLegibility;
+	overflow-x: hidden;
+	height: 100vh;
+	background-color: var(--color-background);
+	color: var(--color-text);
+
+	&:has(dialog[open]) {
+		overflow: hidden;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	// font-weight: 600;
+	font-family: var(--fonts-headings);
+	color: var(--color-emphasis);
+}
+
+h1 {
+	font-size: var(--font-size-xl);
+}
+
+h2 {
+	font-size: var(--font-size-lg);
+}
+
+h3 {
+	font-size: var(--font-size-md);
+}
+
+h4 {
+	font-size: var(--font-size-sm);
+}
+
+h5 {
+	font-size: var(--font-size-xs);
+}
+
+h6 {
+	font-size: var(--font-size-xxs);
+}
+
+a {
+	color: inherit;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: underline;
+
+	// &[href^='http']:is([target='_blank'])::before {
+	// 	content: '';
+	// 	display: inline-block;
+	// 	background-image: url('./assets/icons/external.svg');
+	// 	height: 0.875em;
+	// 	width: 0.875em;
+	// 	margin-right: 0.125em;
+	// 	background-size: contain;
+	// 	background-repeat: no-repeat;
+	// 	text-decoration: none;
+	// }
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+li {
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	font-size: inherit;
+	font-family: inherit;
+	background-color: transparent;
+	padding: 0;
+	appearance: none;
+	border: none;
+	cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+code,
+pre {
+	margin: 0;
+}
+
+strong {
+	font-weight: 500;
+}
+
+dfn,
+abbr {
+	font-style: normal;
+	text-decoration: underline dotted;
+	cursor: help;
+}
