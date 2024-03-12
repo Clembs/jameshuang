@@ -41,6 +41,10 @@
 			width: clamp(76px, 20vw, 90px);
 		}
 
+		video {
+			pointer-events: none;
+		}
+
 		h1 {
 			font-size: var(--font-size-xxl);
 			line-height: 1.2;
