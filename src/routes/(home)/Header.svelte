@@ -59,7 +59,7 @@
 
 			a {
 				font-size: var(--font-size-sm);
-				color: var(--color-text);
+				color: var(--color-foreground-medium);
 				text-decoration: none;
 				text-transform: uppercase;
 				transition: scale 0.2s ease-in-out;

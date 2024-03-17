@@ -19,7 +19,7 @@ body {
 	overflow-x: hidden;
 	height: 100vh;
 	background-color: var(--color-background);
-	color: var(--color-text);
+	color: var(--color-foreground-medium);
 
 	&:has(dialog[open]) {
 		overflow: hidden;
@@ -34,7 +34,7 @@ h5,
 h6 {
 	// font-weight: 600;
 	font-family: var(--fonts-headings);
-	color: var(--color-emphasis);
+	color: var(--color-foreground-full);
 }
 
 h1 {

@@ -5,8 +5,10 @@
 		Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 	--color-background: hsl(0, 0%, 8%);
-	--color-emphasis: hsl(0, 0%, 100%);
-	--color-text: hsl(0, 0%, 86%);
+	--color-foreground-full: hsl(0, 0%, 100%);
+	--color-foreground-medium: hsl(0, 0%, 86%);
+	--color-foreground-low: hsl(0, 0%, 60%);
+	--color-foreground-lowest: hsl(0, 0%, 40%);
 
 	--gradient-background: linear-gradient(
 		0deg,
