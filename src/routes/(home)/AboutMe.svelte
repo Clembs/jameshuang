@@ -36,14 +36,14 @@
 			<span class="highlighted">James Huang</span>.
 		</h2>
 		<p>
-			I’m a self-taught graphic designer based in Sydney with experience freelancing, working with
+			I'm a self-taught graphic designer based in Sydney with experience freelancing, working with
 			startups, businesses, creators, along with some personal projects as a hobby.<br />
 			<br />
-			I’m inspired and intrigued by how appealing design crafts impactful experiences and channel stories.
-			You’ll find that I try to reflect this notion across my work across mediums like print, UI, web,
+			I'm inspired and intrigued by how appealing design crafts impactful experiences and channel stories.
+			You'll find that I try to reflect this notion across my work across mediums like print, UI, web,
 			and motion design. <br />
 			<br />
-			I’m currently a student often busy with academic commitments, though in my spare time you’ll find
+			I'm currently a student often busy with academic commitments, though in my spare time you'll find
 			me reading a book or the news, working on a project or taking a walk around national parks or the
 			city.<br />
 			<br />
@@ -131,6 +131,12 @@
 					flex: 0 0 28px;
 				}
 			}
+		}
+	}
+
+	@media screen and (max-width: 670px) {
+		br {
+			display: none;
 		}
 	}
 </style>

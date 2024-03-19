@@ -22,9 +22,9 @@
 					{/each}
 				</p>
 			</div>
-			<time datetime={new Date(project.createdAt).toISOString()}
-				>{new Date(project.createdAt).getFullYear()}</time
-			>
+			<time datetime={new Date(project.createdAt).toISOString()}>
+				{new Date(project.createdAt).getFullYear()}
+			</time>
 		</div>
 	</a>
 </li>
@@ -35,7 +35,6 @@
 		flex-direction: column;
 		gap: 1.25rem;
 		text-decoration: none;
-		max-width: 315px;
 
 		img {
 			width: 100%;
@@ -52,6 +51,7 @@
 
 			h3 {
 				font-family: var(--fonts-paragraphs);
+				font-weight: 500;
 			}
 
 			p,
