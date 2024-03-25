@@ -20,7 +20,16 @@
 			{new Date(data.finishedAt || data.createdAt).getFullYear()}
 		</time>
 		<h1>{data.title}</h1>
-		<p id="mediums">{data.mediums.join('•')}</p>
+		<p id="mediums">
+			{#each data.mediums as medium, i}
+				<span class="medium">
+					{medium}
+				</span>
+				{#if i !== data.mediums.length - 1}
+					•
+				{/if}
+			{/each}
+		</p>
 		<hr />
 		<ul id="details">
 			<li class="detail">
@@ -71,7 +80,7 @@
 			left: 0;
 			width: 100%;
 			max-height: 50px;
-			object-fit: cover;
+			// object-fit: cover;
 			border-radius: 0.5rem;
 			filter: blur(100px);
 		}
@@ -94,6 +103,13 @@
 				font-size: var(--font-size-base);
 				text-transform: uppercase;
 				font-weight: 500;
+				color: var(--color-foreground-lowest);
+				display: flex;
+				gap: 0.5rem;
+
+				.medium {
+					color: var(--color-foreground-low);
+				}
 			}
 
 			hr {
@@ -127,6 +143,13 @@
 
 		main {
 			padding: 1rem 0;
+
+			:global(h1) {
+				background-clip: text;
+				-webkit-background-clip: text;
+				color: transparent;
+				background-image: linear-gradient(to bottom, #fff, #ffffff60);
+			}
 		}
 
 		#back-button {
