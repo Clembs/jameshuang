@@ -3,6 +3,7 @@
 	import KoFi from '$lib/svg/socials/ko-fi.svelte';
 	import Youtube from '$lib/svg/socials/youtube.svelte';
 	import X from '$lib/svg/socials/x.svelte';
+	import FooterDecoration from '$lib/svg/decorations/FooterDecoration.svelte';
 </script>
 
 <footer>
@@ -73,15 +74,18 @@
 		<div id="location-value">Sydney, NSW</div>
 	</section>
 
-	<!-- TODO: add background decorations -->
+	<div id="decoration" aria-hidden>
+		<FooterDecoration />
+	</div>
 </footer>
 
 <style lang="scss">
 	footer {
 		display: flex;
-		margin: 5rem 3rem;
+		padding: 5rem 3rem;
 		gap: 2rem;
 		justify-content: space-between;
+		position: relative;
 
 		#about {
 			display: flex;
@@ -162,9 +166,16 @@
 			}
 		}
 
+		#decoration {
+			position: absolute;
+			bottom: 0;
+			right: 30%;
+			transform: translateX(50%);
+		}
+
 		@media screen and (max-width: 768px) {
 			flex-direction: column;
-			margin: 5rem 1.5rem;
+			padding: 5rem 1.5rem;
 
 			#location {
 				text-align: start;
