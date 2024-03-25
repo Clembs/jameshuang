@@ -40,20 +40,31 @@
 			</svg>
 		</div>
 
-		<div id="links">
-			<a href="https://ko-fi.com/jamesdesigns" target="_blank" rel="noopener noreferrer">
-				<KoFi />
-			</a>
-			<!-- TODO: add Twitter link -->
-			<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-				<Discord />
-			</a>
-			<a href="https://www.youtube.com/@jamesdesigns" target="_blank" rel="noopener noreferrer">
-				<Youtube />
-			</a>
-			<a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-				<X />
-			</a>
+		<div id="socials">
+			<div id="links">
+				<a href="https://ko-fi.com/jamesdesigns" target="_blank" rel="noopener noreferrer">
+					<KoFi />
+				</a>
+				<a href="https://discord.gg" target="_blank" rel="noopener noreferrer">
+					<Discord />
+				</a>
+				<a href="https://www.youtube.com/@jamesdesigns" target="_blank" rel="noopener noreferrer">
+					<Youtube />
+				</a>
+				<a href="https://twitter.com/jamesdesigns_" target="_blank" rel="noopener noreferrer">
+					<X />
+				</a>
+			</div>
+			<div id="labels">
+				•
+				<span class="label"> Buy me a coffee </span>
+				/
+				<span class="label"> Chat on Discord </span>
+				/
+				<span class="label"> YouTube channel </span>
+				/
+				<span class="label"> X </span>
+			</div>
 		</div>
 	</section>
 
@@ -87,22 +98,46 @@
 				color: var(--color-foreground-full);
 			}
 
-			#links {
+			#socials {
 				display: flex;
-				gap: 0.25rem;
-				margin-left: -0.5rem;
+				align-items: center;
+				gap: 1rem;
+				color: var(--color-foreground-lowest);
 
-				a {
-					display: grid;
-					place-items: center;
-					width: 3rem;
-					height: 3rem;
-					padding: 0.75rem;
-					color: var(--color-foreground-low);
-					transition: color 100ms ease-in-out;
+				#links {
+					display: flex;
+					gap: 0.25rem;
+					margin-left: -0.5rem;
 
-					&:hover {
-						color: var(--color-foreground-lowest);
+					a {
+						display: grid;
+						place-items: center;
+						width: 3rem;
+						height: 3rem;
+						padding: 0.75rem;
+						color: var(--color-foreground-low);
+						transition: color 100ms ease-in-out;
+
+						&:hover {
+							color: var(--color-foreground-lowest);
+						}
+					}
+				}
+
+				#labels {
+					display: flex;
+					gap: 0.5rem;
+					text-transform: uppercase;
+					font-size: var(--font-size-sm);
+					letter-spacing: 0.075rem;
+					color: var(--color-foreground-lowest);
+
+					.label {
+						color: var(--color-foreground-low);
+					}
+
+					@media (max-width: 1020px) {
+						display: none;
 					}
 				}
 			}
