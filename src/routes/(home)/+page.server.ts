@@ -1,10 +1,10 @@
 import { db } from '$lib/db';
 import { projects } from '$lib/db/schema';
-import { desc } from 'drizzle-orm';
+import { asc } from 'drizzle-orm';
 
 export async function load() {
 	const projectsList = await db.query.projects.findMany({
-		orderBy: desc(projects.createdAt)
+		orderBy: asc(projects.position)
 	});
 
 	return {

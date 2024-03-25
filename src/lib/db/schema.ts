@@ -1,4 +1,4 @@
-import { date, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { date, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const projects = pgTable('projects', {
 	id: text('id').notNull().primaryKey(),
@@ -9,7 +9,8 @@ export const projects = pgTable('projects', {
 	finishedAt: date('finished_at'),
 	tools: varchar('tools', { length: 32 }).array().notNull(),
 	mediums: varchar('mediums', { length: 32 }).array().notNull(),
-	roles: varchar('roles', { length: 64 }).notNull()
+	roles: varchar('roles', { length: 64 }).notNull(),
+	position: integer('position')
 });
 
 export const pictures = pgTable('pictures', {
