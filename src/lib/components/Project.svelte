@@ -40,7 +40,7 @@
 			width: 100%;
 			height: auto;
 			object-fit: cover;
-			border-radius: 0.5rem;
+			border-radius: 0.25rem;
 		}
 
 		.text {

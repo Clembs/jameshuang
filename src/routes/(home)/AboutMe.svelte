@@ -87,7 +87,7 @@
 	#about-me {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 2rem;
+		gap: 4rem;
 		flex-wrap: wrap;
 		width: 90%;
 		max-width: 900px;
@@ -101,8 +101,14 @@
 			gap: 0.5rem;
 		}
 
-		#intro h2 {
-			font-size: var(--font-size-xl);
+		#intro {
+			h2 {
+				font-size: var(--font-size-xl);
+			}
+
+			p {
+				text-align: justify;
+			}
 		}
 
 		#info {
@@ -134,9 +140,11 @@
 		}
 	}
 
-	@media screen and (max-width: 670px) {
-		br {
-			display: none;
+	@media screen and (max-width: 705px) {
+		#about-me {
+			li br {
+				display: none;
+			}
 		}
 	}
 </style>
