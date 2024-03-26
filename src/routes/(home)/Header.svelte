@@ -1,18 +1,69 @@
+<script lang="ts">
+	import { animate, stagger, glide } from 'motion';
+	import { onMount } from 'svelte';
+
+	let logoEl: HTMLVideoElement;
+	let heroEl: HTMLVideoElement;
+
+	onMount(() => {
+		animateWebsiteFeatures();
+	});
+
+	function animateWebsiteFeatures() {
+		const START_ANIMATION = 0.4;
+		animate(
+			logoEl,
+			{
+				top: `140px`
+			},
+			{
+				duration: 0.5,
+				easing: [0.8, 0, 0.4, 1],
+				delay: START_ANIMATION
+			}
+		);
+		animate(
+			'.phrase',
+			{ opacity: 1, top: 0 },
+			{
+				delay: stagger(0.25, { start: START_ANIMATION + 0.2 }),
+				easing: [0.55, 0, 0.1, 1],
+				duration: 1.25
+			}
+		);
+		animate(
+			'#links a',
+			{ opacity: 1, left: 0 },
+			{
+				delay: stagger(0.25, { start: START_ANIMATION + 1.125 }),
+				duration: 1
+			}
+		);
+		const heroAnimation = animate('#hero', { opacity: 1 }, { delay: START_ANIMATION + 1.125 });
+		heroAnimation.finished.then(() => heroEl.play());
+	}
+</script>
+
 <header>
-	<video
-		id="logo"
-		src="https://f004.backblazeb2.com/file/jameshuangwebsite/Comp+1.mp4"
-		autoplay
-		muted
-		playsinline
-	/>
+	<div id="box">
+		<video
+			id="logo"
+			src="https://f004.backblazeb2.com/file/jameshuangwebsite/Comp+1.mp4"
+			autoplay
+			muted
+			playsinline
+			bind:this={logoEl}
+		/>
+	</div>
 
 	<h1>
-		Product-focused <span class="highlighted"> designer </span> <br />
-		crafting experiences and identities
+		<span class="phrase"> Product-focused </span>
+		<span class="phrase highlighted"> designer </span> <br />
+		<span class="phrase"> crafting experiences </span>
+		<span class="phrase"> and identities </span>
 	</h1>
 
-	<nav id="links">
+	<ul id="links">
 		<a href="#about-me">
 			<span>About</span>
 			<svg
@@ -61,15 +112,15 @@
 				/>
 			</svg>
 		</a>
-	</nav>
+	</ul>
 
 	<video
 		id="hero"
 		src="https://f004.backblazeb2.com/file/jameshuangwebsite/tempfinalup2date.mp4"
-		autoplay
 		muted
 		playsinline
 		loop
+		bind:this={heroEl}
 	/>
 </header>
 
@@ -80,11 +131,16 @@
 		align-items: center;
 		justify-content: center;
 		margin: 2rem 0;
-		margin-top: 8rem;
+		margin-top: 10rem;
 		gap: 1rem;
+		// height: 100vh;
 
 		#logo {
 			width: clamp(76px, 20vw, 90px);
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 		}
 
 		video {
@@ -96,13 +152,22 @@
 			line-height: 1.2;
 			text-align: center;
 			padding: 0 1rem;
+
+			.phrase {
+				opacity: 0;
+				position: relative;
+				top: 3rem;
+				// will-change: opacity, top;
+			}
 		}
 
 		#links {
 			display: flex;
 			gap: 1rem;
 			font-weight: 600;
+			margin: 0;
 			margin-top: 1rem;
+			padding: 0;
 
 			a {
 				font-size: var(--font-size-sm);
@@ -117,6 +182,9 @@
 				will-change: scale, color;
 				position: relative;
 				line-height: 0%;
+				opacity: 0;
+				position: relative;
+				left: -0.5rem;
 
 				&:hover {
 					scale: 1.1;
@@ -135,6 +203,7 @@
 			max-width: 1200px;
 			aspect-ratio: 1.875 / 1;
 			margin-top: -1rem;
+			opacity: 0;
 		}
 	}
 </style>
