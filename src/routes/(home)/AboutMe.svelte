@@ -1,5 +1,6 @@
 <script>
 	import Chip from '$lib/components/Chip.svelte';
+	import { animate, inView } from 'motion';
 
 	const skills = [
 		'UI & UX',
@@ -27,6 +28,10 @@
 			lines: ['Learning **Blender**']
 		}
 	];
+
+	inView('#about-me', ({ target }) => {
+		animate(target, { opacity: 1 });
+	});
 </script>
 
 <section id="about-me">
@@ -91,6 +96,7 @@
 		width: 80%;
 		margin: 0 auto;
 		padding: 3rem 0;
+		opacity: 0;
 
 		section {
 			display: flex;
