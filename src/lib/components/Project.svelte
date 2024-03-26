@@ -1,12 +1,11 @@
 <script lang="ts">
 	import type { Project } from '$lib/db/types';
-
 	export let project: Project;
 </script>
 
 <li>
 	<a class="project" href="/projects/{project.id}">
-		<img src={project.bannerUrl} alt={project.title} />
+		<img loading="lazy" src={project.bannerUrl} alt={project.title} />
 
 		<div class="text">
 			<div class="about">
@@ -35,6 +34,8 @@
 		flex-direction: column;
 		gap: 1.25rem;
 		text-decoration: none;
+		transform: translateY(50px);
+		opacity: 0;
 
 		img {
 			width: 100%;

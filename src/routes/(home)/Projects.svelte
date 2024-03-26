@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ProjectComponent from '$lib/components/Project.svelte';
+	import { animate, inView, stagger } from 'motion';
+
+	inView(
+		'#projects',
+		() => {
+			const a = animate(
+				'.project',
+				{
+					opacity: 1,
+					transform: 'translateY(0)'
+				},
+				{ delay: stagger(0.25) }
+			);
+
+			return () => a.stop();
+		},
+		{ margin: '20px' }
+	);
 </script>
 
 <section id="projects">
