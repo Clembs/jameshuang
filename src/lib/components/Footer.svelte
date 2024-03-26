@@ -58,13 +58,36 @@
 			</div>
 			<div id="labels">
 				•
-				<span class="label"> Buy me a coffee </span>
+				<a
+					href="https://ko-fi.com/jamesdesigns"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="label"
+				>
+					Buy me a coffee
+				</a>
 				/
-				<span class="label"> Chat on Discord </span>
+				<a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="label">
+					Chat on Discord
+				</a>
 				/
-				<span class="label"> YouTube channel </span>
+				<a
+					href="https://www.youtube.com/@jamesdesigns"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="label"
+				>
+					YouTube channel
+				</a>
 				/
-				<span class="label"> X </span>
+				<a
+					href="https://twitter.com/jamesdesigns_"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="label"
+				>
+					X
+				</a>
 			</div>
 		</div>
 	</section>
@@ -97,7 +120,7 @@
 				gap: 0.5rem;
 				align-items: center;
 				text-transform: uppercase;
-				font-size: var(--font-size-md);
+				font-size: var(--font-size-base);
 				letter-spacing: 0.075rem;
 				color: var(--color-foreground-full);
 			}
@@ -138,6 +161,11 @@
 
 					.label {
 						color: var(--color-foreground-low);
+						text-decoration: none;
+
+						&:hover {
+							text-decoration: underline;
+						}
 					}
 
 					@media (max-width: 1020px) {
@@ -162,7 +190,7 @@
 
 			#location-value {
 				color: var(--color-foreground-full);
-				font-size: var(--font-size-lg);
+				font-size: var(--font-size-md);
 			}
 		}
 
@@ -171,6 +199,8 @@
 			bottom: 0;
 			right: 30%;
 			transform: translateX(50%);
+			z-index: -1;
+			pointer-events: none;
 		}
 
 		@media screen and (max-width: 768px) {
