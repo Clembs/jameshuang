@@ -2,10 +2,10 @@
 	import { page } from '$app/stores';
 	import ProjectComponent from '$lib/components/Project.svelte';
 	import { animate, inView, stagger } from 'motion';
+	import { onMount } from 'svelte';
 
-	inView(
-		'#projects',
-		() => {
+	onMount(() => {
+		inView('#projects', () => {
 			const a = animate(
 				'.project',
 				{
@@ -14,11 +14,9 @@
 				},
 				{ delay: stagger(0.25) }
 			);
-
 			return () => a.stop();
-		},
-		{ margin: '20px' }
-	);
+		});
+	});
 </script>
 
 <section id="projects">

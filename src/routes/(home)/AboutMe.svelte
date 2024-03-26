@@ -1,6 +1,7 @@
 <script>
 	import Chip from '$lib/components/Chip.svelte';
 	import { animate, inView } from 'motion';
+	import { onMount } from 'svelte';
 
 	const skills = [
 		'UI & UX',
@@ -29,8 +30,10 @@
 		}
 	];
 
-	inView('#about-me', ({ target }) => {
-		animate(target, { opacity: 1 });
+	onMount(() => {
+		inView('#about-me', ({ target }) => {
+			animate(target, { opacity: 1 });
+		});
 	});
 </script>
 
@@ -106,18 +109,19 @@
 		}
 
 		#intro {
+			width: 100%;
+
 			h2 {
 				font-size: var(--font-size-xl);
 			}
 
 			p {
 				text-align: justify;
+				max-width: 35ch;
 			}
 		}
 
 		#info {
-			display: flex;
-			flex-direction: column;
 			gap: 2rem;
 		}
 
