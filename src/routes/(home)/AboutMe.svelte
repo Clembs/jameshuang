@@ -85,11 +85,8 @@
 
 <style lang="scss">
 	#about-me {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 4rem;
-		flex-wrap: wrap;
-		width: 90%;
+		display: flex;
+		gap: 5rem;
 		max-width: 900px;
 		width: 80%;
 		margin: 0 auto;
@@ -99,6 +96,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem;
+			min-width: 350px;
 		}
 
 		#intro {
@@ -138,12 +136,35 @@
 				}
 			}
 		}
-	}
 
-	@media screen and (max-width: 705px) {
-		#about-me {
-			li br {
+		@media (max-width: 1020px) {
+			flex-direction: column;
+			gap: 1rem;
+
+			#intro h2 br {
 				display: none;
+			}
+
+			#status ul {
+				flex-direction: row;
+
+				li {
+					width: 100%;
+				}
+			}
+		}
+
+		@media (max-width: 800px) {
+			#status ul {
+				flex-direction: column;
+
+				br {
+					display: none;
+				}
+			}
+
+			#intro h2 br {
+				display: block;
 			}
 		}
 	}
