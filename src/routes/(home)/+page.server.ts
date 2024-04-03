@@ -7,7 +7,10 @@ export async function load() {
 		orderBy: asc(projects.position)
 	});
 
+	const status = await db.query.status.findMany();
+
 	return {
-		projects: projectsList
+		projects: projectsList,
+		status
 	};
 }

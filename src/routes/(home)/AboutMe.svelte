@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 	import Chip from '$lib/components/Chip.svelte';
+	import Status from '$lib/components/Status.svelte';
 	import { animate, inView } from 'motion';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	const skills = [
 		'UI & UX',
@@ -13,21 +15,6 @@
 		'Figma',
 		'Framer',
 		'After Effects'
-	];
-
-	const statuses = [
-		{
-			img: './books.webp',
-			lines: ['Reading **Twilight**', 'by Stephenie Meyer']
-		},
-		{
-			img: './headset.webp',
-			lines: ['Listening to **Midnights**', 'by Taylor Swift']
-		},
-		{
-			img: './lightbulb.webp',
-			lines: ['Learning **Blender**']
-		}
 	];
 
 	onMount(() => {
@@ -73,17 +60,9 @@
 			<h2>Status</h2>
 
 			<ul>
-				{#each statuses as status}
+				{#each $page.data.status as status}
 					<li class="status">
-						<img height="28" width="28" alt="" src={status.img} aria-hidden />
-						<p>
-							{#each status.lines as line, i}
-								{@html line.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')}
-								{#if i !== status.lines.length - 1}
-									<br />
-								{/if}
-							{/each}
-						</p>
+						<Status {status} />
 					</li>
 				{/each}
 			</ul>
@@ -135,16 +114,6 @@
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
-
-			.status {
-				display: flex;
-				gap: 1rem;
-				align-items: center;
-
-				img {
-					flex: 0 0 28px;
-				}
-			}
 		}
 
 		@media (max-width: 1020px) {
@@ -157,10 +126,6 @@
 
 			#status ul {
 				flex-direction: row;
-
-				li {
-					width: 100%;
-				}
 			}
 		}
 
