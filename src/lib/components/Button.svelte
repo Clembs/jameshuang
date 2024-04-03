@@ -11,7 +11,7 @@
 	button {
 		padding: 0.5rem 1.5rem;
 		font: inherit;
-		font-size: var(--font-size-md);
+		font-size: var(--font-size-base);
 		border-radius: 0.25rem;
 		margin-top: 0.5rem;
 
