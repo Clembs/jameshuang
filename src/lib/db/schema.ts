@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import { date, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { date, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const projects = pgTable('projects', {
 	id: text('id').notNull().primaryKey(),
@@ -33,6 +33,12 @@ export const users = pgTable('users', {
 	permissions: varchar('permissions', { length: 32, enum: ['admin'] })
 		.array()
 		.notNull()
+});
+
+export const status = pgTable('status', {
+	id: serial('id').primaryKey(),
+	imageUrl: text('image_url').notNull(),
+	title: varchar('title', { length: 256 }).notNull()
 });
 
 export const sessions = pgTable('sessions', {
