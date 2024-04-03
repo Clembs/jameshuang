@@ -25,7 +25,7 @@
 	class="account-form"
 	method="post"
 >
-	<TextInput error={errors?.username} type="email" label="Email" name="email" />
+	<TextInput error={errors?.username} type="text" label="Username" name="username" />
 	<TextInput error={errors?.password} type="password" label="Password" name="password" />
 	<Button type="submit">Log in</Button>
 	<a href="/register">Register instead?</a>
