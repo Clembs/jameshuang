@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
+	import Status from '$lib/components/Status.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
 
 	export let data;
 </script>
@@ -12,7 +15,30 @@
 	<section id="status">
 		<h2>Status</h2>
 
-		<!-- TODO: this -->
+		<form
+			use:enhance={() =>
+				({ update }) =>
+					update({ reset: false })}
+			id="edit-status"
+			action="?/editStatus"
+			method="post"
+		>
+			<div id="statuses">
+				{#each data.status as status}
+					<div class="status">
+						<div class="edit">
+							<TextInput label="Image URL" name="image_url" bind:value={status.imageUrl} />
+							<p class="pro-tip">Start the URL with / to reference an image at the website root</p>
+							<TextInput label="Status" name="title" bind:value={status.title} />
+							<p class="pro-tip">Wrap text in ** to <b>bolden</b> it. Add \n to add a newline.</p>
+						</div>
+						<!-- <h3>Preview</h3> -->
+						<Status {status} />
+					</div>
+				{/each}
+			</div>
+			<Button type="submit">Save</Button>
+		</form>
 	</section>
 
 	<section id="projects">
@@ -92,6 +118,51 @@
 							display: grid;
 							place-items: center;
 						}
+					}
+				}
+			}
+		}
+
+		#edit-status {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			// align-items: flex-end;
+
+			#statuses {
+				display: flex;
+				gap: 2rem;
+
+				.status {
+					display: flex;
+					flex-direction: column;
+					gap: 1rem;
+					width: 100%;
+
+					.edit {
+						display: flex;
+						flex-direction: column;
+						gap: 0.5rem;
+						width: 100%;
+
+						.pro-tip {
+							font-size: var(--font-size-sm);
+							color: var(--color-foreground-low);
+						}
+					}
+				}
+
+				@media (max-width: 1020px) {
+					flex-direction: column;
+
+					.status {
+						flex-direction: row;
+					}
+				}
+
+				@media (max-width: 800px) {
+					.status {
+						flex-direction: column;
 					}
 				}
 			}
