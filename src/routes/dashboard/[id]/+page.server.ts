@@ -20,7 +20,7 @@ export async function load({ params, locals: { getUser } }) {
 }
 
 export const actions = {
-	async edit({ params, locals: { getUser }, request }) {
+	async editMetadata({ params, locals: { getUser }, request }) {
 		const user = await getUser();
 
 		if (!user) throw error(401, 'Unauthorized');
@@ -41,6 +41,22 @@ export const actions = {
 		};
 
 		await db.update(projects).set(updatedProject).where(eq(projects.id, params.id));
+
+		return {
+			success: true
+		};
+	},
+	async editContent({ params, locals: { getUser }, request }) {
+		const user = await getUser();
+
+		if (!user) throw error(401, 'Unauthorized');
+
+		const data = await request.formData();
+		const content = data.get('content')?.toString();
+
+		console.log(content);
+
+		await db.update(projects).set({ article: content }).where(eq(projects.id, params.id));
 
 		return {
 			success: true

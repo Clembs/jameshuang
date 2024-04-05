@@ -36,6 +36,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@tiptap/core": "^2.2.4",
+    "@tiptap/pm": "^2.2.4",
+    "@tiptap/starter-kit": "^2.2.4",
     "drizzle-orm": "^0.30.0",
     "motion": "^10.17.0",
     "postgres": "^3.4.3",

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
+	import Editor from './WYSIWYGEditor.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import { marked } from 'marked';
 
 	export let data;
 </script>
@@ -14,98 +14,101 @@
 		use:enhance={() =>
 			({ update }) =>
 				update({ reset: false })}
-		action="?/edit"
+		action="?/editMetadata"
 		method="post"
 	>
-		<TextInput name="title" maxlength={256} label="Title" value={data.project.title} />
+		<section id="metadata">
+			<h2>Metadata</h2>
 
-		<div class="flex">
-			<TextInput name="banner-url" label="Banner URL" bind:value={data.project.bannerUrl} />
-			<img src={data.project.bannerUrl} alt="Banner" />
-		</div>
+			<TextInput name="title" maxlength={256} label="Title" value={data.project.title} />
 
-		<TextInput name="year" label="Year" value={data.project.year?.toString() || '2024'} />
-
-		<TextInput name="timeline" label="Timeline" value={data.project.timeline} />
-
-		<TextInput name="roles" label="Roles" value={data.project.roles} />
-
-		<section id="mediums">
-			<p>Mediums</p>
-
-			<div class="editable-array">
-				<div class="editable-array-items">
-					{#each data.project.mediums as _, i}
-						<TextInput
-							name="medium"
-							bind:value={data.project.mediums[i]}
-							autofocus={i === data.project.mediums.length - 1}
-						/>
-					{/each}
-				</div>
-				<div class="editable-array-buttons">
-					<button
-						type="button"
-						on:click={() => (data.project.mediums = data.project.mediums.slice(0, -1))}
-					>
-						-
-					</button>
-					<button
-						type="button"
-						on:click={() => (data.project.mediums = [...data.project.mediums, ''])}
-					>
-						+
-					</button>
-				</div>
+			<div class="flex">
+				<TextInput name="banner-url" label="Banner URL" bind:value={data.project.bannerUrl} />
+				<img src={data.project.bannerUrl} alt="Banner" />
 			</div>
+
+			<TextInput name="year" label="Year" value={data.project.year?.toString() || '2024'} />
+
+			<TextInput name="timeline" label="Timeline" value={data.project.timeline} />
+
+			<TextInput name="roles" label="Roles" value={data.project.roles} />
+
+			<section id="mediums">
+				<p>Mediums</p>
+
+				<div class="editable-array">
+					<div class="editable-array-items">
+						{#each data.project.mediums as _, i}
+							<TextInput
+								name="medium"
+								bind:value={data.project.mediums[i]}
+								autofocus={i === data.project.mediums.length - 1}
+							/>
+						{/each}
+					</div>
+					<div class="editable-array-buttons">
+						<button
+							type="button"
+							on:click={() => (data.project.mediums = data.project.mediums.slice(0, -1))}
+						>
+							-
+						</button>
+						<button
+							type="button"
+							on:click={() => (data.project.mediums = [...data.project.mediums, ''])}
+						>
+							+
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<section id="tools">
+				<p>Tools</p>
+
+				<div class="editable-array">
+					<div class="editable-array-items">
+						{#each data.project.tools as _, i}
+							<TextInput
+								name="tool"
+								bind:value={data.project.tools[i]}
+								autofocus={i === data.project.tools.length - 1}
+							/>
+						{/each}
+					</div>
+					<div class="editable-array-buttons">
+						<button
+							type="button"
+							on:click={() => (data.project.tools = data.project.tools.slice(0, -1))}
+						>
+							-
+						</button>
+						<button
+							type="button"
+							on:click={() => (data.project.tools = [...data.project.tools, ''])}
+						>
+							+
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<Button type="submit">Update</Button>
 		</section>
 
-		<section id="tools">
-			<p>Tools</p>
+		<section id="content">
+			<h2>Content</h2>
 
-			<div class="editable-array">
-				<div class="editable-array-items">
-					{#each data.project.tools as _, i}
-						<TextInput
-							name="tool"
-							bind:value={data.project.tools[i]}
-							autofocus={i === data.project.tools.length - 1}
-						/>
-					{/each}
-				</div>
-				<div class="editable-array-buttons">
-					<button
-						type="button"
-						on:click={() => (data.project.tools = data.project.tools.slice(0, -1))}
-					>
-						-
-					</button>
-					<button type="button" on:click={() => (data.project.tools = [...data.project.tools, ''])}>
-						+
-					</button>
-				</div>
-			</div>
+			<Editor initialHtml={data.project.article} />
 		</section>
-
-		<Button type="submit">Update</Button>
 	</form>
-
-	<hr />
-
-	<section id="article">
-		<h2>Article (uneditable atm)</h2>
-		<div>
-			<!-- TODO: add tiptap for wysiwyg editing -->
-			{@html marked(data.project.article)}
-		</div>
-	</section>
 </main>
 
 <style lang="scss">
 	main {
 		padding: 3rem 1rem;
 		margin: 0 auto;
-		max-width: 700px;
+		max-width: 900px;
 		width: 100%;
 
 		h1 {
@@ -117,7 +120,6 @@
 			flex-direction: column;
 			gap: 1rem;
 			margin: 1rem 0;
-			align-items: flex-end;
 
 			.flex {
 				display: flex;
@@ -173,10 +175,23 @@
 			}
 		}
 
-		#article {
+		#metadata,
+		#content {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			padding: 1rem;
+			border: 2px solid var(--color-foreground-lowest);
+			border-radius: 0.5rem;
+
 			h2 {
-				font-size: var(--font-size-md);
+				// font-size: var(--font-size-md);
 				font-family: var(--fonts-paragraphs);
+			}
+
+			:global(button[type='submit']) {
+				margin-top: 1rem;
+				align-self: flex-end;
 			}
 		}
 	}
