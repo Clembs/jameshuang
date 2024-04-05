@@ -1,27 +1,35 @@
 <script lang="ts">
-	export let type: 'email' | 'password' | 'text' | 'number' = 'text';
+	export let type: 'email' | 'password' | 'text' | 'number' | 'date' = 'text';
 	export let name: string;
 	export let placeholder: string = '';
-	export let value: string = '';
+	export let value: string | null | undefined = '';
 	export let label: string = '';
 	export let required: boolean = true;
 	export let error = '';
 	export let maxlength: number | undefined = undefined;
 	export let minlength: number | undefined = undefined;
+	export let autofocus: boolean = false;
+	export let inline: boolean = false;
 </script>
 
-<div class="text-input">
+<div class="text-input" class:inline>
 	{#if label}
 		<label for={name}>
 			{label}
 		</label>
 	{/if}
 
-	{#if type === 'text'}
-		<input {placeholder} {name} type="text" bind:value {required} {maxlength} {minlength} />
-	{:else}
-		<input {placeholder} {name} {type} {value} {required} {maxlength} {minlength} />
-	{/if}
+	<!-- svelte-ignore a11y-autofocus -->
+	<input
+		{autofocus}
+		{placeholder}
+		{name}
+		{...{ type }}
+		bind:value
+		{required}
+		{maxlength}
+		{minlength}
+	/>
 
 	{#if error}
 		<p class="error">{error}</p>
@@ -34,6 +42,12 @@
 		flex-direction: column;
 		gap: 0.25rem;
 		font-size: var(--font-size-sm);
+		width: 100%;
+
+		&.inline {
+			display: inline-flex;
+			width: fit-content;
+		}
 
 		input {
 			padding: 0.5rem;
