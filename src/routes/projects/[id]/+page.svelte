@@ -11,7 +11,7 @@
 		<!-- TODO: maybe add a customizable color field? -->
 		<img src={data.bannerUrl} alt={data.title} id="background-color" />
 
-		<span>
+		<span id="year">
 			{data.year}
 		</span>
 		<h1>{data.title}</h1>
@@ -83,7 +83,7 @@
 			display: flex;
 			flex-direction: column;
 
-			time {
+			#year {
 				font-size: var(--font-size-md);
 			}
 
