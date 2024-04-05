@@ -1,5 +1,13 @@
 @font-face {
 	font-family: 'Schnyder Wide S Trial';
+	src: local('Schnyder Wide S Light'), local('SchnyderWideS-Light'),
+		url('/fonts/SchnyderWideS-Light-Trial.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Schnyder Wide S Trial';
 	src: local('Schnyder Wide S Bold'), local('SchnyderWideS-Bold'),
 		url('/fonts/SchnyderWideS-Bold-Trial.otf') format('opentype');
 	font-weight: 600;

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { marked } from 'marked';
-	import dayjs from 'dayjs';
 	import type { Project } from '$lib/db/types';
+	import '../../../styles/blog.scss';
 
 	export let data: Project;
 </script>
@@ -47,8 +46,8 @@
 	</header>
 
 	<!-- TODO: still a lot to do here lol -->
-	<main>
-		{@html marked(data.article)}
+	<main class="blog-article-content">
+		{@html data.article}
 	</main>
 
 	<a href="/projects" id="back-button">
@@ -123,6 +122,7 @@
 				flex-direction: column;
 				gap: 0.5rem;
 				margin: 1rem 0;
+				padding: 0;
 
 				.detail {
 					display: flex;
@@ -137,13 +137,6 @@
 
 		main {
 			padding: 1rem 0;
-
-			:global(h1) {
-				background-clip: text;
-				-webkit-background-clip: text;
-				color: transparent;
-				background-image: linear-gradient(to bottom, #fff, #ffffff60);
-			}
 		}
 
 		#back-button {

@@ -1,0 +1,16 @@
+.blog-article-content {
+	h1 {
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
+		background-image: linear-gradient(to bottom, #fff, #ffffff60);
+	}
+
+	blockquote {
+		font-family: var(--fonts-headings);
+		font-style: italic;
+		font-weight: 400;
+		font-size: 1.1em;
+		margin: 1rem 0;
+	}
+}

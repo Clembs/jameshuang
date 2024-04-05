@@ -34,15 +34,17 @@ h5,
 h6 {
 	font-family: var(--fonts-headings);
 	color: var(--color-foreground-full);
-	font-weight: 500;
+	font-weight: 600;
 }
 
 h1 {
 	font-size: var(--font-size-xl);
+	font-family: var(--fonts-headings);
 }
 
 h2 {
 	font-size: var(--font-size-lg);
+	font-family: var(--fonts-headings);
 }
 
 h3 {
@@ -83,17 +85,6 @@ a {
 img {
 	max-width: 100%;
 	display: block;
-}
-
-ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-li {
-	margin: 0;
-	padding: 0;
 }
 
 button {
