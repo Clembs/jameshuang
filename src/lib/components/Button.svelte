@@ -1,9 +1,10 @@
 <script lang="ts">
 	export let type: 'submit' | 'button' = 'submit';
-	export let style: 'filled' | 'outline' = 'filled';
+	export let style: 'filled' | 'outlined' = 'filled';
+	export let formaction: string | null = null;
 </script>
 
-<button on:click {type} class={style}>
+<button on:click {type} class={style} {formaction}>
 	<slot />
 </button>
 
@@ -25,7 +26,7 @@
 			}
 		}
 
-		&.outline {
+		&.outlined {
 			background-color: transparent;
 			color: var(--color-foreground-full);
 			border: 1px solid var(--color-foreground-full);
