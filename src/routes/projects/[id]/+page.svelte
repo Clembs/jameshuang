@@ -4,11 +4,6 @@
 	import type { Project } from '$lib/db/types';
 
 	export let data: Project;
-
-	const timeDistance = dayjs(data.finishedAt || data.createdAt).diff(
-		dayjs(data.createdAt),
-		'months'
-	);
 </script>
 
 <article>
@@ -16,9 +11,9 @@
 		<!-- TODO: maybe add a customizable color field? -->
 		<img src={data.bannerUrl} alt={data.title} id="background-color" />
 
-		<time datetime={new Date(data.finishedAt || data.createdAt).toISOString()}>
-			{new Date(data.finishedAt || data.createdAt).getFullYear()}
-		</time>
+		<span>
+			{data.year}
+		</span>
 		<h1>{data.title}</h1>
 		<p id="mediums">
 			{#each data.mediums as medium, i}
@@ -34,9 +29,8 @@
 		<ul id="details">
 			<li class="detail">
 				<div class="label">Timeline</div>
-				<!-- TODO: add month names -->
 				<div class="value">
-					{timeDistance > 1 ? `${timeDistance} months` : `${timeDistance} month`}
+					{data.timeline || 'N/A'}
 				</div>
 			</li>
 			<li class="detail">

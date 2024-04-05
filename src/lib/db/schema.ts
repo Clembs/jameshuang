@@ -1,13 +1,13 @@
 import { relations, sql } from 'drizzle-orm';
-import { date, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const projects = pgTable('projects', {
 	id: text('id').notNull().primaryKey(),
 	title: varchar('title', { length: 256 }).notNull(),
 	article: text('article').notNull(),
 	bannerUrl: text('image_url').notNull(),
-	createdAt: date('created_at').notNull(),
-	finishedAt: date('finished_at'),
+	timeline: varchar('timeline', { length: 256 }),
+	year: integer('year'),
 	tools: varchar('tools', { length: 32 }).array().notNull(),
 	mediums: varchar('mediums', { length: 32 }).array().notNull(),
 	roles: varchar('roles', { length: 64 }).notNull(),

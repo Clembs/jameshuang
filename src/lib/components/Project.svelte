@@ -21,8 +21,8 @@
 					{/each}
 				</p>
 			</div>
-			<time datetime={new Date(project.createdAt).toISOString()}>
-				{new Date(project.createdAt).getFullYear()}
+			<time datetime={project.year?.toString()}>
+				{project.year}
 			</time>
 		</div>
 	</a>
