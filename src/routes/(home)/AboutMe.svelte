@@ -128,6 +128,10 @@
 
 			#status ul {
 				flex-direction: row;
+
+				li {
+					width: 100%;
+				}
 			}
 		}
 
