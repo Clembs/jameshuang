@@ -168,6 +168,7 @@
 			margin: 0;
 			margin-top: 1rem;
 			padding: 0;
+			list-style: none;
 
 			a {
 				font-size: var(--font-size-sm);

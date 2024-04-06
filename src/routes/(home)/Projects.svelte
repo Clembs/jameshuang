@@ -36,5 +36,6 @@
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 3rem 0;
+		list-style: none;
 	}
 </style>

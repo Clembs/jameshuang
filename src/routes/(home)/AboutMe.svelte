@@ -114,6 +114,8 @@
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
+			padding: 0;
+			list-style: none;
 		}
 
 		@media (max-width: 1020px) {
