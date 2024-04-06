@@ -28,6 +28,9 @@
 
 		@media (max-width: 1020px) {
 			width: 100%;
+			br {
+				display: none;
+			}
 		}
 	}
 </style>
