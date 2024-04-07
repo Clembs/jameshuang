@@ -3,8 +3,11 @@
 	import Button from '$lib/components/Button.svelte';
 	import Status from '$lib/components/Status.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import { dndzone } from 'svelte-dnd-action';
 
 	export let data;
+
+	export let isOrdering = false;
 </script>
 
 <main>
@@ -44,18 +47,56 @@
 	<section id="projects">
 		<header>
 			<h2>Projects</h2>
-			<Button href="/dashboard/new">New project</Button>
+			<div>
+				{#if isOrdering}
+					<form
+						use:enhance={() => {
+							isOrdering = false;
+							return ({ update }) => update();
+						}}
+						action="?/reorderProjects"
+						method="post"
+					>
+						<input type="hidden" name="order" value={data.projects.map((p) => p.id).join(',')} />
+						<Button type="submit">Save order</Button>
+					</form>
+				{:else}
+					<Button style="outlined" on:click={() => (isOrdering = !isOrdering)}>Reorder</Button>
+					<Button href="/dashboard/new">New project</Button>
+				{/if}
+			</div>
 		</header>
-		<ul>
-			{#each data.projects as project}
-				<li>
-					<a class="project" href="/dashboard/{project.id}">
+		{#if !isOrdering}
+			<ul id="project-list">
+				{#each data.projects as project}
+					<li>
+						<a class="project" href="/dashboard/{project.id}">
+							<img src={project.bannerUrl} alt="" />
+							{project.title}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<ul
+				id="project-reordering"
+				use:dndzone={{ items: data.projects }}
+				on:consider={(e) => {
+					data.projects = e.detail.items;
+				}}
+				on:finalize={(e) => {
+					data.projects = e.detail.items;
+				}}
+			>
+				{#each data.projects as project (project.id)}
+					<li class="reorderable-item">
+						≣
 						<img src={project.bannerUrl} alt="" />
 						{project.title}
-					</a>
-				</li>
-			{/each}
-		</ul>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 	</section>
 </main>
 
@@ -84,7 +125,7 @@
 				align-items: center;
 			}
 
-			ul {
+			#project-list {
 				display: grid;
 				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 				gap: 1rem;
@@ -122,6 +163,14 @@
 						}
 					}
 				}
+			}
+
+			#project-reordering {
+				display: flex;
+				flex-direction: column;
+				list-style: none;
+				padding: 0;
+				margin: 0;
 			}
 		}
 
@@ -168,6 +217,23 @@
 					}
 				}
 			}
+		}
+	}
+
+	.reorderable-item {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		padding: 0.5rem;
+		border: 2px solid var(--color-foreground-lowest);
+		border-radius: 0.5rem;
+		margin-top: 0.5rem;
+
+		img {
+			border-radius: 0.25rem;
+			aspect-ratio: 16/9;
+			object-fit: cover;
+			max-width: 100px;
 		}
 	}
 </style>
