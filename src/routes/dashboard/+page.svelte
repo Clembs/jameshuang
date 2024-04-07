@@ -44,7 +44,7 @@
 	<section id="projects">
 		<header>
 			<h2>Projects</h2>
-			<Button on:click={() => {}}>New project</Button>
+			<Button href="/dashboard/new">New project</Button>
 		</header>
 		<ul>
 			{#each data.projects as project}

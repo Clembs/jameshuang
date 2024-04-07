@@ -3,12 +3,32 @@
 	import Button from '$lib/components/Button.svelte';
 	import Editor from './WYSIWYGEditor.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import type { projects } from '$lib/db/schema';
 
 	export let data;
+
+	let project: typeof projects.$inferInsert = {
+		id: '',
+		title: '',
+		bannerUrl: '',
+		year: 2024,
+		timeline: '',
+		roles: '',
+		mediums: [],
+		tools: [],
+		article: '',
+		...data.project
+	};
 </script>
 
 <main>
-	<h1>{data.project.title} - Edit</h1>
+	<a href="/dashboard">Back to all projects</a>
+
+	{#if data.project}
+		<h1>{project.title} - Edit</h1>
+	{:else}
+		<h1>New Project</h1>
+	{/if}
 
 	<form
 		use:enhance={() =>
@@ -20,43 +40,42 @@
 		<section id="metadata">
 			<h2>Metadata</h2>
 
-			<TextInput name="title" maxlength={256} label="Title" value={data.project.title} />
+			{#if !data.project}
+				<TextInput name="slug" label="URL slug" bind:value={project.id} />
+				The project will be available at /projects/{project.id || '[the slug]'}
+			{/if}
+
+			<TextInput name="title" maxlength={256} label="Title" bind:value={project.title} />
 
 			<div class="flex">
-				<TextInput name="banner-url" label="Banner URL" bind:value={data.project.bannerUrl} />
-				<img src={data.project.bannerUrl} alt="Banner" />
+				<TextInput name="banner-url" label="Banner URL" bind:value={project.bannerUrl} />
+				<img src={project.bannerUrl} alt="Banner" />
 			</div>
 
-			<TextInput name="year" label="Year" value={data.project.year?.toString() || '2024'} />
+			<TextInput name="year" label="Year" bind:value={project.year} />
 
-			<TextInput name="timeline" label="Timeline" value={data.project.timeline} />
+			<TextInput name="timeline" label="Timeline" bind:value={project.timeline} />
 
-			<TextInput name="roles" label="Roles" value={data.project.roles} />
+			<TextInput name="roles" label="Roles" value={data.project?.roles} />
 
 			<section id="mediums">
 				<p>Mediums</p>
 
 				<div class="editable-array">
 					<div class="editable-array-items">
-						{#each data.project.mediums as _, i}
+						{#each project.mediums || [] as _, i}
 							<TextInput
 								name="medium"
-								bind:value={data.project.mediums[i]}
-								autofocus={i === data.project.mediums.length - 1}
+								bind:value={project.mediums[i]}
+								autofocus={i === project.mediums.length - 1}
 							/>
 						{/each}
 					</div>
 					<div class="editable-array-buttons">
-						<button
-							type="button"
-							on:click={() => (data.project.mediums = data.project.mediums.slice(0, -1))}
-						>
+						<button type="button" on:click={() => (project.mediums = project.mediums.slice(0, -1))}>
 							-
 						</button>
-						<button
-							type="button"
-							on:click={() => (data.project.mediums = [...data.project.mediums, ''])}
-						>
+						<button type="button" on:click={() => (project.mediums = [...project.mediums, ''])}>
 							+
 						</button>
 					</div>
@@ -68,38 +87,42 @@
 
 				<div class="editable-array">
 					<div class="editable-array-items">
-						{#each data.project.tools as _, i}
+						{#each project.tools as _, i}
 							<TextInput
 								name="tool"
-								bind:value={data.project.tools[i]}
-								autofocus={i === data.project.tools.length - 1}
+								bind:value={project.tools[i]}
+								autofocus={i === project.tools.length - 1}
 							/>
 						{/each}
 					</div>
 					<div class="editable-array-buttons">
-						<button
-							type="button"
-							on:click={() => (data.project.tools = data.project.tools.slice(0, -1))}
-						>
+						<button type="button" on:click={() => (project.tools = project.tools.slice(0, -1))}>
 							-
 						</button>
-						<button
-							type="button"
-							on:click={() => (data.project.tools = [...data.project.tools, ''])}
-						>
+						<button type="button" on:click={() => (project.tools = [...project.tools, ''])}>
 							+
 						</button>
 					</div>
 				</div>
 			</section>
 
-			<Button type="submit">Update</Button>
+			<Button type="submit">
+				{#if data.project}
+					Update
+				{:else}
+					Create
+				{/if}
+			</Button>
 		</section>
 
 		<section id="content">
 			<h2>Content</h2>
 
-			<Editor initialHtml={data.project.article} />
+			{#if data.project}
+				<Editor initialHtml={data.project.article} />
+			{:else}
+				Create the project first to write its content.
+			{/if}
 		</section>
 	</form>
 </main>

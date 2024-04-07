@@ -1,12 +1,18 @@
 import { db } from '$lib/db';
 import { projects } from '$lib/db/schema';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
 export async function load({ params, locals: { getUser } }) {
 	const user = await getUser();
 
 	if (!user) throw error(401, 'Unauthorized');
+
+	if (params.id === 'new') {
+		return {
+			project: null
+		};
+	}
 
 	const project = await db.query.projects.findFirst({
 		where: ({ id }, { eq }) => eq(id, params.id)
@@ -40,11 +46,24 @@ export const actions = {
 			tools
 		};
 
-		await db.update(projects).set(updatedProject).where(eq(projects.id, params.id));
+		if (params.id === 'new') {
+			const slug = data.get('slug')?.toString();
 
-		return {
-			success: true
-		};
+			if (!slug) throw error(400, 'Missing slug');
+
+			const [newProject] = await db
+				.insert(projects)
+				.values({ id: slug, article: '', ...updatedProject })
+				.returning();
+
+			throw redirect(301, `/dashboard/${newProject.id}`);
+		} else {
+			await db.update(projects).set(updatedProject).where(eq(projects.id, params.id));
+
+			return {
+				success: true
+			};
+		}
 	},
 	async editContent({ params, locals: { getUser }, request }) {
 		const user = await getUser();
@@ -53,8 +72,6 @@ export const actions = {
 
 		const data = await request.formData();
 		const content = data.get('content')?.toString();
-
-		console.log(content);
 
 		await db.update(projects).set({ article: content }).where(eq(projects.id, params.id));
 
