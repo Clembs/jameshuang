@@ -4,6 +4,7 @@
 	import StarterKit from '@tiptap/starter-kit';
 	import Button from '../../../lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
+	import Youtube from '@tiptap/extension-youtube';
 
 	export let initialHtml: string;
 
@@ -13,12 +14,9 @@
 	onMount(() => {
 		editor = new Editor({
 			element: element,
-			extensions: [StarterKit],
+			extensions: [StarterKit, Youtube],
 			content: initialHtml,
-			onTransaction: () => {
-				// force re-render so `editor.isActive` works as expected
-				editor = editor;
-			}
+			onTransaction: () => (editor = editor)
 		});
 	});
 
@@ -27,6 +25,18 @@
 			editor.destroy();
 		}
 	});
+
+	function insertYouTube() {
+		const url = prompt('Enter the YouTube URL');
+
+		if (url) {
+			editor.commands.setYoutubeVideo({
+				src: url,
+				width: 600,
+				height: 336
+			});
+		}
+	}
 
 	$: html = editor?.getHTML();
 </script>
@@ -80,6 +90,10 @@
 			>
 				Quote
 			</button>
+		</span>
+
+		<span class="button-group">
+			<button on:click={insertYouTube}> YT video </button>
 		</span>
 	</div>
 {/if}

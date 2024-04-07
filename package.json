@@ -38,6 +38,7 @@
   "type": "module",
   "dependencies": {
     "@tiptap/core": "^2.2.4",
+    "@tiptap/extension-youtube": "^2.2.6",
     "@tiptap/pm": "^2.2.4",
     "@tiptap/starter-kit": "^2.2.4",
     "drizzle-orm": "^0.30.0",
