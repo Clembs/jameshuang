@@ -100,6 +100,9 @@
 				display: flex;
 				justify-content: space-between;
 				align-items: flex-end;
+				max-width: 800px;
+				width: 100%;
+				margin: 0 auto;
 
 				@media (max-width: 800px) {
 					flex-direction: column;
