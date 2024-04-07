@@ -109,6 +109,7 @@
 		gap: 2rem;
 		justify-content: space-between;
 		position: relative;
+		overflow: hidden;
 
 		#about {
 			display: flex;
@@ -196,7 +197,7 @@
 
 		#decoration {
 			position: absolute;
-			bottom: 0;
+			bottom: -10px;
 			right: 30%;
 			transform: translateX(50%);
 			z-index: -1;
