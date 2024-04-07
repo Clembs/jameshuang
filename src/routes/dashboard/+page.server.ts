@@ -19,7 +19,11 @@ export async function load({ locals: { getUser } }) {
 }
 
 export const actions = {
-	async editStatus({ request }) {
+	async editStatus({ request, locals: { getUser } }) {
+		const user = await getUser();
+
+		if (!user) throw redirect(301, '/login');
+
 		const formData = await request.formData();
 		const statusTitles = formData.getAll('title');
 		const statusImageUrls = formData.getAll('image_url');
