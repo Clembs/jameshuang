@@ -7,6 +7,8 @@
 
 	export let data;
 
+	let isLoading = false;
+
 	let project: typeof projects.$inferInsert = {
 		id: '',
 		title: '',
@@ -19,6 +21,18 @@
 		article: '',
 		...data.project
 	};
+
+	function uploadFileInput(e: Event) {
+		const file = (e.target as HTMLInputElement).files?.[0];
+		if (!file) return;
+
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+
+		reader.onload = (e) => {
+			project.bannerUrl = e.target?.result?.toString()!;
+		};
+	}
 </script>
 
 <main>
@@ -31,9 +45,13 @@
 	{/if}
 
 	<form
-		use:enhance={() =>
-			({ update }) =>
-				update({ reset: false })}
+		use:enhance={() => {
+			isLoading = true;
+			return ({ update }) => {
+				isLoading = false;
+				update({ reset: false });
+			};
+		}}
 		action="?/editMetadata"
 		method="post"
 	>
@@ -48,8 +66,18 @@
 			<TextInput name="title" maxlength={256} label="Title" bind:value={project.title} />
 
 			<div class="flex">
-				<TextInput name="banner-url" label="Banner URL" bind:value={project.bannerUrl} />
-				<img src={project.bannerUrl} alt="Banner" />
+				<label id="upload-button" for="banner-blob">
+					Set banner image
+					<input
+						type="file"
+						accept="image/*"
+						id="banner-blob"
+						name="banner-blob"
+						on:change={uploadFileInput}
+					/>
+				</label>
+				<!-- <TextInput name="banner-url" label="Banner URL" bind:value={project.bannerUrl} /> -->
+				<img src={project.bannerUrl} alt="" />
 			</div>
 
 			<TextInput name="year" label="Year" bind:value={project.year} />
@@ -106,8 +134,14 @@
 				</div>
 			</section>
 
+			{#if isLoading}
+				This may take a moment...
+			{/if}
+
 			<Button type="submit">
-				{#if data.project}
+				{#if isLoading}
+					Saving...
+				{:else if data.project}
 					Update
 				{:else}
 					Create
@@ -156,6 +190,27 @@
 
 				@media (max-width: 600px) {
 					flex-direction: column;
+				}
+			}
+
+			#upload-button {
+				display: inline-block;
+				padding: 0.5rem 1.5rem;
+				font: inherit;
+				border-radius: 0.25rem;
+				color: var(--color-background);
+				border: 1px solid transparent;
+				text-decoration: none;
+				height: fit-content;
+				background-color: var(--color-foreground-full);
+				cursor: pointer;
+
+				&:hover {
+					background-color: var(--color-foreground-medium);
+				}
+
+				input {
+					display: none;
 				}
 			}
 
