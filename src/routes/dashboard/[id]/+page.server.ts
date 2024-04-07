@@ -2,8 +2,10 @@ import { SUPABASE_URL } from '$env/static/private';
 import { db } from '$lib/db';
 import { projects } from '$lib/db/schema';
 import { supabaseClient } from '$lib/db/supabase';
+import { getOptimizedImages } from '$lib/helpers/getOptimizedImages';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
+import sharp from 'sharp';
 
 export async function load({ params, locals: { getUser } }) {
 	const user = await getUser();
@@ -44,33 +46,53 @@ export const actions = {
 		const mediums = formData.getAll('medium').map((medium) => medium.toString());
 		const tools = formData.getAll('tool').map((tool) => tool.toString());
 
-		let bannerUrl: string | null = null;
+		const banner = {
+			highQuality: '',
+			thumbnail: '',
+			height: 0,
+			width: 0
+		};
 
-		if (bannerFileRaw) {
+		if (bannerFileRaw.toString().length) {
 			const bannerFile = bannerFileRaw as File;
 			const bannerBuffer = await new Blob([bannerFile]).arrayBuffer();
 
-			const ext = bannerFile.type.split('/')[1];
+			const { thumbnail, highQuality, height, width } = await getOptimizedImages(bannerBuffer);
 
-			const { data, error } = await supabaseClient.storage
-				.from('public_files')
-				.upload(`projects/${params.id}/banner.${ext}`, bannerBuffer, {
-					contentType: bannerFile.type,
-					upsert: true
-				});
+			banner.width = width;
+			banner.height = height;
 
-			if (error) {
-				console.error(error);
+			for (const [name, buffer] of Object.entries({ thumbnail, highQuality })) {
+				const { data, error } = await supabaseClient.storage
+					.from('public_files')
+					.upload(`projects/${params.id}/${name}.webp`, buffer, {
+						contentType: bannerFile.type,
+						upsert: true
+					});
 
-				return fail(500, { message: 'Failed to upload banner' });
-			} else if (data) {
-				bannerUrl = `${SUPABASE_URL}/storage/v1/object/public/public_files/${data.path}`;
+				if (error) {
+					console.error(error);
+
+					return fail(500, { message: 'Failed to upload banner' });
+				} else if (data) {
+					const url = `${SUPABASE_URL}/storage/v1/object/public/public_files/${data.path}`;
+					if (name === 'thumbnail') {
+						banner.thumbnail = url;
+					} else {
+						banner.highQuality = url;
+					}
+				}
 			}
 		}
 
 		const updatedProject = {
 			title: title.toString(),
-			...(bannerUrl && { bannerUrl }),
+			...(banner && {
+				bannerUrl: banner.highQuality,
+				bannerThumbUrl: banner.thumbnail,
+				bannerWidth: banner.width,
+				bannerHeight: banner.height
+			}),
 			year: Number(year.toString()),
 			timeline: timeline.toString(),
 			roles: roles.toString(),
@@ -78,7 +100,7 @@ export const actions = {
 			tools
 		};
 
-		if (params.id === 'new' && bannerUrl) {
+		if (params.id === 'new' && banner) {
 			const slug = formData.get('slug')?.toString();
 
 			if (!slug) throw error(400, 'Missing slug');
@@ -89,7 +111,7 @@ export const actions = {
 					id: slug,
 					article: '',
 					...updatedProject,
-					bannerUrl: bannerUrl
+					bannerUrl: banner.highQuality
 				})
 				.returning();
 

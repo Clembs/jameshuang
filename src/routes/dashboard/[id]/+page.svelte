@@ -135,7 +135,7 @@
 			</section>
 
 			{#if isLoading}
-				This may take a moment...
+				Optimizing image, uploading it to the server... This may take a moment.
 			{/if}
 
 			<Button type="submit">
