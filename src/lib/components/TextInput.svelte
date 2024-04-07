@@ -2,7 +2,7 @@
 	export let type: 'email' | 'password' | 'text' | 'number' | 'date' = 'text';
 	export let name: string;
 	export let placeholder: string = '';
-	export let value: string | null | undefined = '';
+	export let value: string | number | null | undefined = '';
 	export let label: string = '';
 	export let required: boolean = true;
 	export let error = '';
