@@ -43,10 +43,12 @@ h1 {
 
 h2 {
 	font-size: var(--font-size-lg);
+	font-family: var(--fonts-headings);
 }
 
 h3 {
 	font-size: var(--font-size-md);
+	font-family: var(--fonts-headings);
 }
 
 h4 {
@@ -93,6 +95,7 @@ button {
 	appearance: none;
 	border: none;
 	cursor: pointer;
+	color: inherit;
 }
 
 h1,

@@ -131,7 +131,7 @@
 		align-items: center;
 		justify-content: center;
 		margin: 2rem 0;
-		margin-top: 10rem;
+		margin-top: 7rem;
 		gap: 1rem;
 		// height: 100vh;
 
