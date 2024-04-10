@@ -3,86 +3,85 @@
 	import Button from '$lib/components/Button.svelte';
 	import Editor from './WYSIWYGEditor.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import type { projects } from '$lib/db/schema';
+	import { onMount } from 'svelte';
 
 	export let data;
 
 	let isLoading = false;
-
-	let project: typeof projects.$inferInsert = {
-		id: '',
-		title: '',
-		bannerUrl: '',
-		year: 2024,
-		timeline: '',
-		roles: '',
-		mediums: [],
-		tools: [],
-		article: '',
-		...data.project
-	};
+	let fileInput: HTMLInputElement;
 
 	function uploadFileInput(e: Event) {
-		const file = (e.target as HTMLInputElement).files?.[0];
+		const file = fileInput.files?.[0];
 		if (!file) return;
 
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 
 		reader.onload = (e) => {
-			project.bannerUrl = e.target?.result?.toString()!;
+			data.project.bannerUrl = e.target?.result?.toString()!;
 		};
 	}
+
+	function resetFileInput() {
+		fileInput.value = '';
+		fileInput.files = null;
+	}
+
+	onMount(resetFileInput);
 </script>
 
 <main>
 	<a href="/dashboard">Back to all projects</a>
 
 	{#if data.project}
-		<h1>{project.title} - Edit</h1>
+		<h1>{data.project.title} - Edit</h1>
 	{:else}
 		<h1>New Project</h1>
 	{/if}
 
-	<form
-		use:enhance={() => {
-			isLoading = true;
-			return ({ update }) => {
-				isLoading = false;
-				update({ reset: false });
-			};
-		}}
-		action="?/editMetadata"
-		method="post"
-	>
-		<section id="metadata">
-			<h2>Metadata</h2>
+	<section id="metadata">
+		<h2>Metadata</h2>
 
-			{#if !data.project}
-				<TextInput name="slug" label="URL slug" bind:value={project.id} />
-				The project will be available at /projects/{project.id || '[the slug]'}
+		<form
+			use:enhance={(e) => {
+				console.log(e.formData);
+
+				isLoading = true;
+				return ({ update }) => {
+					isLoading = false;
+					update({ reset: false });
+					resetFileInput();
+				};
+			}}
+			action="?/editMetadata"
+			method="post"
+		>
+			{#if data.isNewProject}
+				<TextInput name="slug" label="URL slug" bind:value={data.project.id} />
+				The project will be available at /projects/{data.project.id === 'new' || '[the slug]'}
 			{/if}
 
-			<TextInput name="title" maxlength={256} label="Title" bind:value={project.title} />
+			<TextInput name="title" maxlength={256} label="Title" bind:value={data.project.title} />
 
 			<div class="flex">
 				<label id="upload-button" for="banner-blob">
 					Set banner image
 					<input
+						bind:this={fileInput}
+						id="banner-blob"
 						type="file"
 						accept="image/*"
-						id="banner-blob"
 						name="banner-blob"
 						on:change={uploadFileInput}
 					/>
 				</label>
-				<!-- <TextInput name="banner-url" label="Banner URL" bind:value={project.bannerUrl} /> -->
-				<img src={project.bannerUrl} alt="" />
+				<!-- <TextInput name="banner-url" label="Banner URL" bind:value={data.project.bannerUrl} /> -->
+				<img src={data.project.bannerUrl} alt="" />
 			</div>
 
-			<TextInput name="year" label="Year" bind:value={project.year} />
+			<TextInput name="year" label="Year" bind:value={data.project.year} />
 
-			<TextInput name="timeline" label="Timeline" bind:value={project.timeline} />
+			<TextInput name="timeline" label="Timeline" bind:value={data.project.timeline} />
 
 			<TextInput name="roles" label="Roles" value={data.project?.roles} />
 
@@ -91,19 +90,25 @@
 
 				<div class="editable-array">
 					<div class="editable-array-items">
-						{#each project.mediums || [] as _, i}
+						{#each data.project.mediums || [] as _, i}
 							<TextInput
 								name="medium"
-								bind:value={project.mediums[i]}
-								autofocus={i === project.mediums.length - 1}
+								bind:value={data.project.mediums[i]}
+								autofocus={i === data.project.mediums.length - 1}
 							/>
 						{/each}
 					</div>
 					<div class="editable-array-buttons">
-						<button type="button" on:click={() => (project.mediums = project.mediums.slice(0, -1))}>
+						<button
+							type="button"
+							on:click={() => (data.project.mediums = data.project.mediums.slice(0, -1))}
+						>
 							-
 						</button>
-						<button type="button" on:click={() => (project.mediums = [...project.mediums, ''])}>
+						<button
+							type="button"
+							on:click={() => (data.project.mediums = [...data.project.mediums, ''])}
+						>
 							+
 						</button>
 					</div>
@@ -115,19 +120,25 @@
 
 				<div class="editable-array">
 					<div class="editable-array-items">
-						{#each project.tools as _, i}
+						{#each data.project.tools as _, i}
 							<TextInput
 								name="tool"
-								bind:value={project.tools[i]}
-								autofocus={i === project.tools.length - 1}
+								bind:value={data.project.tools[i]}
+								autofocus={i === data.project.tools.length - 1}
 							/>
 						{/each}
 					</div>
 					<div class="editable-array-buttons">
-						<button type="button" on:click={() => (project.tools = project.tools.slice(0, -1))}>
+						<button
+							type="button"
+							on:click={() => (data.project.tools = data.project.tools.slice(0, -1))}
+						>
 							-
 						</button>
-						<button type="button" on:click={() => (project.tools = [...project.tools, ''])}>
+						<button
+							type="button"
+							on:click={() => (data.project.tools = [...data.project.tools, ''])}
+						>
 							+
 						</button>
 					</div>
@@ -147,18 +158,18 @@
 					Create
 				{/if}
 			</Button>
-		</section>
+		</form>
+	</section>
 
-		<section id="content">
-			<h2>Content</h2>
+	<section id="content">
+		<h2>Content</h2>
 
-			{#if data.project}
-				<Editor initialHtml={data.project.article} />
-			{:else}
-				Create the project first to write its content.
-			{/if}
-		</section>
-	</form>
+		{#if data.project}
+			<Editor initialHtml={data.project.article} />
+		{:else}
+			Create the project first to write its content.
+		{/if}
+	</section>
 </main>
 
 <style lang="scss">
@@ -168,15 +179,10 @@
 		max-width: 900px;
 		width: 100%;
 
-		h1 {
-			font-family: var(--fonts-paragraphs);
-		}
-
 		form {
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
-			margin: 1rem 0;
 
 			.flex {
 				display: flex;
@@ -211,14 +217,6 @@
 
 				input {
 					display: none;
-				}
-			}
-
-			section {
-				width: 100%;
-
-				p {
-					font-size: var(--font-size-sm);
 				}
 			}
 
@@ -271,6 +269,15 @@
 				margin-top: 1rem;
 				align-self: flex-end;
 			}
+		}
+	}
+
+	section {
+		width: 100%;
+		margin: 1rem 0;
+
+		p {
+			font-size: var(--font-size-sm);
 		}
 	}
 </style>

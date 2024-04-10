@@ -13,7 +13,21 @@ export async function load({ params, locals: { getUser } }) {
 
 	if (params.id === 'new') {
 		return {
-			project: null
+			isNewProject: true,
+			project: {
+				id: 'new',
+				title: '',
+				year: 0,
+				article: '',
+				bannerUrl: '',
+				bannerThumbUrl: '',
+				bannerWidth: 0,
+				bannerHeight: 0,
+				mediums: [],
+				roles: '',
+				tools: [],
+				timeline: ''
+			} satisfies typeof projects.$inferInsert
 		};
 	}
 
@@ -44,6 +58,7 @@ export const actions = {
 		} = Object.fromEntries(formData);
 		const mediums = formData.getAll('medium').map((medium) => medium.toString());
 		const tools = formData.getAll('tool').map((tool) => tool.toString());
+		const bannerFile = bannerFileRaw as File;
 
 		const banner = {
 			highQuality: '',
@@ -52,8 +67,7 @@ export const actions = {
 			width: 0
 		};
 
-		if (bannerFileRaw.toString().length) {
-			const bannerFile = bannerFileRaw as File;
+		if (bannerFile && bannerFile.size) {
 			const bannerBuffer = await new Blob([bannerFile]).arrayBuffer();
 
 			const { thumbnail, highQuality, height, width } = await getOptimizedImages(bannerBuffer);
@@ -86,7 +100,7 @@ export const actions = {
 
 		const updatedProject = {
 			title: title.toString(),
-			...(banner && {
+			...(banner.height && {
 				bannerUrl: banner.highQuality,
 				bannerThumbUrl: banner.thumbnail,
 				bannerWidth: banner.width,
