@@ -5,7 +5,14 @@
 
 <li>
 	<a class="project" href="/projects/{project.id}">
-		<img loading="lazy" src={project.bannerUrl} alt={project.title} />
+		<img
+			loading="lazy"
+			src={project.bannerUrl}
+			alt={project.title}
+			style="background-image: url({project.bannerThumbUrl});"
+			height={project.bannerHeight}
+			width={project.bannerWidth}
+		/>
 
 		<div class="text">
 			<div class="about">

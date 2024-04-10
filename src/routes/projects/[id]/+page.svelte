@@ -8,7 +8,7 @@
 <article>
 	<header>
 		<!-- TODO: maybe add a customizable color field? -->
-		<img src={data.bannerUrl} alt={data.title} id="background-color" />
+		<img loading="eager" src={data.bannerThumbUrl} alt={data.title} id="background-color" />
 
 		<div class="text-info">
 			<div class="left-section">
@@ -46,7 +46,15 @@
 			</ul>
 		</div>
 
-		<img src={data.bannerUrl} alt={data.title} id="banner" />
+		<img
+			loading="lazy"
+			src={data.bannerUrl}
+			alt={data.title}
+			id="banner"
+			style="background-image: url({data.bannerThumbUrl});"
+			height={data.bannerHeight}
+			width={data.bannerWidth}
+		/>
 	</header>
 
 	<!-- TODO: still a lot to do here lol -->
@@ -88,21 +96,21 @@
 			max-height: 50px;
 			// object-fit: cover;
 			border-radius: 0.5rem;
-			filter: blur(100px);
+			filter: blur(100px) brightness(0.5);
 		}
 
 		header {
 			display: flex;
 			flex-direction: column;
 			gap: 3rem;
+			max-width: 800px;
+			margin: 0 auto;
 
 			.text-info {
 				display: flex;
 				justify-content: space-between;
 				align-items: flex-end;
-				max-width: 800px;
 				width: 100%;
-				margin: 0 auto;
 
 				@media (max-width: 800px) {
 					flex-direction: column;
