@@ -70,7 +70,7 @@
 			<ul id="project-list">
 				{#each data.projects as project}
 					<li>
-						<a class="project" href="/dashboard/projects/{project.id}">
+						<a class="project" href="/dashboard/{project.id}">
 							<img
 								height={project.bannerHeight}
 								width={project.bannerWidth}
