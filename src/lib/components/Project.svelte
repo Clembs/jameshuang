@@ -37,7 +37,6 @@
 
 <style lang="scss">
 	li {
-		// max-width: 315px;
 		margin-bottom: 2rem;
 	}
 
@@ -63,13 +62,17 @@
 			gap: 1rem;
 
 			h3 {
+				font-size: var(--font-size-base);
 				font-family: var(--fonts-paragraphs);
+				color: var(--color-foreground-medium);
 				font-weight: 500;
+				transition: color 100ms ease-in-out;
 			}
 
 			p,
 			time {
 				color: var(--color-foreground-low);
+				font-size: var(--font-size-sm);
 
 				.bullet {
 					color: var(--color-foreground-lowest);
@@ -79,8 +82,7 @@
 
 		&:hover {
 			h3 {
-				color: var(--color-foreground-medium);
-				text-decoration: underline;
+				color: var(--color-foreground-full);
 			}
 		}
 	}
