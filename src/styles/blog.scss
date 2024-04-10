@@ -6,6 +6,11 @@
 		background-image: linear-gradient(to bottom, #fff, #ffffff60);
 	}
 
+	h2,
+	h3 {
+		font-family: var(--fonts-paragraphs);
+	}
+
 	blockquote {
 		font-family: var(--fonts-headings);
 		font-style: italic;
