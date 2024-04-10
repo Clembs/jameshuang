@@ -1,8 +1,6 @@
-import { SUPABASE_URL } from '$env/static/private';
 import { db } from '$lib/db';
 import { projects } from '$lib/db/schema';
-import { supabaseClient } from '$lib/db/supabase';
-import { getOptimizedImages } from '$lib/helpers/getOptimizedImages';
+import { uploadFiles } from '$lib/helpers/uploadFile';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
@@ -73,34 +71,18 @@ export const actions = {
 		};
 
 		if (bannerFile && bannerFile.size) {
-			const bannerBuffer = await new Blob([bannerFile]).arrayBuffer();
+			let files;
 
-			const { thumbnail, highQuality, height, width } = await getOptimizedImages(bannerBuffer);
-
-			banner.width = width;
-			banner.height = height;
-
-			for (const [name, buffer] of Object.entries({ thumbnail, highQuality })) {
-				const { data, error } = await supabaseClient.storage
-					.from('public_files')
-					.upload(`projects/${params.id}/${name}.webp`, buffer, {
-						contentType: bannerFile.type,
-						upsert: true
-					});
-
-				if (error) {
-					console.error(error);
-
-					return fail(500, { message: 'Failed to upload banner' });
-				} else if (data) {
-					const url = `${SUPABASE_URL}/storage/v1/object/public/public_files/${data.path}`;
-					if (name === 'thumbnail') {
-						banner.thumbnail = url;
-					} else {
-						banner.highQuality = url;
-					}
-				}
+			try {
+				files = await uploadFiles(`projects/${params.id}`, bannerFile);
+			} catch (err) {
+				return fail(500, { message: String(err) });
 			}
+
+			banner.highQuality = files.get('highQuality.webp')?.url || '';
+			banner.thumbnail = files.get('thumbnail.webp')?.url || '';
+			banner.height = files.get('highQuality.webp')?.height || 0;
+			banner.width = files.get('highQuality.webp')?.width || 0;
 		}
 
 		const updatedProject = {

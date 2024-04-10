@@ -8,16 +8,16 @@ export async function getOptimizedImages(imageBuffer: ArrayBuffer) {
 
 	const highQuality = await sharp(imageBuffer)
 		.resize({
-			width: width > 1200 ? 1200 : width,
-			height: Math.round((1200 / width) * height)
+			width: Math.min(width, 1200),
+			height: Math.round((Math.min(width, 1200) / width) * height)
 		})
 		.webp({ quality: 80 })
 		.toBuffer();
 
 	const thumbnail = await sharp(imageBuffer)
 		.resize({
-			width: width > 300 ? 300 : width,
-			height: Math.round((300 / width) * height)
+			width: Math.min(width, 300),
+			height: Math.round((Math.min(width, 300) / width) * height)
 		})
 		.webp({ quality: 40 })
 		.toBuffer();
