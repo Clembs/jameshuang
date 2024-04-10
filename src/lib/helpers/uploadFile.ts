@@ -18,10 +18,10 @@ export async function uploadFiles(basePath: string, ...files: File[]) {
 		const buffer = await new Blob([file]).arrayBuffer();
 
 		if (file.type.startsWith('image/')) {
-			const { thumbnail, highQuality, height, width } = await getOptimizedImages(buffer);
+			const { thumbnail: thumb, highQuality: hq, height, width } = await getOptimizedImages(buffer);
 
-			for (const [key, value] of Object.entries({ thumbnail, highQuality })) {
-				returnFiles.set(`${key}.webp`, {
+			for (const [key, value] of Object.entries({ thumb, hq })) {
+				returnFiles.set(`${file.name}-${key}.webp`, {
 					buffer: value,
 					height,
 					width,
