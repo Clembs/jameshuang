@@ -31,21 +31,19 @@
 </script>
 
 <main>
-	<a href="/dashboard">Back to all projects</a>
+	<a href="/dashboard">Back to Dashboard</a>
 
-	{#if data.project}
-		<h1>{data.project.title} - Edit</h1>
+	{#if data.isNewProject}
+		<h1>New {data.project.type === 'PROJECT' ? 'project' : 'work'}</h1>
 	{:else}
-		<h1>New Project</h1>
+		<h1>{data.project.title} - Edit</h1>
 	{/if}
 
 	<section id="metadata">
 		<h2>Metadata</h2>
 
 		<form
-			use:enhance={(e) => {
-				console.log(e.formData);
-
+			use:enhance={() => {
 				isLoading = true;
 				return ({ update }) => {
 					isLoading = false;
@@ -53,12 +51,13 @@
 					resetFileInput();
 				};
 			}}
-			action="?/editMetadata"
+			action="?/editMetadata&type={data.project.type}"
 			method="post"
 		>
 			{#if data.isNewProject}
 				<TextInput name="slug" label="URL slug" bind:value={data.project.id} />
-				The project will be available at /projects/{data.project.id === 'new' || '[the slug]'}
+				The project will be available at /{data.project.type.toLowerCase()}/{data.project.id ||
+					'[the slug]'}
 			{/if}
 
 			<TextInput name="title" maxlength={256} label="Title" bind:value={data.project.title} />
@@ -83,7 +82,7 @@
 
 			<TextInput name="timeline" label="Timeline" bind:value={data.project.timeline} />
 
-			<TextInput name="roles" label="Roles" value={data.project?.roles} />
+			<TextInput name="roles" label="Roles" bind:value={data.project.roles} />
 
 			<section id="mediums">
 				<p>Mediums</p>
@@ -152,7 +151,7 @@
 			<Button type="submit">
 				{#if isLoading}
 					Saving...
-				{:else if data.project}
+				{:else if !data.isNewProject}
 					Update
 				{:else}
 					Create
@@ -164,10 +163,10 @@
 	<section id="content">
 		<h2>Content</h2>
 
-		{#if data.project}
+		{#if !data.isNewProject}
 			<Editor initialHtml={data.project.article} />
 		{:else}
-			Create the project first to write its content.
+			Create the project/work first to write its content.
 		{/if}
 	</section>
 </main>

@@ -8,6 +8,9 @@
 	export let data;
 
 	export let isOrdering = false;
+
+	let projects = data.projects.filter((p) => p.type === 'PROJECT');
+	let works = data.projects.filter((p) => p.type === 'OTHER');
 </script>
 
 <main>
@@ -44,7 +47,7 @@
 		</form>
 	</section>
 
-	<section id="projects">
+	<section id="projects" class="project-section">
 		<header>
 			<h2>Projects</h2>
 			<div>
@@ -57,18 +60,18 @@
 						action="?/reorderProjects"
 						method="post"
 					>
-						<input type="hidden" name="order" value={data.projects.map((p) => p.id).join(',')} />
+						<input type="hidden" name="order" value={projects.map((p) => p.id).join(',')} />
 						<Button type="submit">Save order</Button>
 					</form>
 				{:else}
 					<Button style="outlined" on:click={() => (isOrdering = !isOrdering)}>Reorder</Button>
-					<Button href="/dashboard/new">New project</Button>
+					<Button href="/dashboard/new?type=project">New project</Button>
 				{/if}
 			</div>
 		</header>
 		{#if !isOrdering}
 			<ul id="project-list">
-				{#each data.projects as project}
+				{#each projects as project}
 					<li>
 						<a class="project" href="/dashboard/{project.id}">
 							<img
@@ -85,15 +88,15 @@
 		{:else}
 			<ul
 				id="project-reordering"
-				use:dndzone={{ items: data.projects }}
+				use:dndzone={{ items: projects }}
 				on:consider={(e) => {
-					data.projects = e.detail.items;
+					projects = e.detail.items;
 				}}
 				on:finalize={(e) => {
-					data.projects = e.detail.items;
+					projects = e.detail.items;
 				}}
 			>
-				{#each data.projects as project (project.id)}
+				{#each projects as project (project.id)}
 					<li class="reorderable-item">
 						≣
 						<img
@@ -103,6 +106,71 @@
 							alt=""
 						/>
 						{project.title}
+					</li>
+				{/each}
+			</ul>
+		{/if}
+	</section>
+
+	<section id="other" class="project-section">
+		<header>
+			<h2>Other works</h2>
+			<div>
+				{#if isOrdering}
+					<form
+						use:enhance={() => {
+							isOrdering = false;
+							return ({ update }) => update();
+						}}
+						action="?/reorderProjects"
+						method="post"
+					>
+						<input type="hidden" name="order" value={works.map((p) => p.id).join(',')} />
+						<Button type="submit">Save order</Button>
+					</form>
+				{:else}
+					<Button style="outlined" on:click={() => (isOrdering = !isOrdering)}>Reorder</Button>
+					<Button href="/dashboard/new?type=other">New work</Button>
+				{/if}
+			</div>
+		</header>
+		{#if !isOrdering}
+			<ul id="project-list">
+				{#each works as work}
+					<li>
+						<a class="project" href="/dashboard/{work.id}">
+							<img
+								height={work.bannerHeight}
+								width={work.bannerWidth}
+								src={work.bannerThumbUrl}
+								alt=""
+							/>
+							{work.title}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<ul
+				id="project-reordering"
+				use:dndzone={{ items: works }}
+				on:consider={(e) => {
+					works = e.detail.items;
+				}}
+				on:finalize={(e) => {
+					works = e.detail.items;
+				}}
+			>
+				{#each works as work (work.id)}
+					<li class="reorderable-item">
+						≣
+						<img
+							height={work.bannerHeight}
+							width={work.bannerWidth}
+							src={work.bannerThumbUrl}
+							alt=""
+						/>
+						{work.title}
 					</li>
 				{/each}
 			</ul>
@@ -127,7 +195,7 @@
 			}
 		}
 
-		#projects {
+		.project-section {
 			header {
 				display: flex;
 				gap: 1rem;

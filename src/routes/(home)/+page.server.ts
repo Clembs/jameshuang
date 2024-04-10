@@ -4,7 +4,8 @@ import { asc } from 'drizzle-orm';
 
 export async function load() {
 	const projectsList = await db.query.projects.findMany({
-		orderBy: asc(projects.position)
+		orderBy: asc(projects.position),
+		where: ({ type }, { eq }) => eq(type, 'PROJECT')
 	});
 
 	const status = await db.query.status.findMany();

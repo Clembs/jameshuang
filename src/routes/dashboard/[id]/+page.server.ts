@@ -6,18 +6,22 @@ import { getOptimizedImages } from '$lib/helpers/getOptimizedImages';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
-export async function load({ params, locals: { getUser } }) {
+export async function load({ params, url, locals: { getUser } }) {
 	const user = await getUser();
 
 	if (!user) throw error(401, 'Unauthorized');
 
 	if (params.id === 'new') {
+		const type = url.searchParams.get('type') as (typeof projects.$inferInsert)['type'];
+
+		if (!type) throw error(400, 'Missing type');
+
 		return {
 			isNewProject: true,
 			project: {
-				id: 'new',
+				id: '',
 				title: '',
-				year: 0,
+				year: new Date().getFullYear(),
 				article: '',
 				bannerUrl: '',
 				bannerThumbUrl: '',
@@ -26,7 +30,8 @@ export async function load({ params, locals: { getUser } }) {
 				mediums: [],
 				roles: '',
 				tools: [],
-				timeline: ''
+				timeline: '',
+				type
 			} satisfies typeof projects.$inferInsert
 		};
 	}
@@ -43,7 +48,7 @@ export async function load({ params, locals: { getUser } }) {
 }
 
 export const actions = {
-	async editMetadata({ params, locals: { getUser }, request }) {
+	async editMetadata({ params, url, locals: { getUser }, request }) {
 		const user = await getUser();
 
 		if (!user) throw error(401, 'Unauthorized');
@@ -115,18 +120,25 @@ export const actions = {
 
 		if (params.id === 'new' && banner) {
 			const slug = formData.get('slug')?.toString();
+			console.log(request.url);
+			const type = new URL(request.url).searchParams
+				.get('type')
+				?.toUpperCase() as (typeof projects.$inferInsert)['type'];
 
 			if (!slug) throw error(400, 'Missing slug');
+			if (!type) throw error(400, 'Missing type');
 
-			const [newProject] = await db
-				.insert(projects)
-				.values({
-					id: slug,
-					article: '',
-					...updatedProject,
-					bannerUrl: banner.highQuality
-				})
-				.returning();
+			const project = {
+				id: slug,
+				article: '',
+				type,
+				...updatedProject,
+				bannerUrl: banner.highQuality
+			};
+
+			console.log(project);
+
+			const [newProject] = await db.insert(projects).values(project).returning();
 
 			throw redirect(301, `/dashboard/${newProject.id}`);
 		} else {
