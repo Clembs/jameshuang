@@ -5,14 +5,17 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		inView('#projects', () => {
+		inView('.project', () => {
 			const a = animate(
 				'.project',
 				{
 					opacity: 1,
 					transform: 'translateY(0)'
 				},
-				{ delay: stagger(0.25) }
+				{
+					// delay: stagger(0.125),
+					duration: 0.5
+				}
 			);
 			return () => a.stop();
 		});
