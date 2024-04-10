@@ -7,7 +7,7 @@
 
 	export let data;
 
-	export let isOrdering = false;
+	export let isOrdering: 'project' | 'other' | false = false;
 
 	let projects = data.projects.filter((p) => p.type === 'PROJECT');
 	let works = data.projects.filter((p) => p.type === 'OTHER');
@@ -57,19 +57,24 @@
 							isOrdering = false;
 							return ({ update }) => update();
 						}}
-						action="?/reorderProjects"
+						action="?/reorderProjects&type=project"
 						method="post"
 					>
 						<input type="hidden" name="order" value={projects.map((p) => p.id).join(',')} />
+						<Button on:click={() => (isOrdering = false)} style="outlined" type="button">
+							Cancel
+						</Button>
 						<Button type="submit">Save order</Button>
 					</form>
 				{:else}
-					<Button style="outlined" on:click={() => (isOrdering = !isOrdering)}>Reorder</Button>
+					<Button style="outlined" on:click={() => (isOrdering = isOrdering ? false : 'project')}>
+						Reorder
+					</Button>
 					<Button href="/dashboard/new?type=project">New project</Button>
 				{/if}
 			</div>
 		</header>
-		{#if !isOrdering}
+		{#if isOrdering !== 'project'}
 			<ul id="project-list">
 				{#each projects as project}
 					<li>
@@ -122,19 +127,24 @@
 							isOrdering = false;
 							return ({ update }) => update();
 						}}
-						action="?/reorderProjects"
+						action="?/reorderProjects&type=other"
 						method="post"
 					>
 						<input type="hidden" name="order" value={works.map((p) => p.id).join(',')} />
+						<Button on:click={() => (isOrdering = false)} style="outlined" type="button">
+							Cancel
+						</Button>
 						<Button type="submit">Save order</Button>
 					</form>
 				{:else}
-					<Button style="outlined" on:click={() => (isOrdering = !isOrdering)}>Reorder</Button>
+					<Button style="outlined" on:click={() => (isOrdering = isOrdering ? false : 'other')}>
+						Reorder
+					</Button>
 					<Button href="/dashboard/new?type=other">New work</Button>
 				{/if}
 			</div>
 		</header>
-		{#if !isOrdering}
+		{#if isOrdering !== 'other'}
 			<ul id="project-list">
 				{#each works as work}
 					<li>
