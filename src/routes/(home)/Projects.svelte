@@ -1,10 +1,23 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ProjectComponent from '$lib/components/Project.svelte';
-	import { animate, inView, stagger } from 'motion';
+	import { animate, inView } from 'motion';
 	import { onMount } from 'svelte';
 
-	onMount(() => {
+	let grid;
+
+	onMount(async () => {
+		// @ts-ignore
+		const Columns = (await import('columns.js')).default;
+
+		grid = new Columns(document.getElementById('project-grid'), {
+			columns: 1,
+			breakpoints: {
+				600: 2,
+				1000: 3
+			}
+		});
+
 		inView('.project', () => {
 			const a = animate(
 				'.project',
@@ -22,8 +35,10 @@
 	});
 </script>
 
+<svelte:window on:resize={() => grid?.render()} />
+
 <section id="projects">
-	<ul>
+	<ul id="project-grid">
 		{#each $page.data.projects as project}
 			<ProjectComponent {project} />
 		{/each}
@@ -31,14 +46,20 @@
 </section>
 
 <style lang="scss">
-	#projects ul {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
-		gap: var(--space-xl);
-		width: 90%;
+	#projects {
+		// display: grid;
+		// grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
+		// gap: var(--space-xl);
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 3rem 0;
-		list-style: none;
+		display: flex;
+		justify-content: center;
+		ul {
+			width: 90%;
+			padding: 3rem 0;
+			list-style: none;
+			display: flex;
+			gap: 2rem;
+		}
 	}
 </style>

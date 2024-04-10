@@ -36,6 +36,11 @@
 </li>
 
 <style lang="scss">
+	li {
+		// max-width: 315px;
+		margin-bottom: 2rem;
+	}
+
 	.project {
 		display: flex;
 		flex-direction: column;
