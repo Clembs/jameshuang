@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import James from '$lib/svg/James.svelte';
-	import { slide, crossfade } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
-	let menuShown = true;
+	let menuShown = false;
+	let navbarShown = false;
+	let scrollY = 0;
 
 	const items = [
 		{
@@ -12,7 +13,7 @@
 			img: '/about.webp'
 		},
 		{
-			href: '/#about-me',
+			href: '/#projects',
 			label: 'work',
 			img: '/work.webp'
 		},
@@ -22,44 +23,63 @@
 			img: '/contact.webp'
 		}
 	];
+
+	function handleScroll() {
+		if (menuShown) return;
+
+		const currentScrollY = window.scrollY;
+
+		if (currentScrollY < 100) {
+			navbarShown = false;
+		} else if (currentScrollY < scrollY) {
+			navbarShown = false;
+		} else {
+			navbarShown = true;
+		}
+
+		scrollY = currentScrollY;
+	}
+
+	onMount(handleScroll);
 </script>
 
-<div class="nav-wrapper">
-	<nav>
-		<a href="/">
-			<James />
-		</a>
+<svelte:window on:scroll={handleScroll} />
 
-		<div class="right">
-			<ul>
-				{#each items as item}
-					<li>
-						<a href={item.href}>
-							{item.label}
-						</a>
-					</li>
-				{/each}
-			</ul>
+<nav class:hidden={!navbarShown}>
+	<a href="/">
+		<James />
+	</a>
 
-			<button on:click={() => (menuShown = !menuShown)}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
-					viewBox="0 0 24 24"
-					fill="none"
-				>
-					<circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="2" />
-				</svg>
-			</button>
-		</div>
-	</nav>
-</div>
+	<div class="right">
+		<ul>
+			{#each items as item, i}
+				<li style:--index={i + 1}>
+					<a href={item.href}>
+						{item.label}
+					</a>
+				</li>
+			{/each}
+		</ul>
+
+		<button on:click={() => (menuShown = !menuShown)}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none"
+			>
+				<circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="2" />
+			</svg>
+		</button>
+	</div>
+</nav>
+
 <div id="nav-menu" class:closed={!menuShown}>
 	<ul>
 		{#each items as item}
 			<li>
-				<a href={item.href}>
+				<a href={item.href} on:click={() => (menuShown = false)}>
 					<div class="item-content">
 						<span class="label">
 							{item.label}
@@ -75,26 +95,33 @@
 </div>
 
 <style lang="scss">
-	.nav-wrapper {
+	nav {
 		position: sticky;
 		left: 0;
 		top: 0;
 		z-index: 9;
-		max-width: 1200px;
+		max-width: 1600px;
 		margin: 0 auto;
 		mix-blend-mode: difference;
-	}
-
-	nav {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding: var(--space-md) var(--space-lg);
-		position: relative;
+		padding: var(--space-md) var(--space-md);
+		transition: transform 200ms ease;
+
+		&.hidden {
+			// transform: translateY(-100%);
+
+			li {
+				transform: translateY(-15px);
+				opacity: 0;
+				filter: blur(2px);
+			}
+		}
 
 		.right {
 			display: flex;
-			gap: var(--space-xxl);
+			gap: 13rem;
 			align-items: center;
 			color: var(--color-foreground-full);
 
@@ -107,11 +134,21 @@
 				align-items: center;
 
 				li {
+					--transition-duration: 250ms;
+					--transition-delay: calc(50ms * var(--index));
+
+					transition: transform 200ms ease, opacity 200ms ease, filter 200ms ease;
+					transition-delay: var(--transition-delay);
+
 					a {
+						color: var(--color-foreground-medium);
 						font-family: var(--fonts-headings);
 						text-decoration: none;
 						font-size: var(--font-size-md);
-						transition: color 0.2s;
+
+						&:hover {
+							color: var(--color-foreground-full);
+						}
 					}
 				}
 
@@ -146,6 +183,7 @@
 		ul {
 			width: 100%;
 			height: 100vh;
+			height: 100dvh;
 			list-style: none;
 			padding: 0;
 			margin: 0;
@@ -169,6 +207,7 @@
 				font-family: var(--fonts-headings);
 				text-decoration: none;
 				width: 100%;
+				transition: color 200ms ease;
 
 				.item-content {
 					display: flex;
