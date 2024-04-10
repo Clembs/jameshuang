@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	let menuShown = false;
-	let navbarShown = false;
+	let itemsShown = false;
 	let scrollY = 0;
 
 	const items = [
@@ -30,11 +30,11 @@
 		const currentScrollY = window.scrollY;
 
 		if (currentScrollY < 100) {
-			navbarShown = false;
-		} else if (currentScrollY < scrollY) {
-			navbarShown = false;
+			itemsShown = false;
+		} else if (currentScrollY > scrollY) {
+			itemsShown = false;
 		} else {
-			navbarShown = true;
+			itemsShown = true;
 		}
 
 		scrollY = currentScrollY;
@@ -45,7 +45,7 @@
 
 <svelte:window on:scroll={handleScroll} />
 
-<nav class:hidden={!navbarShown}>
+<nav class:hidden={!itemsShown}>
 	<a href="/">
 		<James />
 	</a>
