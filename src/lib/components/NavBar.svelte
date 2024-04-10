@@ -222,7 +222,7 @@
 					align-items: center;
 					max-width: 1200px;
 					margin: 0 auto;
-					font-size: var(--font-size-xl);
+					font-size: var(--font-size-xxl);
 					padding: var(--space-md) var(--space-xl);
 				}
 
