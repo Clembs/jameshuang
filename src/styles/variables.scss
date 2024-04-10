@@ -64,7 +64,8 @@
 		rgb(138, 255, 234) 150.518%
 	);
 
-	--font-size-sm: clamp(0.7rem, 0.118vw + 0.676rem, 0.75rem);
+	--font-size-xs: clamp(0.7rem, 0.118vw + 0.676rem, 0.75rem);
+	--font-size-sm: clamp(0.785rem, 0.235vw + 0.785rem, 0.875rem);
 	--font-size-base: clamp(0.875rem, 0.294vw + 0.816rem, 1rem);
 	--font-size-md: clamp(1.094rem, 0.563vw + 0.981rem, 1.333rem);
 	--font-size-lg: clamp(1.367rem, 0.964vw + 1.174rem, 1.777rem);
