@@ -1,5 +1,6 @@
 import { db } from '$lib/db';
 import { projects } from '$lib/db/schema';
+import type { Project } from '$lib/db/types';
 import { uploadFiles } from '$lib/helpers/uploadFile';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -10,7 +11,7 @@ export async function load({ params, url, locals: { getUser } }) {
 	if (!user) throw error(401, 'Unauthorized');
 
 	if (params.id === 'new') {
-		const type = url.searchParams.get('type') as (typeof projects.$inferInsert)['type'];
+		const type = url.searchParams.get('type') as Project['type'];
 
 		if (!type) throw error(400, 'Missing type');
 
@@ -30,7 +31,7 @@ export async function load({ params, url, locals: { getUser } }) {
 				tools: [],
 				timeline: '',
 				type
-			} satisfies typeof projects.$inferInsert
+			} satisfies Partial<Project>
 		};
 	}
 
@@ -85,6 +86,25 @@ export const actions = {
 			banner.width = files.get('highQuality.webp')?.width || 0;
 		}
 
+		const type = url.searchParams.get('type') as Project['type'];
+		let workUrl;
+
+		if (type === 'OTHER') {
+			const file = formData.get('file') as File;
+
+			if (file && file.size) {
+				let files;
+
+				try {
+					files = await uploadFiles(`other/${params.id}`, file);
+				} catch (err) {
+					return fail(500, { message: String(err) });
+				}
+
+				workUrl = Array.from(files)[0][1].url;
+			}
+		}
+
 		const updatedProject = {
 			title: title.toString(),
 			...(banner.height && {
@@ -97,15 +117,12 @@ export const actions = {
 			timeline: timeline.toString(),
 			roles: roles.toString(),
 			mediums,
-			tools
+			tools,
+			url: workUrl
 		};
 
 		if (params.id === 'new' && banner) {
 			const slug = formData.get('slug')?.toString();
-			console.log(request.url);
-			const type = new URL(request.url).searchParams
-				.get('type')
-				?.toUpperCase() as (typeof projects.$inferInsert)['type'];
 
 			if (!slug) throw error(400, 'Missing slug');
 			if (!type) throw error(400, 'Missing type');

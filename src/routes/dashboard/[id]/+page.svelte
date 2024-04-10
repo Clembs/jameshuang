@@ -36,7 +36,7 @@
 	{#if data.isNewProject}
 		<h1>New {data.project.type === 'PROJECT' ? 'project' : 'work'}</h1>
 	{:else}
-		<h1>{data.project.title} - Edit</h1>
+		<h1>{data.project.title} - Edit {data.project.type === 'PROJECT' ? 'project' : 'work'}</h1>
 	{/if}
 
 	<section id="metadata">
@@ -63,7 +63,7 @@
 			<TextInput name="title" maxlength={256} label="Title" bind:value={data.project.title} />
 
 			<div class="flex">
-				<label id="upload-button" for="banner-blob">
+				<label class="upload-button" for="banner-blob">
 					Set banner image
 					<input
 						bind:this={fileInput}
@@ -144,6 +144,16 @@
 				</div>
 			</section>
 
+			<section id="download-file">
+				<p>Download file</p>
+
+				<label class="upload-button" for="file">
+					Upload file
+					<input bind:this={fileInput} id="file" type="file" name="file" />
+					<!-- on:change={uploadFileInput} -->
+				</label>
+			</section>
+
 			{#if isLoading}
 				Optimizing image, uploading it to the server... This may take a moment.
 			{/if}
@@ -198,7 +208,7 @@
 				}
 			}
 
-			#upload-button {
+			.upload-button {
 				display: inline-block;
 				padding: 0.5rem 1.5rem;
 				font: inherit;
