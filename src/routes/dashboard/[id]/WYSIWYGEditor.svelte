@@ -5,6 +5,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
 	import Youtube from '@tiptap/extension-youtube';
+	import { enhance } from '$app/forms';
 
 	export let initialHtml: string;
 
@@ -41,68 +42,76 @@
 	$: html = editor?.getHTML();
 </script>
 
-<input type="hidden" name="content" bind:value={html} />
+<form use:enhance action="?/editContent" method="post">
+	<input type="hidden" name="content" bind:value={html} />
 
-{#if editor}
-	<div class="buttons">
-		<span class="button-group">
-			<button
-				on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-				class={editor.isActive('heading', { level: 1 }) ? 'filled' : 'outlined'}
-				type="button"
-			>
-				H1
-			</button>
-			<button
-				on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-				class={editor.isActive('heading', { level: 2 }) ? 'filled' : 'outlined'}
-				type="button"
-			>
-				H2
-			</button>
-			<button
-				on:click={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-				class={editor.isActive('heading', { level: 3 }) ? 'filled' : 'outlined'}
-				type="button"
-			>
-				H3
-			</button>
-		</span>
-		<span class="button-group">
-			<button
-				on:click={() => editor.chain().focus().toggleBold().run()}
-				class={editor.isActive('bold') ? 'filled' : 'outlined'}
-				type="button"
-			>
-				<b>B</b>
-			</button>
-			<button
-				on:click={() => editor.chain().focus().toggleItalic().run()}
-				class={editor.isActive('italic') ? 'filled' : 'outlined'}
-				type="button"
-			>
-				<i>I</i>
-			</button>
-			<button
-				on:click={() => editor.chain().focus().toggleBlockquote().run()}
-				class={editor.isActive('blockquote') ? 'filled' : 'outlined'}
-				type="button"
-			>
-				Quote
-			</button>
-		</span>
+	{#if editor}
+		<div class="buttons">
+			<span class="button-group">
+				<button
+					on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+					class={editor.isActive('heading', { level: 1 }) ? 'filled' : 'outlined'}
+					type="button"
+				>
+					H1
+				</button>
+				<button
+					on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+					class={editor.isActive('heading', { level: 2 }) ? 'filled' : 'outlined'}
+					type="button"
+				>
+					H2
+				</button>
+				<button
+					on:click={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+					class={editor.isActive('heading', { level: 3 }) ? 'filled' : 'outlined'}
+					type="button"
+				>
+					H3
+				</button>
+			</span>
+			<span class="button-group">
+				<button
+					on:click={() => editor.chain().focus().toggleBold().run()}
+					class={editor.isActive('bold') ? 'filled' : 'outlined'}
+					type="button"
+				>
+					<b>B</b>
+				</button>
+				<button
+					on:click={() => editor.chain().focus().toggleItalic().run()}
+					class={editor.isActive('italic') ? 'filled' : 'outlined'}
+					type="button"
+				>
+					<i>I</i>
+				</button>
+				<button
+					on:click={() => editor.chain().focus().toggleBlockquote().run()}
+					class={editor.isActive('blockquote') ? 'filled' : 'outlined'}
+					type="button"
+				>
+					Quote
+				</button>
+			</span>
 
-		<span class="button-group">
-			<button on:click={insertYouTube}> YT video </button>
-		</span>
-	</div>
-{/if}
+			<span class="button-group">
+				<button on:click={insertYouTube}> YT video </button>
+			</span>
+		</div>
+	{/if}
 
-<div class="blog-article-content" bind:this={element} />
+	<div class="blog-article-content" bind:this={element} />
 
-<Button formaction="?/editContent" type="submit">Save</Button>
+	<Button type="submit">Save</Button>
+</form>
 
 <style lang="scss">
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
 	.buttons {
 		display: flex;
 		gap: 0.5rem;
