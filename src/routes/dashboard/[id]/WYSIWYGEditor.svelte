@@ -149,12 +149,12 @@
 			</span>
 
 			<span class="button-group">
-				<button on:click={insertYouTube}> YT video </button>
-				<label>
+				<button on:click={insertYouTube}> YouTube video </button>
+				<label class={imageLoading ? 'filled' : 'outlined'}>
 					{#if imageLoading}
 						Loading...
 					{:else}
-						Image
+						Image upload
 					{/if}
 					<input type="file" accept="image/*" style="display: none;" on:change={insertImage} />
 				</label>
