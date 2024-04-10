@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import James from '$lib/svg/James.svelte';
 	import { onMount } from 'svelte';
 
+	let navBarShown = false;
 	let menuShown = false;
 	let itemsShown = false;
 	let scrollY = 0;
@@ -29,12 +31,15 @@
 
 		const currentScrollY = window.scrollY;
 
-		if (currentScrollY < 100) {
+		if (currentScrollY < 800 && $page.url.pathname === '/') {
+			navBarShown = false;
 			itemsShown = false;
 		} else if (currentScrollY > scrollY) {
 			itemsShown = false;
+			navBarShown = true;
 		} else {
 			itemsShown = true;
+			navBarShown = true;
 		}
 
 		scrollY = currentScrollY;
@@ -45,13 +50,13 @@
 
 <svelte:window on:scroll={handleScroll} />
 
-<nav class:hidden={!itemsShown}>
+<nav class:hidden={!navBarShown}>
 	<a href="/">
 		<James />
 	</a>
 
 	<div class="right">
-		<ul>
+		<ul class:hidden={!itemsShown}>
 			{#each items as item, i}
 				<li style:--index={i + 1}>
 					<a href={item.href}>
@@ -105,18 +110,12 @@
 		mix-blend-mode: difference;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
 		padding: var(--space-md) var(--space-md);
 		transition: transform 200ms ease;
 
 		&.hidden {
-			// transform: translateY(-100%);
-
-			li {
-				transform: translateY(-15px);
-				opacity: 0;
-				filter: blur(2px);
-			}
+			transform: translateY(-100%);
 		}
 
 		.right {
@@ -132,6 +131,14 @@
 				list-style: none;
 				gap: var(--space-lg);
 				align-items: center;
+
+				&.hidden {
+					li {
+						transform: translateY(-15px);
+						opacity: 0;
+						filter: blur(2px);
+					}
+				}
 
 				li {
 					--transition-duration: 250ms;
