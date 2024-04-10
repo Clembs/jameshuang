@@ -17,7 +17,8 @@ export const projects = pgTable('projects', {
 	position: integer('position'),
 	type: text('type', { enum: ['PROJECT', 'OTHER'] })
 		.default('PROJECT')
-		.notNull()
+		.notNull(),
+	url: text('url')
 });
 
 export const users = pgTable('users', {
