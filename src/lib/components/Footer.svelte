@@ -134,7 +134,7 @@
 
 				#links {
 					display: flex;
-					gap: 0.25rem;
+					// gap: 0.25rem;
 					margin-left: -0.5rem;
 
 					a {
@@ -147,7 +147,12 @@
 						transition: color 100ms ease-in-out;
 
 						&:hover {
-							color: var(--color-foreground-lowest);
+							color: var(--color-foreground-medium);
+						}
+
+						:global(svg) {
+							height: 20px;
+							width: 20px;
 						}
 					}
 				}
