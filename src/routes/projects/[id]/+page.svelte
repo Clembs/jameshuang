@@ -85,7 +85,7 @@
 		// max-width: 80%;
 		// max-width: 950px;
 		margin: 0 auto;
-		margin-top: 5rem;
+		margin-top: 7.5rem;
 		padding: 1rem;
 
 		#background-color {
@@ -103,7 +103,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 3rem;
-			max-width: 800px;
+			max-width: 1000px;
 			margin: 0 auto;
 
 			.text-info {
@@ -161,6 +161,7 @@
 				gap: 0.5rem;
 				margin: 0;
 				padding: 0;
+				font-size: var(--font-size-sm);
 
 				.detail {
 					display: flex;
