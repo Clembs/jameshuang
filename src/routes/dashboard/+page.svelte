@@ -70,8 +70,13 @@
 			<ul id="project-list">
 				{#each data.projects as project}
 					<li>
-						<a class="project" href="/dashboard/{project.id}">
-							<img src={project.bannerUrl} alt="" />
+						<a class="project" href="/dashboard/projects/{project.id}">
+							<img
+								height={project.bannerHeight}
+								width={project.bannerWidth}
+								src={project.bannerThumbUrl}
+								alt=""
+							/>
 							{project.title}
 						</a>
 					</li>
@@ -91,7 +96,12 @@
 				{#each data.projects as project (project.id)}
 					<li class="reorderable-item">
 						≣
-						<img src={project.bannerUrl} alt="" />
+						<img
+							height={project.bannerHeight}
+							width={project.bannerWidth}
+							src={project.bannerThumbUrl}
+							alt=""
+						/>
 						{project.title}
 					</li>
 				{/each}

@@ -2,8 +2,8 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
-	import Button from '../../../lib/components/Button.svelte';
-	import '../../../styles/blog.scss';
+	import Button from '$lib/components/Button.svelte';
+	import '../../../../styles/blog.scss';
 	import Youtube from '@tiptap/extension-youtube';
 
 	export let initialHtml: string;

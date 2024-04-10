@@ -5,7 +5,6 @@ import { supabaseClient } from '$lib/db/supabase';
 import { getOptimizedImages } from '$lib/helpers/getOptimizedImages';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import sharp from 'sharp';
 
 export async function load({ params, locals: { getUser } }) {
 	const user = await getUser();
