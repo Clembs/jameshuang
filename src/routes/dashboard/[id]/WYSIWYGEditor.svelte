@@ -5,17 +5,32 @@
 	import Button from '$lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
 	import Youtube from '@tiptap/extension-youtube';
+	import Image from '@tiptap/extension-image';
 	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+	import type { Project } from '$lib/db/types';
 
 	export let initialHtml: string;
 
 	let element: Element | undefined;
 	let editor: Editor;
 
+	let imageLoading = false;
+
+	const project = $page.data.project as Project;
+
 	onMount(() => {
 		editor = new Editor({
 			element: element,
-			extensions: [StarterKit, Youtube],
+			extensions: [
+				StarterKit,
+				Youtube,
+				Image.configure({
+					HTMLAttributes: {
+						loading: 'lazy'
+					}
+				})
+			],
 			content: initialHtml,
 			onTransaction: () => (editor = editor)
 		});
@@ -36,6 +51,45 @@
 				width: 600,
 				height: 336
 			});
+		}
+	}
+
+	async function insertImage(ev: Event) {
+		const file = (ev.target as HTMLInputElement).files?.[0];
+		if (!file) return;
+
+		imageLoading = true;
+
+		const formData = new FormData();
+
+		formData.append('file', file);
+
+		const req = await fetch(
+			`/api/upload?basePath=/${project.type === 'PROJECT' ? 'projects' : 'other'}/${project.id}`,
+			{
+				method: 'POST',
+				body: formData
+			}
+		);
+
+		if (req.ok) {
+			const res = await req.json();
+			const url = res.find((f: { name: string }) => f.name === 'file').path;
+
+			console.log(url);
+
+			editor
+				.chain()
+				.focus()
+				.setImage({
+					src: url,
+					alt: file.name
+				})
+				.run();
+
+			imageLoading = false;
+		} else {
+			alert('Failed to upload image');
 		}
 	}
 
@@ -96,6 +150,14 @@
 
 			<span class="button-group">
 				<button on:click={insertYouTube}> YT video </button>
+				<label>
+					{#if imageLoading}
+						Loading...
+					{:else}
+						Image
+					{/if}
+					<input type="file" accept="image/*" style="display: none;" on:change={insertImage} />
+				</label>
 			</span>
 		</div>
 	{/if}
@@ -120,7 +182,8 @@
 	.button-group {
 		display: flex;
 
-		button {
+		button,
+		label {
 			display: grid;
 			place-items: center;
 			padding: 0 0.75rem;
@@ -129,6 +192,7 @@
 			color: var(--color-foreground-full);
 			border: 1px solid var(--color-foreground-full);
 			border-right: 0;
+			cursor: pointer;
 
 			&:first-child {
 				border-top-left-radius: 0.25rem;
@@ -151,5 +215,9 @@
 
 	:global(.tiptap) {
 		outline: none;
+	}
+
+	:global(.ProseMirror [contenteditable='false']) {
+		margin: var(--space-md) 0;
 	}
 </style>
