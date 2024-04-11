@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { Editor } from '@tiptap/core';
+	import { Editor, mergeAttributes } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import Button from '$lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
@@ -28,6 +28,20 @@
 				Image.configure({
 					HTMLAttributes: {
 						loading: 'lazy'
+					}
+				}).extend({
+					addAttributes() {
+						return {
+							...this.parent?.(),
+							thumbnailSrc: {
+								default: null,
+								renderHTML(attr) {
+									return {
+										style: `background-image: url(${attr.thumbnailSrc})`
+									};
+								}
+							}
+						};
 					}
 				})
 			],
@@ -78,9 +92,10 @@
 				url: string;
 			}[] = await req.json();
 
-			const url = res.find((f) => f.name.endsWith('-hq.webp'))?.url;
+			const thumbnailUrl = res.find((f) => f.name.endsWith('-thumb.webp'))?.url;
+			const hqUrl = res.find((f) => f.name.endsWith('-hq.webp'))?.url;
 
-			if (!url) {
+			if (!hqUrl) {
 				alert('Failed to upload image');
 				return;
 			}
@@ -89,8 +104,11 @@
 				.chain()
 				.focus()
 				.setImage({
-					src: url,
+					src: hqUrl,
 					alt: file.name
+				})
+				.updateAttributes('image', {
+					thumbnailSrc: thumbnailUrl
 				})
 				.run();
 
