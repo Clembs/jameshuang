@@ -73,10 +73,17 @@
 		);
 
 		if (req.ok) {
-			const res = await req.json();
-			const url = res.find((f: { name: string }) => f.name === 'file').path;
+			const res: {
+				name: string;
+				url: string;
+			}[] = await req.json();
 
-			console.log(url);
+			const url = res.find((f) => f.name.endsWith('-hq.webp'))?.url;
+
+			if (!url) {
+				alert('Failed to upload image');
+				return;
+			}
 
 			editor
 				.chain()
