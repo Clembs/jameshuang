@@ -17,14 +17,32 @@
 		'After Effects'
 	];
 
+	let scrollY = 0;
+	let sectionAnimationPercent = 0;
+
+	function animateSection() {
+		scrollY = window.scrollY;
+		sectionAnimationPercent = Math.min(scrollY / 400, 1);
+	}
+
 	onMount(() => {
-		inView('#about-me', ({ target }) => {
-			animate(target, { opacity: 1 });
-		});
+		// the more you scroll down, the more the opacity increases and the more the section moves up
+		animateSection();
+
+		// inView('#about-me', ({ target }) => {
+		// 	animate(target, { opacity: 1 });
+		// });
 	});
 </script>
 
-<section id="about-me">
+<svelte:window on:scroll={animateSection} />
+
+<section
+	id="about-me"
+	style="opacity: {sectionAnimationPercent};
+	transform: translateY(calc(50px * {sectionAnimationPercent}))
+"
+>
 	<section id="intro">
 		<h2>
 			Hi, my name is <br />
@@ -96,7 +114,6 @@
 
 			p {
 				text-align: justify;
-				max-width: 35ch;
 			}
 		}
 
