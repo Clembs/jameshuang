@@ -1,8 +1,17 @@
 <script lang="ts">
 	import { animate, stagger } from 'motion';
+	import { onMount } from 'svelte';
 
 	let logoEl: HTMLVideoElement;
 	let heroEl: HTMLVideoElement;
+
+	onMount(() => {
+		if (logoEl) {
+			logoEl.onloadedmetadata = () => {
+				animateWebsiteFeatures();
+			};
+		}
+	});
 
 	function animateWebsiteFeatures() {
 		console.log('ready');
@@ -119,7 +128,6 @@
 			playsinline
 			loop
 			bind:this={heroEl}
-			on:canplay={animateWebsiteFeatures}
 		/>
 	</div>
 </header>
