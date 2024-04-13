@@ -60,6 +60,7 @@
 			justify-content: space-between;
 			align-items: center;
 			gap: 1rem;
+			margin-left: 0.25rem;
 
 			h3 {
 				font-size: var(--font-size-base);
