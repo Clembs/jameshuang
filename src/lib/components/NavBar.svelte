@@ -26,6 +26,11 @@
 		}
 	];
 
+	function toggleMenu() {
+		menuShown = !menuShown;
+		itemsShown = !itemsShown;
+	}
+
 	function handleScroll() {
 		if (menuShown) return;
 
@@ -66,7 +71,7 @@
 			{/each}
 		</ul>
 
-		<button on:click={() => (menuShown = !menuShown)}>
+		<button on:click={toggleMenu}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -84,7 +89,7 @@
 	<ul>
 		{#each items as item}
 			<li>
-				<a href={item.href} on:click={() => (menuShown = false)}>
+				<a href={item.href} on:click={toggleMenu}>
 					<div class="item-content">
 						<span class="label">
 							{item.label}
