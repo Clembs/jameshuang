@@ -161,7 +161,7 @@
 					display: flex;
 					gap: 0.5rem;
 					text-transform: uppercase;
-					font-size: var(--font-size-sm);
+					font-size: var(--font-size-xs);
 					letter-spacing: 0.075rem;
 					color: var(--color-foreground-lowest);
 
@@ -174,7 +174,7 @@
 						}
 					}
 
-					@media (max-width: 1020px) {
+					@media (max-width: 1350px) {
 						display: none;
 					}
 				}

@@ -88,15 +88,23 @@
 		margin-top: 7.5rem;
 		padding: 1rem;
 
+		@media (max-width: 500px) {
+			margin-top: 5rem;
+		}
+
 		#background-color {
 			position: absolute;
-			top: -25px;
+			top: -15px;
 			left: 0;
 			width: 100%;
 			max-height: 50px;
 			// object-fit: cover;
 			border-radius: 0.5rem;
 			filter: blur(100px) brightness(0.5);
+
+			@media (max-width: 500px) {
+				max-height: 100px;
+			}
 		}
 
 		header {

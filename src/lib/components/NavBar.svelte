@@ -159,7 +159,7 @@
 					}
 				}
 
-				@media (max-width: 600px) {
+				@media (max-width: 800px) {
 					display: none;
 				}
 			}
@@ -205,14 +205,15 @@
 			margin: 0;
 
 			&:last-child {
-				border-bottom: 1px solid var(--color-foreground-lowest);
+				border-bottom: 1px solid var(--color-foreground-lowerest);
 			}
 
 			a {
 				display: block;
-				border-top: 1px solid var(--color-foreground-lowest);
+				border-top: 1px solid var(--color-foreground-lowerest);
 				font-family: var(--fonts-headings);
 				text-decoration: none;
+				color: var(--color-foreground-low);
 				width: 100%;
 				transition: color 200ms ease;
 
