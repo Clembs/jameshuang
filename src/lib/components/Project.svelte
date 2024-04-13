@@ -53,6 +53,7 @@
 			height: auto;
 			object-fit: cover;
 			border-radius: 0.25rem;
+			transition: opacity 100ms ease-in-out;
 		}
 
 		.text {
@@ -68,6 +69,10 @@
 				color: var(--color-foreground-medium);
 				font-weight: 500;
 				transition: color 100ms ease-in-out;
+
+				@media (max-width: 500px) {
+					font-size: var(--font-size-md);
+				}
 			}
 
 			p,
@@ -82,8 +87,17 @@
 		}
 
 		&:hover {
+			img {
+				opacity: 0.8;
+			}
+
 			h3 {
-				color: var(--color-foreground-full);
+				color: var(--color-foreground-low);
+			}
+
+			.text p,
+			.text time {
+				color: var(--color-foreground-lowest);
 			}
 		}
 	}
