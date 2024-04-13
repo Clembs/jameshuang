@@ -26,4 +26,21 @@
 	[data-youtube-video] {
 		text-align: center;
 	}
+
+	img,
+	iframe,
+	video {
+		width: 100%;
+		height: auto;
+		margin: var(--space-xl) 0;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin: var(--space-xl) 0 var(--space-md);
+	}
 }
