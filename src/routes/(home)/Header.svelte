@@ -5,16 +5,23 @@
 	let logoEl: HTMLVideoElement;
 	let heroEl: HTMLVideoElement;
 
+	let featuresAnimated = false;
+
 	onMount(() => {
 		if (logoEl) {
 			logoEl.onloadedmetadata = () => {
+				animateWebsiteFeatures();
+			};
+			logoEl.oncanplay = () => {
 				animateWebsiteFeatures();
 			};
 		}
 	});
 
 	function animateWebsiteFeatures() {
-		console.log('ready');
+		if (featuresAnimated) return;
+
+		featuresAnimated = true;
 
 		const START_ANIMATION = 1;
 		animate(
