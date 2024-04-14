@@ -24,7 +24,10 @@
 	}
 
 	[data-youtube-video] {
-		text-align: center;
+		iframe {
+			aspect-ratio: 16/9;
+			height: 100%;
+		}
 	}
 
 	img,
