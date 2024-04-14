@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AboutMe from './AboutMe.svelte';
+	import Contact from './Contact.svelte';
 	import Header from './Header.svelte';
 	import Projects from './Projects.svelte';
 </script>
@@ -8,6 +9,7 @@
 	<Header />
 	<AboutMe />
 	<Projects />
+	<Contact />
 </main>
 
 <style lang="scss">
