@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Chip from '$lib/components/Chip.svelte';
 	import Status from '$lib/components/Status.svelte';
-	import { animate, inView } from 'motion';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import ScrollToButton from './ScrollToButton.svelte';
 
 	const skills = [
 		'UI & UX',
@@ -28,10 +28,6 @@
 	onMount(() => {
 		// the more you scroll down, the more the opacity increases and the more the section moves up
 		animateSection();
-
-		// inView('#about-me', ({ target }) => {
-		// 	animate(target, { opacity: 1 });
-		// });
 	});
 </script>
 
@@ -87,6 +83,10 @@
 		</section>
 	</section>
 </section>
+
+<ScrollToButton href="#projects">
+	Scroll down to see <b>my work</b>
+</ScrollToButton>
 
 <style lang="scss">
 	#about-me {

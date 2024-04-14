@@ -41,7 +41,7 @@
 
 		ul {
 			width: 90%;
-			padding: 3rem 0;
+			margin: 3rem 0;
 			list-style: none;
 			// display: flex;
 			gap: 2rem;
