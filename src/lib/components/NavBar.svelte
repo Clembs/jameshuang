@@ -173,6 +173,8 @@
 		button {
 			display: grid;
 			place-items: center;
+			margin: -1rem;
+			padding: 1rem;
 		}
 	}
 
