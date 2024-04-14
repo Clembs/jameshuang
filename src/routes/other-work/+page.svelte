@@ -29,7 +29,7 @@
 		flex-direction: column;
 		align-items: center;
 		margin: var(--space-xl) 0;
-		margin-top: var(--space-xxl);
+		margin-top: 10rem;
 
 		header {
 			display: flex;

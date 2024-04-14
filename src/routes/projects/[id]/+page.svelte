@@ -60,7 +60,6 @@
 		{/if}
 	</header>
 
-	<!-- TODO: still a lot to do here lol -->
 	<main class="blog-article-content">
 		{@html data.article}
 
@@ -78,14 +77,12 @@
 <style lang="scss">
 	article {
 		min-width: 90%;
-		// max-width: 80%;
-		// max-width: 950px;
 		margin: 0 auto;
-		margin-top: 7.5rem;
+		margin-top: 10rem;
 		padding: 1rem;
 
 		@media (max-width: 500px) {
-			margin-top: 5rem;
+			margin-top: 7.5rem;
 		}
 
 		#background-color {
