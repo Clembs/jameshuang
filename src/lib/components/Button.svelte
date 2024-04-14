@@ -1,16 +1,17 @@
 <script lang="ts">
 	export let type: 'submit' | 'button' = 'submit';
-	export let style: 'filled' | 'outlined' = 'filled';
+	export let style: 'filled' | 'outlined' | 'gradient' = 'filled';
 	export let formaction: string | null = null;
 	export let href = '';
+	export let inline = false;
 </script>
 
 {#if href}
-	<a {href} class={style}>
+	<a {href} class={style} class:inline>
 		<slot />
 	</a>
 {:else}
-	<button on:click {type} class={style} {formaction}>
+	<button on:click {type} class={style} class:inline {formaction}>
 		<slot />
 	</button>
 {/if}
@@ -23,7 +24,11 @@
 		font: inherit;
 		font-size: var(--font-size-base);
 		border-radius: 0.25rem;
-		margin-top: 0.5rem;
+
+		&.inline {
+			display: inline-flex;
+			width: fit-content;
+		}
 
 		&.filled {
 			background-color: var(--color-foreground-full);
@@ -43,6 +48,16 @@
 
 			&:hover {
 				background-color: var(--color-foreground-lowest);
+			}
+		}
+
+		&.gradient {
+			background: linear-gradient(297.15deg, #ff9b7b 13.92%, rgba(138, 255, 234, 0.8) 111.83%);
+			color: var(--color-background);
+			border: 1px solid transparent;
+
+			&:hover {
+				background: linear-gradient(297.15deg, #ff9b7b 13.92%, rgba(138, 255, 234, 0.8) 111.83%);
 			}
 		}
 	}
