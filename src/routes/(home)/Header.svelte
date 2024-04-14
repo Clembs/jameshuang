@@ -8,6 +8,8 @@
 	let featuresAnimated = false;
 
 	onMount(() => {
+		logoEl = document.getElementById('logo') as HTMLVideoElement;
+
 		if (logoEl) {
 			logoEl.onloadedmetadata = () => {
 				animateWebsiteFeatures();
@@ -66,7 +68,6 @@
 				autoplay
 				muted
 				playsinline
-				bind:this={logoEl}
 			/>
 		</div>
 
