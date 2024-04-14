@@ -34,9 +34,6 @@
 
 <style lang="scss">
 	#projects {
-		// display: grid;
-		// grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
-		// gap: var(--space-xl);
 		max-width: 1200px;
 		margin: 0 auto;
 		display: flex;
@@ -49,15 +46,7 @@
 			// display: flex;
 			gap: 2rem;
 			column-gap: 2rem;
-			columns: 3;
-
-			@media (max-width: 1000px) {
-				columns: 2;
-			}
-
-			@media (max-width: 600px) {
-				columns: 1;
-			}
+			columns: 300px;
 		}
 	}
 </style>
