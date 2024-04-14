@@ -36,7 +36,7 @@
 
 		const currentScrollY = window.scrollY;
 
-		if (currentScrollY < 800 && $page.url.pathname === '/') {
+		if (currentScrollY < 300 && $page.url.pathname === '/') {
 			navBarShown = false;
 			itemsShown = false;
 		} else if (currentScrollY > scrollY) {
