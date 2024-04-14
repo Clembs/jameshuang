@@ -38,10 +38,12 @@
 		margin: 0 auto;
 		display: flex;
 		justify-content: center;
+		width: 100%;
 
 		ul {
 			width: 90%;
 			margin: 3rem 0;
+			padding: 0;
 			list-style: none;
 			// display: flex;
 			gap: 2rem;
