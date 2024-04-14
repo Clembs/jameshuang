@@ -56,7 +56,7 @@
 <svelte:window on:scroll={handleScroll} />
 
 <nav class:hidden={!navBarShown}>
-	<a id="logo" href="/">
+	<a id="navbar-logo" href="/">
 		<JamesIcon />
 	</a>
 
@@ -119,7 +119,7 @@
 		padding: var(--space-md) var(--space-md);
 		transition: transform 200ms ease;
 
-		#logo {
+		#navbar-logo {
 			margin: -1rem;
 			padding: 1rem;
 

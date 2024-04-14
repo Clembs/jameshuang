@@ -10,14 +10,12 @@
 	onMount(() => {
 		logoEl = document.getElementById('logo') as HTMLVideoElement;
 
-		if (logoEl) {
-			logoEl.onloadedmetadata = () => {
-				animateWebsiteFeatures();
-			};
-			logoEl.oncanplay = () => {
-				animateWebsiteFeatures();
-			};
-		}
+		logoEl.onloadedmetadata = () => {
+			animateWebsiteFeatures();
+		};
+		logoEl.oncanplay = () => {
+			animateWebsiteFeatures();
+		};
 	});
 
 	function animateWebsiteFeatures() {
