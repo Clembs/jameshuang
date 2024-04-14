@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import James from '$lib/svg/James.svelte';
+	import JamesIcon from '$lib/svg/JamesIcon.svelte';
 	import { onMount } from 'svelte';
 
 	let navBarShown = false;
@@ -56,8 +56,8 @@
 <svelte:window on:scroll={handleScroll} />
 
 <nav class:hidden={!navBarShown}>
-	<a href="/">
-		<James />
+	<a id="logo" href="/">
+		<JamesIcon />
 	</a>
 
 	<div class="right">
@@ -118,6 +118,16 @@
 		align-items: flex-start;
 		padding: var(--space-md) var(--space-md);
 		transition: transform 200ms ease;
+
+		#logo {
+			margin: -1rem;
+			padding: 1rem;
+
+			:global(svg) {
+				width: 32px;
+				height: 32px;
+			}
+		}
 
 		&.hidden {
 			transform: translateY(-100%);
