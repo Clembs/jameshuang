@@ -191,12 +191,12 @@
 				text-transform: uppercase;
 				color: var(--color-foreground-low);
 				// font-size: var(--font-size-sm);
-				letter-spacing: 0.075rem;
+				letter-spacing: 0.05rem;
 			}
 
 			#location-value {
 				color: var(--color-foreground-full);
-				font-size: var(--font-size-md);
+				font-size: var(--font-size-lg);
 			}
 		}
 
