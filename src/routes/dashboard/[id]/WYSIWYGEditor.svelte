@@ -115,7 +115,7 @@
 	$: html = editor?.getHTML();
 </script>
 
-<form use:enhance action="?/editContent" method="post">
+<form use:enhance action="?/editContent" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="content" bind:value={html} />
 
 	{#if editor}

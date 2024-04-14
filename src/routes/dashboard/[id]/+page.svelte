@@ -51,6 +51,7 @@
 					resetFileInput();
 				};
 			}}
+			enctype="multipart/form-data"
 			action="?/editMetadata&type={data.project.type}"
 			method="post"
 		>
@@ -142,16 +143,6 @@
 						</button>
 					</div>
 				</div>
-			</section>
-
-			<section id="download-file">
-				<p>Download file</p>
-
-				<label class="upload-button" for="file">
-					Upload file
-					<input bind:this={fileInput} id="file" type="file" name="file" />
-					<!-- on:change={uploadFileInput} -->
-				</label>
 			</section>
 
 			{#if isLoading}
