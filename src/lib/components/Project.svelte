@@ -38,6 +38,7 @@
 <style lang="scss">
 	li {
 		margin-bottom: 2rem;
+		break-inside: avoid;
 	}
 
 	.project {
