@@ -53,7 +53,7 @@
 			height: auto;
 			object-fit: cover;
 			border-radius: 0.25rem;
-			transition: opacity 100ms ease-in-out;
+			transition: opacity 100ms ease-in-out, scale 200ms ease-in-out;
 		}
 
 		.text {
@@ -61,7 +61,7 @@
 			justify-content: space-between;
 			align-items: center;
 			gap: 1rem;
-			margin-left: 0.25rem;
+			margin: 0 0.25rem;
 
 			h3 {
 				font-size: var(--font-size-base);
@@ -89,15 +89,7 @@
 		&:hover {
 			img {
 				opacity: 0.8;
-			}
-
-			h3 {
-				color: var(--color-foreground-low);
-			}
-
-			.text p,
-			.text time {
-				color: var(--color-foreground-lowest);
+				scale: 0.95;
 			}
 		}
 	}
