@@ -110,13 +110,13 @@
 		left: 0;
 		top: 0;
 		z-index: 9;
-		max-width: 1600px;
+		// max-width: 1600px;
 		margin: 0 auto;
 		mix-blend-mode: difference;
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;
-		padding: var(--space-md) var(--space-md);
+		padding: var(--space-lg) var(--space-xl);
 		transition: transform 200ms ease;
 
 		#navbar-logo {
