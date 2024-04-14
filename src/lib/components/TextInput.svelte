@@ -23,11 +23,20 @@
 
 	{#if multiline}
 		<!-- svelte-ignore a11y-autofocus -->
-		<textarea {autofocus} {placeholder} {name} bind:value {required} {maxlength} {minlength} />
+		<textarea
+			{...autofocus && { autofocus }}
+			{placeholder}
+			{name}
+			bind:value
+			{required}
+			{maxlength}
+			{minlength}
+		/>
 	{:else}
 		<!-- svelte-ignore a11y-autofocus -->
+		<!-- {autofocus} -->
 		<input
-			{autofocus}
+			{...autofocus && { autofocus }}
 			{placeholder}
 			{name}
 			{...{ type }}
