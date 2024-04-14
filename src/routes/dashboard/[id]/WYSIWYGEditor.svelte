@@ -9,13 +9,19 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import type { Project } from '$lib/db/types';
+	import {
+		handleDocumentUploadResponse,
+		handleImageUploadResponse,
+		handleVideoUploadResponse
+	} from './handleUploadResponse';
+	import Link from '@tiptap/extension-link';
 
 	export let initialHtml: string;
 
 	let element: Element | undefined;
 	let editor: Editor;
 
-	let imageLoading = false;
+	let fileLoading = false;
 
 	const project = $page.data.project as Project;
 
@@ -25,6 +31,11 @@
 			extensions: [
 				StarterKit,
 				Youtube,
+				Link.configure({
+					linkOnPaste: true,
+					openOnClick: 'whenNotEditable',
+					autolink: true
+				}),
 				Image.configure({
 					HTMLAttributes: {
 						loading: 'lazy'
@@ -68,14 +79,13 @@
 		}
 	}
 
-	async function insertImage(ev: Event) {
+	async function insertFile(ev: Event) {
 		const file = (ev.target as HTMLInputElement).files?.[0];
 		if (!file) return;
 
-		imageLoading = true;
+		fileLoading = true;
 
 		const formData = new FormData();
-
 		formData.append('file', file);
 
 		const req = await fetch(
@@ -87,35 +97,17 @@
 		);
 
 		if (req.ok) {
-			const res: {
-				name: string;
-				url: string;
-			}[] = await req.json();
-
-			const thumbnailUrl = res.find((f) => f.name.endsWith('-thumb.webp'))?.url;
-			const hqUrl = res.find((f) => f.name.endsWith('-hq.webp'))?.url;
-
-			if (!hqUrl) {
-				alert('Failed to upload image');
-				return;
+			if (file.type.startsWith('image/')) {
+				await handleImageUploadResponse(req, editor);
+			} else if (file.type.startsWith('video/')) {
+				await handleVideoUploadResponse(req, editor);
+			} else {
+				await handleDocumentUploadResponse(req, editor);
 			}
-
-			editor
-				.chain()
-				.focus()
-				.setImage({
-					src: hqUrl,
-					alt: file.name
-				})
-				.updateAttributes('image', {
-					thumbnailSrc: thumbnailUrl
-				})
-				.run();
-
-			imageLoading = false;
 		} else {
-			alert('Failed to upload image');
+			alert('Failed to upload content');
 		}
+		fileLoading = false;
 	}
 
 	$: html = editor?.getHTML();
@@ -175,13 +167,13 @@
 
 			<span class="button-group">
 				<button on:click={insertYouTube}> YouTube video </button>
-				<label class={imageLoading ? 'filled' : 'outlined'}>
-					{#if imageLoading}
+				<label class={fileLoading ? 'filled' : 'outlined'}>
+					{#if fileLoading}
 						Loading...
 					{:else}
-						Image upload
+						Insert content
 					{/if}
-					<input type="file" accept="image/*" style="display: none;" on:change={insertImage} />
+					<input type="file" style="display: none;" on:change={insertFile} />
 				</label>
 			</span>
 		</div>
@@ -202,6 +194,15 @@
 	.buttons {
 		display: flex;
 		gap: 0.5rem;
+		position: sticky;
+		top: 0;
+		left: 0;
+		background-color: var(--color-background);
+		padding: 1rem;
+		z-index: 9;
+		margin: 0 -1rem;
+		margin-top: -1rem;
+		border-bottom: 2px solid var(--color-foreground-lowest);
 	}
 
 	.button-group {
