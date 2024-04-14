@@ -5,7 +5,10 @@
 </script>
 
 <a {href}>
-	<DownArrow />
+	<div id="arrow">
+		<DownArrow />
+	</div>
+
 	<span class="label">
 		<slot />
 	</span>
@@ -16,11 +19,20 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: var(--space-sm);
 
 		color: var(--color-foreground-lowest);
 		text-decoration: none;
 		width: fit-content;
 		margin: var(--space-xl) auto;
+
+		#arrow {
+			transition: transform 200ms ease;
+		}
+
+		&:hover {
+			#arrow {
+				transform: translateY(0.25rem);
+			}
+		}
 	}
 </style>
