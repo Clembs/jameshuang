@@ -28,7 +28,7 @@
 
 	function toggleMenu() {
 		menuShown = !menuShown;
-		itemsShown = !itemsShown;
+		itemsShown = !menuShown;
 	}
 
 	function handleScroll() {
