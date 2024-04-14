@@ -106,9 +106,9 @@
 
 <style lang="scss">
 	nav {
-		position: sticky;
-		left: 0;
-		top: 0;
+		position: fixed;
+		inset: 0;
+		width: 100%;
 		z-index: 9;
 		// max-width: 1600px;
 		margin: 0 auto;
