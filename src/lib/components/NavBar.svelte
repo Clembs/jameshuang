@@ -109,6 +109,7 @@
 		position: fixed;
 		inset: 0;
 		width: 100%;
+		height: fit-content;
 		z-index: 9;
 		// max-width: 1600px;
 		margin: 0 auto;
