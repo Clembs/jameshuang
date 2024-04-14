@@ -47,15 +47,17 @@
 			</ul>
 		</div>
 
-		<img
-			loading="lazy"
-			src={data.bannerUrl}
-			alt={data.title}
-			id="banner"
-			style="background-image: url({data.bannerThumbUrl});"
-			height={data.bannerHeight}
-			width={data.bannerWidth}
-		/>
+		{#if data.type === 'PROJECT'}
+			<img
+				loading="lazy"
+				src={data.bannerUrl}
+				alt={data.title}
+				id="banner"
+				style="background-image: url({data.bannerThumbUrl});"
+				height={data.bannerHeight}
+				width={data.bannerWidth}
+			/>
+		{/if}
 	</header>
 
 	<!-- TODO: still a lot to do here lol -->
