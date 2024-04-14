@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { Editor, mergeAttributes } from '@tiptap/core';
+	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import Button from '$lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
@@ -15,6 +15,7 @@
 		handleVideoUploadResponse
 	} from './handleUploadResponse';
 	import Link from '@tiptap/extension-link';
+	import { Video } from '$lib/helpers/TipTapVideo';
 
 	export let initialHtml: string;
 
@@ -31,6 +32,7 @@
 			extensions: [
 				StarterKit,
 				Youtube,
+				Video,
 				Link.configure({
 					linkOnPaste: true,
 					openOnClick: 'whenNotEditable',

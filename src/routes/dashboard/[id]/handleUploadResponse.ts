@@ -41,18 +41,16 @@ export async function handleVideoUploadResponse(req: Response, editor: Editor) {
 		return;
 	}
 
-	// TODO: Implement video upload
-	// editor
-	// 	.chain()
-	// 	.focus()
-	// 	.insertContent({
-	// 		type: 'video',
-	// 		attrs: {
-	// 			src: videoFile.url,
-	// 			controls: true
-	// 		}
-	// 	})
-	// 	.run();
+	editor
+		.chain()
+		.focus()
+		.insertContent({
+			type: 'video',
+			attrs: {
+				src: videoFile.url
+			}
+		})
+		.run();
 }
 
 export async function handleDocumentUploadResponse(req: Response, editor: Editor) {
