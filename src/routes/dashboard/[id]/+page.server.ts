@@ -80,10 +80,18 @@ export const actions = {
 				return fail(500, { message: String(err) });
 			}
 
-			banner.highQuality = files.get('highQuality.webp')?.url || '';
-			banner.thumbnail = files.get('thumbnail.webp')?.url || '';
-			banner.height = files.get('highQuality.webp')?.height || 0;
-			banner.width = files.get('highQuality.webp')?.width || 0;
+			const name = bannerFile.name.split('.').slice(0, -1).join('.');
+			const bannerHq = files.get(`${name}-hq.webp`);
+			const bannerThumb = files.get(`${name}-thumb.webp`);
+
+			if (!bannerHq || !bannerThumb) {
+				throw error(500, 'Failed to upload banner');
+			}
+
+			banner.highQuality = bannerHq.url || '';
+			banner.thumbnail = bannerThumb.url || '';
+			banner.height = bannerHq.height || 0;
+			banner.width = bannerHq.width || 0;
 		}
 
 		const type = url.searchParams.get('type') as Project['type'];
