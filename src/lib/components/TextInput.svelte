@@ -10,26 +10,33 @@
 	export let minlength: number | undefined = undefined;
 	export let autofocus: boolean = false;
 	export let inline: boolean = false;
+	export let wide: boolean = false;
+	export let multiline: boolean = false;
 </script>
 
-<div class="text-input" class:inline>
+<div class="text-input" class:inline class:wide>
 	{#if label}
 		<label for={name}>
 			{label}
 		</label>
 	{/if}
 
-	<!-- svelte-ignore a11y-autofocus -->
-	<input
-		{autofocus}
-		{placeholder}
-		{name}
-		{...{ type }}
-		bind:value
-		{required}
-		{maxlength}
-		{minlength}
-	/>
+	{#if multiline}
+		<!-- svelte-ignore a11y-autofocus -->
+		<textarea {autofocus} {placeholder} {name} bind:value {required} {maxlength} {minlength} />
+	{:else}
+		<!-- svelte-ignore a11y-autofocus -->
+		<input
+			{autofocus}
+			{placeholder}
+			{name}
+			{...{ type }}
+			bind:value
+			{required}
+			{maxlength}
+			{minlength}
+		/>
+	{/if}
 
 	{#if error}
 		<p class="error">{error}</p>
@@ -41,21 +48,34 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		font-size: var(--font-size-sm);
 		width: 100%;
+
+		label {
+			font-size: var(--font-size-sm);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
 
 		&.inline {
 			display: inline-flex;
 			width: fit-content;
 		}
 
-		input {
+		&.wide {
+			input,
+			textarea {
+				padding: var(--space-md) var(--space-lg);
+			}
+		}
+
+		input,
+		textarea {
 			padding: 0.5rem;
 			font: inherit;
 			font-size: var(--font-size-base);
 			border-radius: 0.25rem;
 			background-color: var(--color-background);
-			border: 1px solid var(--color-foreground-full);
+			border: 1px solid var(--color-foreground-lowest);
 			color: var(--color-foreground-full);
 
 			&:active,
@@ -65,6 +85,11 @@
 				color: var(--color-background);
 				outline: none;
 			}
+		}
+
+		textarea {
+			min-height: 7.5rem;
+			resize: vertical;
 		}
 
 		.error {
