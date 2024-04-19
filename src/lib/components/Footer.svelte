@@ -64,11 +64,16 @@
 					rel="noopener noreferrer"
 					class="label"
 				>
-					Buy me a coffee
+					Support me
 				</a>
 				/
-				<a href="https://discord.gg" target="_blank" rel="noopener noreferrer" class="label">
-					Chat on Discord
+				<a
+					href="https://dsc.gg/jamesdesigns"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="label"
+				>
+					Discord
 				</a>
 				/
 				<a
@@ -77,7 +82,7 @@
 					rel="noopener noreferrer"
 					class="label"
 				>
-					YouTube channel
+					YouTube
 				</a>
 				/
 				<a
