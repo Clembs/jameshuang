@@ -90,8 +90,12 @@
 
 			#contact-left {
 				max-width: none;
-				padding: 0 var(--space-lg);
-				text-align: center;
+				padding: 0;
+
+				#contact-background {
+					height: 500%;
+					top: 20%;
+				}
 			}
 
 			#contact-right {
