@@ -17,12 +17,10 @@
 		'After Effects'
 	];
 
-	let scrollY = 0;
 	let sectionAnimationPercent = 0;
 
 	function animateSection() {
-		scrollY = window.scrollY;
-		sectionAnimationPercent = Math.min(scrollY / 400, 1);
+		sectionAnimationPercent = Math.min(window.scrollY / 400, 1);
 	}
 
 	onMount(() => {

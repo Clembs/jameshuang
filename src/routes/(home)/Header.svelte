@@ -9,7 +9,6 @@
 
 	let featuresAnimated = false;
 
-	let scrollY = 0;
 	let sectionAnimationPercent = 0;
 
 	onMount(() => {
@@ -25,19 +24,16 @@
 			}
 
 			logoEl.onloadedmetadata = () => {
-				console.log('loaded');
 				animateWebsiteFeatures();
 			};
 			logoEl.oncanplay = () => {
-				console.log('can play');
 				animateWebsiteFeatures();
 			};
 		}
 	});
 
 	function scrollUpParallax() {
-		scrollY = window.scrollY;
-		sectionAnimationPercent = Math.min(scrollY / 400, 1);
+		sectionAnimationPercent = Math.min(window.scrollY / 400, 1);
 	}
 
 	function animateWebsiteFeatures() {
