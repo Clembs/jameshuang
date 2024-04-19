@@ -195,13 +195,13 @@
 			#location-label {
 				text-transform: uppercase;
 				color: var(--color-foreground-low);
-				// font-size: var(--font-size-sm);
+				font-size: var(--font-size-xs);
 				letter-spacing: 0.05rem;
 			}
 
 			#location-value {
 				color: var(--color-foreground-full);
-				font-size: var(--font-size-lg);
+				font-size: var(--font-size-md);
 			}
 		}
 
