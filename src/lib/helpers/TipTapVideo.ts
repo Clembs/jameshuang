@@ -15,7 +15,9 @@ export const Video = Node.create({
 				default: null
 			},
 			controls: {
-				default: true
+				default: true,
+				autoplay: true,
+				loop: true
 			}
 		};
 	},
