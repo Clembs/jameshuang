@@ -15,6 +15,10 @@
 		}
 
 		if (logoEl) {
+			if (logoEl.paused) {
+				logoEl.play();
+			}
+
 			logoEl.onloadedmetadata = () => {
 				animateWebsiteFeatures();
 			};
