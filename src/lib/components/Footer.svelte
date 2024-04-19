@@ -4,6 +4,7 @@
 	import Youtube from '$lib/svg/socials/youtube.svelte';
 	import X from '$lib/svg/socials/x.svelte';
 	import FooterDecoration from '$lib/svg/decorations/FooterDecoration.svelte';
+	import UpArrow from '$lib/svg/UpArrow.svelte';
 </script>
 
 <footer>
@@ -97,10 +98,22 @@
 		</div>
 	</section>
 
-	<section id="location">
-		<div id="location-label">Currently based in</div>
-		<div id="location-value">Sydney, NSW</div>
-	</section>
+	<div id="right-side">
+		<section id="location">
+			<div id="location-label">Currently based in</div>
+			<div id="location-value">Sydney, NSW</div>
+		</section>
+
+		<button
+			on:click={() =>
+				window.scrollTo({
+					top: 0
+				})}
+			aria-label="Scroll up"
+		>
+			<UpArrow />
+		</button>
+	</div>
 
 	<div id="decoration" aria-hidden>
 		<FooterDecoration />
@@ -186,6 +199,14 @@
 			}
 		}
 
+		#right-side {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 2rem;
+			max-width: max-content;
+		}
+
 		#location {
 			display: flex;
 			flex-direction: column;
@@ -201,7 +222,7 @@
 
 			#location-value {
 				color: var(--color-foreground-full);
-				font-size: var(--font-size-md);
+				font-size: 1.3rem;
 			}
 		}
 
@@ -212,14 +233,23 @@
 			transform: translateX(50%);
 			z-index: -1;
 			pointer-events: none;
+			transform-origin: bottom right;
+
+			@media (max-width: 600px) {
+				scale: 0.75;
+			}
 		}
 
-		@media screen and (max-width: 768px) {
+		@media (max-width: 800px) {
 			flex-direction: column;
 			padding: 5rem 1.5rem;
 
-			#location {
-				text-align: start;
+			#right-side {
+				align-items: flex-start;
+
+				#location {
+					text-align: start;
+				}
 			}
 		}
 	}
