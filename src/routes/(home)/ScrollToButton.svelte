@@ -1,10 +1,23 @@
 <script lang="ts">
 	import DownArrow from '$lib/svg/DownArrow.svelte';
+	import { onMount } from 'svelte';
 
 	export let href: string;
+
+	let el: HTMLAnchorElement;
+	let opacity = 1;
+
+	onMount(hideOnScroll);
+
+	function hideOnScroll() {
+		const topDistance = el.getBoundingClientRect().top;
+		opacity = Math.min((topDistance - 100) / window.innerHeight, 1);
+	}
 </script>
 
-<a {href}>
+<svelte:window on:scroll={hideOnScroll} />
+
+<a {href} bind:this={el} style="opacity: {opacity};">
 	<div id="arrow">
 		<DownArrow />
 	</div>
