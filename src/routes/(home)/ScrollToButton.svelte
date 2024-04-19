@@ -19,7 +19,9 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		gap: 0.25rem;
 
+		font-size: var(--font-size-xs);
 		color: var(--color-foreground-lowest);
 		text-decoration: none;
 		width: fit-content;
@@ -27,6 +29,11 @@
 
 		#arrow {
 			transition: transform 200ms ease;
+		}
+
+		:global(b) {
+			color: var(--color-foreground-low);
+			font-weight: 500;
 		}
 
 		&:hover {
