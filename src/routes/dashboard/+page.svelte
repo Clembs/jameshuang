@@ -190,7 +190,8 @@
 
 <style lang="scss">
 	main {
-		padding: 4rem 1.5rem;
+		padding: 3rem 1rem;
+		padding-top: 7rem;
 		max-width: 1200px;
 		margin: 0 auto;
 

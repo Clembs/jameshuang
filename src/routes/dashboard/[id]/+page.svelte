@@ -175,6 +175,7 @@
 <style lang="scss">
 	main {
 		padding: 3rem 1rem;
+		padding-top: 7rem;
 		margin: 0 auto;
 		max-width: 900px;
 		width: 100%;
