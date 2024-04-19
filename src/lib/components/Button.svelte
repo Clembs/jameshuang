@@ -4,14 +4,15 @@
 	export let formaction: string | null = null;
 	export let href = '';
 	export let inline = false;
+	export let disabled = false;
 </script>
 
-{#if href}
+{#if href && !disabled}
 	<a {href} class={style} class:inline>
 		<slot />
 	</a>
 {:else}
-	<button on:click {type} class={style} class:inline {formaction}>
+	<button on:click {type} class={style} class:inline {formaction} {disabled}>
 		<slot />
 	</button>
 {/if}
@@ -59,6 +60,11 @@
 			&:hover {
 				background: linear-gradient(297.15deg, #ff9b7b 13.92%, rgba(138, 255, 234, 0.8) 111.83%);
 			}
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.5;
 		}
 	}
 </style>
