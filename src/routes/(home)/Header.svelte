@@ -9,7 +9,12 @@
 
 	let featuresAnimated = false;
 
+	let scrollY = 0;
+	let sectionAnimationPercent = 0;
+
 	onMount(() => {
+		scrollUpParallax();
+
 		while (!logoEl) {
 			logoEl = document.getElementById('logo') as HTMLVideoElement;
 		}
@@ -20,13 +25,20 @@
 			}
 
 			logoEl.onloadedmetadata = () => {
+				console.log('loaded');
 				animateWebsiteFeatures();
 			};
 			logoEl.oncanplay = () => {
+				console.log('can play');
 				animateWebsiteFeatures();
 			};
 		}
 	});
+
+	function scrollUpParallax() {
+		scrollY = window.scrollY;
+		sectionAnimationPercent = Math.min(scrollY / 400, 1);
+	}
 
 	function animateWebsiteFeatures() {
 		if (featuresAnimated) return;
@@ -37,7 +49,8 @@
 		animate(
 			logoEl,
 			{
-				top: `140px`
+				top: `-70px`
+				// transform: `translateY(-100%)`
 			},
 			{
 				duration: 0.5,
@@ -67,6 +80,8 @@
 	}
 </script>
 
+<svelte:window on:scroll={scrollUpParallax} />
+
 <header>
 	<div id="decorations" aria-hidden>
 		<div id="deco1">
@@ -78,7 +93,7 @@
 	</div>
 
 	<div id="header-contents">
-		<div id="top-part">
+		<div id="top-part" style="transform: translateY({0 - 150 * sectionAnimationPercent}px)">
 			<video
 				id="logo"
 				src="https://f004.backblazeb2.com/file/jameshuangwebsite/Comp+1.mp4"
@@ -184,9 +199,8 @@
 		#logo {
 			width: clamp(76px, 20vw, 90px);
 			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
+			top: 100%;
+			// transform: translateY(-50%);
 		}
 
 		h1 {
@@ -250,37 +264,44 @@
 		}
 
 		#decorations {
-			* :global(svg) {
+			*
+			//  :global(svg)
+			{
 				position: absolute;
 				pointer-events: none;
 				z-index: 2;
 				opacity: 0.75;
 			}
 
-			#deco1 :global(svg) {
+			#deco1
+			//  :global(svg)
+			{
 				transform-origin: top left;
 				top: 0;
 				left: 0;
 			}
 
-			#deco2 :global(svg) {
+			#deco2
+			//  :global(svg)
+			{
 				transform-origin: bottom right;
 				bottom: 0;
 				right: 0;
 			}
 
+			@media (max-width: 1450px) {
+				#deco2 {
+					display: none;
+				}
+			}
 			@media (max-width: 1050px) {
-				* :global(svg) {
+				* {
 					scale: 0.75;
 				}
 			}
-			@media (max-width: 800px) {
-				* :global(svg) {
-					scale: 0.5;
-				}
-				#deco2 :global(svg) {
-					bottom: 50%;
-					transform: translateY(50%);
+			@media (max-width: 900px) {
+				* {
+					scale: 0.7;
 				}
 			}
 		}
