@@ -215,6 +215,10 @@
 				top: 3rem;
 				// will-change: opacity, top;
 			}
+
+			@media (max-width: 800px) {
+				font-size: var(--font-size-xl);
+			}
 		}
 
 		#links {
@@ -259,7 +263,6 @@
 			height: 100%;
 			max-width: 1200px;
 			aspect-ratio: 1.875 / 1;
-			margin-top: -1rem;
 			opacity: 0;
 		}
 
