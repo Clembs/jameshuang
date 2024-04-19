@@ -29,22 +29,22 @@
 				</p>
 			</div>
 			<!-- <hr /> -->
-			<ul id="details">
-				<li class="detail">
-					<div class="label">Timeline</div>
-					<div class="value">
+			<table id="details">
+				<tr class="detail">
+					<td class="label">Timeline</td>
+					<td class="value">
 						{data.timeline || 'N/A'}
-					</div>
-				</li>
-				<li class="detail">
-					<div class="label">Tools</div>
-					<div class="value">{data.tools.join(', ')}</div>
-				</li>
-				<li class="detail">
-					<div class="label">Roles</div>
-					<div class="value">{data.roles}</div>
-				</li>
-			</ul>
+					</td>
+				</tr>
+				<tr class="detail">
+					<td class="label">Tools</td>
+					<td class="value">{data.tools.join(', ')}</td>
+				</tr>
+				<tr class="detail">
+					<td class="label">Roles</td>
+					<td class="value">{data.roles}</td>
+				</tr>
+			</table>
 		</div>
 
 		{#if data.type === 'PROJECT'}
@@ -157,22 +157,18 @@
 			// }
 
 			#details {
-				display: flex;
-				flex-direction: column;
-				gap: 0.5rem;
 				margin: 0;
 				padding: 0;
 				font-size: var(--font-size-sm);
 
-				.detail {
-					display: flex;
-					gap: 1rem;
+				td {
+					padding: 0.25rem 1rem;
 
-					.label {
+					&.label {
 						color: var(--color-foreground-low);
 					}
 
-					.value {
+					&.value {
 						color: var(--color-foreground-medium);
 					}
 				}
