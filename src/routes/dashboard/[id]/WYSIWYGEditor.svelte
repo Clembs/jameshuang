@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { Editor } from '@tiptap/core';
+	import { Editor, isRegExp } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import Button from '$lib/components/Button.svelte';
 	import '../../../styles/blog.scss';
@@ -16,6 +16,7 @@
 	} from './handleUploadResponse';
 	import Link from '@tiptap/extension-link';
 	import { Video } from '$lib/helpers/TipTapVideo';
+	import Superscript from '@tiptap/extension-superscript';
 
 	export let initialHtml: string;
 
@@ -56,7 +57,8 @@
 							}
 						};
 					}
-				})
+				}),
+				Superscript
 			],
 			content: initialHtml,
 			onTransaction: () => (editor = editor)
@@ -112,6 +114,16 @@
 		fileLoading = false;
 	}
 
+	async function insertLink() {
+		const url = prompt('Enter a URL');
+
+		if (url) {
+			editor.commands.toggleLink({
+				href: url
+			});
+		}
+	}
+
 	$: html = editor?.getHTML();
 </script>
 
@@ -165,9 +177,17 @@
 				>
 					Quote
 				</button>
+				<button
+					on:click={() => editor.chain().focus().toggleSuperscript().run()}
+					class={editor.isActive('subscript') ? 'filled' : 'outlined'}
+					type="button"
+				>
+					Superscript
+				</button>
 			</span>
 
 			<span class="button-group">
+				<button on:click={insertLink}> Link </button>
 				<button on:click={insertYouTube}> YouTube video </button>
 				<label class={fileLoading ? 'filled' : 'outlined'}>
 					{#if fileLoading}
