@@ -73,7 +73,7 @@
 		&.wide {
 			input,
 			textarea {
-				padding: var(--space-md) var(--space-md);
+				padding: 0.75rem var(--space-md);
 			}
 		}
 
