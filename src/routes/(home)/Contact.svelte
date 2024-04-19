@@ -1,6 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import SelectMenu from '$lib/components/SelectMenu.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+
+	let fullName: string;
+	let email: string;
+	let message: string;
 </script>
 
 <section id="contact">
@@ -23,8 +28,31 @@
 
 	<!-- TODO: add actual form action lol -->
 	<form action="?/sendContact" method="post" id="contact-right">
-		<TextInput wide name="full-name" label="Full name" placeholder="John Smith" />
-		<TextInput wide type="email" name="email" label="Email" placeholder="john@smith.com" />
+		<TextInput
+			wide
+			name="full-name"
+			label="Full name"
+			placeholder="John Smith"
+			bind:value={fullName}
+		/>
+		<TextInput
+			wide
+			type="email"
+			name="email"
+			label="Email"
+			placeholder="john@smith.com"
+			bind:value={email}
+		/>
+		<SelectMenu
+			label="Reason for contact"
+			name="reason"
+			options={[
+				{
+					label: 'General inquiry',
+					value: 'general'
+				}
+			]}
+		/>
 		<TextInput
 			maxlength={500}
 			multiline
@@ -32,9 +60,12 @@
 			name="message"
 			label="Message"
 			placeholder="Write your message here..."
+			bind:value={message}
 		/>
 
-		<Button inline style="gradient" type="submit">Submit</Button>
+		<Button disabled={!fullName || !email || !message} inline style="gradient" type="submit"
+			>Submit</Button
+		>
 	</form>
 </section>
 
