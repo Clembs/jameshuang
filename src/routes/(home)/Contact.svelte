@@ -64,8 +64,11 @@
 				top: 50%;
 				left: 50%;
 				z-index: -1;
-				transform: translate(-50%, -43%);
+				transform: translate(-50%, -50%);
 				opacity: 0.8;
+
+				animation: rotate 15s linear infinite;
+				transform-origin: top left;
 			}
 
 			h2 {
@@ -93,6 +96,7 @@
 				padding: 0;
 
 				#contact-background {
+					animation: none;
 					height: 500%;
 					top: 20%;
 				}
@@ -101,6 +105,15 @@
 			#contact-right {
 				min-width: 0;
 			}
+		}
+	}
+
+	@keyframes rotate {
+		from {
+			rotate: 0deg;
+		}
+		to {
+			rotate: 360deg;
 		}
 	}
 </style>
