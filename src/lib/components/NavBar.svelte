@@ -56,7 +56,7 @@
 <svelte:window on:scroll={handleScroll} />
 
 <nav class:hidden={!navBarShown}>
-	<a id="navbar-logo" href="/">
+	<a id="navbar-logo" href="/" on:click={toggleMenu}>
 		<JamesIcon />
 	</a>
 
