@@ -225,6 +225,7 @@
 		margin: 0 -1rem;
 		margin-top: -1rem;
 		border-bottom: 2px solid var(--color-foreground-lowest);
+		overflow-y: scroll;
 	}
 
 	.button-group {
@@ -241,6 +242,7 @@
 			border: 1px solid var(--color-foreground-full);
 			border-right: 0;
 			cursor: pointer;
+			white-space: nowrap;
 
 			&:first-child {
 				border-top-left-radius: 0.25rem;
