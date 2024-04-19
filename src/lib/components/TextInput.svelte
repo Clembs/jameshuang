@@ -73,17 +73,18 @@
 		&.wide {
 			input,
 			textarea {
-				padding: var(--space-md) var(--space-lg);
+				padding: var(--space-md) var(--space-md);
 			}
 		}
 
 		input,
 		textarea {
-			padding: 0.5rem;
+			padding: var(--space-sm);
 			font: inherit;
 			font-size: var(--font-size-base);
 			border-radius: 0.25rem;
-			background-color: var(--color-background);
+			// background-color: var(--color-background);
+			background-color: transparent;
 			border: 1px solid var(--color-foreground-lowest);
 			color: var(--color-foreground-full);
 
