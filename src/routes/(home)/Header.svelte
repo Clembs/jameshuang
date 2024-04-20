@@ -263,26 +263,20 @@
 		}
 
 		#decorations {
-			*
-			//  :global(svg)
-			{
+			* {
 				position: absolute;
 				pointer-events: none;
 				z-index: 2;
 				opacity: 0.75;
 			}
 
-			#deco1
-			//  :global(svg)
-			{
+			#deco1 {
 				transform-origin: top left;
 				top: 0;
 				left: 0;
 			}
 
-			#deco2
-			//  :global(svg)
-			{
+			#deco2 {
 				transform-origin: bottom right;
 				bottom: 0;
 				right: 0;
@@ -290,7 +284,8 @@
 
 			@media (max-width: 1450px) {
 				#deco2 {
-					display: none;
+					bottom: 50%;
+					transform: translateY(50%);
 				}
 			}
 			@media (max-width: 1050px) {
@@ -301,6 +296,10 @@
 			@media (max-width: 900px) {
 				* {
 					scale: 0.7;
+				}
+
+				#deco2 {
+					scale: 0.5;
 				}
 			}
 		}
