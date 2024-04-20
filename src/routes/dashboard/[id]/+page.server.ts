@@ -30,7 +30,8 @@ export async function load({ params, url, locals: { getUser } }) {
 				roles: '',
 				tools: [],
 				timeline: '',
-				type
+				type,
+				private: false
 			} satisfies Partial<Project>
 		};
 	}
@@ -62,6 +63,7 @@ export const actions = {
 		} = Object.fromEntries(formData);
 		const mediums = formData.getAll('medium').map((medium) => medium.toString());
 		const tools = formData.getAll('tool').map((tool) => tool.toString());
+		const isPrivate = formData.get('private')?.toString() === 'on';
 		const bannerFile = bannerFileRaw as File;
 
 		const banner = {
@@ -126,7 +128,8 @@ export const actions = {
 			roles: roles.toString(),
 			mediums,
 			tools,
-			url: workUrl
+			url: workUrl,
+			private: isPrivate
 		};
 
 		if (params.id === 'new' && banner) {
@@ -142,8 +145,6 @@ export const actions = {
 				...updatedProject,
 				bannerUrl: banner.highQuality
 			};
-
-			console.log(project);
 
 			const [newProject] = await db.insert(projects).values(project).returning();
 

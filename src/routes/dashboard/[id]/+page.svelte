@@ -145,6 +145,11 @@
 				</div>
 			</section>
 
+			<label for="private">
+				<input type="checkbox" name="private" id="private" bind:checked={data.project.private} />
+				Make private (don't show in the public website)
+			</label>
+
 			{#if isLoading}
 				Optimizing image, uploading it to the server... This may take a moment.
 			{/if}
