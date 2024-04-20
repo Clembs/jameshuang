@@ -41,8 +41,8 @@
 		width: 100%;
 
 		ul {
-			width: 90%;
-			margin: 3rem 0;
+			width: 95%;
+			margin: 3rem var(--space-lg);
 			padding: 0;
 			list-style: none;
 			// display: flex;

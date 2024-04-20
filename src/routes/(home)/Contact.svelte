@@ -140,9 +140,9 @@
 		justify-content: center;
 		// align-items: center;
 		gap: var(--space-xxl);
-		padding: var(--space-xxl) var(--space-xl);
+		padding: var(--space-xl) var(--space-lg);
 		position: relative;
-		width: 90%;
+		width: 95%;
 		margin: 0 auto;
 
 		#contact-left {

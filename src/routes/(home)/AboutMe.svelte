@@ -91,9 +91,9 @@
 		display: flex;
 		gap: 5rem;
 		max-width: 900px;
-		width: 90%;
+		width: 95%;
 		margin: 0 auto;
-		padding: 3rem 0;
+		padding: 3rem var(--space-lg);
 		opacity: 0;
 
 		section {

@@ -81,7 +81,7 @@
 		width: 95%;
 		margin: 0 auto;
 		margin-top: 10rem;
-		padding: 1.5rem;
+		padding: var(--space-lg);
 
 		@media (max-width: 500px) {
 			margin-top: 7.5rem;

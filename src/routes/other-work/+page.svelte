@@ -13,8 +13,8 @@
 		<h1>Other Work</h1>
 
 		<p>
-			Here is a collection of some other pieces of work from me, <br />
-			including art, photography or older design work.
+			Here is a collection of some other pieces of work from me, including art, photography or older
+			design work.
 		</p>
 	</header>
 
@@ -44,6 +44,11 @@
 
 			h1 {
 				font-size: var(--font-size-xxl);
+			}
+
+			p {
+				max-width: 45ch;
+				text-wrap: balance;
 			}
 		}
 
