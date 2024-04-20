@@ -16,6 +16,7 @@
 		</label>
 	{/if}
 	<select {name} id={id || name}>
+		<option disabled selected value>Select an option </option>
 		{#each options as option}
 			<option value={option.value}>
 				{option.label}
