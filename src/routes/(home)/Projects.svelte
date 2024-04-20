@@ -8,10 +8,12 @@
 <ProjectGrid projects={$page.data.projects} />
 
 <a id="other-work" href="/other-work">
-	<b>Other Work</b> / Art, Photography, Miscellaneous, Archive
-	<span id="right-arrow">
+	<div class="text">
+		<b>Other Work</b> <span> Art, Photography, Miscellaneous, Archive </span>
+	</div>
+	<div id="right-arrow">
 		<RightArrow />
-	</span>
+	</div>
 </a>
 
 <ScrollToButton href="#contact">
@@ -33,6 +35,10 @@
 			color: var(--color-foreground-full);
 		}
 
+		span::before {
+			content: '/ ';
+		}
+
 		#right-arrow {
 			transition: transform 100ms ease;
 			transform: translateY(3px);
@@ -41,6 +47,19 @@
 		&:hover {
 			#right-arrow {
 				transform: translate(3px, 3px);
+			}
+		}
+
+		@media (max-width: 600px) {
+			gap: 1em;
+
+			span::before {
+				content: '';
+			}
+
+			.text {
+				display: flex;
+				flex-direction: column;
 			}
 		}
 	}
