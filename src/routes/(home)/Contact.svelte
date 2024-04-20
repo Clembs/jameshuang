@@ -143,6 +143,7 @@
 		padding: var(--space-xxl) var(--space-xl);
 		position: relative;
 		width: 90%;
+		margin: 0 auto;
 
 		#contact-left {
 			display: flex;
