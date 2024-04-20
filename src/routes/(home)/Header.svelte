@@ -3,12 +3,12 @@
 	import { onMount } from 'svelte';
 	import HomeDecoration1 from '$lib/svg/decorations/HomeDecoration1.svelte';
 	import HomeDecoration2 from '$lib/svg/decorations/HomeDecoration2.svelte';
+	import { page } from '$app/stores';
 
 	let logoEl: HTMLVideoElement;
-	let heroEl: HTMLVideoElement;
+	let heroEl: HTMLVideoElement | undefined;
 
 	let featuresAnimated = false;
-
 	let sectionAnimationPercent = 0;
 
 	onMount(() => {
@@ -72,7 +72,9 @@
 			}
 		);
 		const heroAnimation = animate('#hero', { opacity: 1 }, { delay: START_ANIMATION + 1.125 });
-		heroAnimation.finished.then(() => heroEl.play());
+		if (typeof heroEl !== 'undefined' && heroEl) {
+			heroAnimation.finished.then(() => (heroEl as HTMLVideoElement).play());
+		}
 	}
 </script>
 
@@ -157,14 +159,27 @@
 			</ul>
 		</div>
 
-		<video
-			id="hero"
-			src="https://f004.backblazeb2.com/file/jameshuangwebsite/tempfinalup2date.mp4"
-			muted
-			playsinline
-			loop
-			bind:this={heroEl}
-		/>
+		<div id="hero-wrapper">
+			{#if $page.data.privateMode}
+				<video
+					id="hero"
+					src="https://f004.backblazeb2.com/file/jameshuangwebsite/tempfinalup2date.mp4"
+					muted
+					playsinline
+					loop
+					bind:this={heroEl}
+				/>
+			{:else}
+				<img
+					id="hero"
+					src="/hero-static-image.png"
+					alt="Still of the hero video that would supposedly play"
+				/>
+				<sup>
+					The landing video has been replaced by a still to avoid leaking personal information.
+				</sup>
+			{/if}
+		</div>
 	</div>
 </header>
 
@@ -177,8 +192,6 @@
 		display: grid;
 		place-items: center;
 		position: relative;
-		// height: 100vh;
-		// height: 100dvh;
 
 		#header-contents {
 			padding-top: 12rem;
@@ -196,7 +209,6 @@
 			width: clamp(76px, 20vw, 90px);
 			position: absolute;
 			top: 100%;
-			// transform: translateY(-50%);
 		}
 
 		h1 {
@@ -254,12 +266,29 @@
 			}
 		}
 
-		#hero {
-			width: 100%;
-			height: 100%;
-			max-width: 1200px;
-			aspect-ratio: 1.875 / 1;
-			opacity: 0;
+		#hero-wrapper {
+			position: relative;
+
+			#hero {
+				width: 100%;
+				height: 100%;
+				max-width: 1200px;
+				aspect-ratio: 1.875 / 1;
+				opacity: 0;
+			}
+
+			sup {
+				position: absolute;
+				display: block;
+				font-size: var(--font-size-xs);
+				color: var(--color-foreground-low);
+				margin: 0 auto;
+				padding: 0 1rem;
+				bottom: 2rem;
+				left: 50%;
+				transform: translateX(-50%);
+				text-align: center;
+			}
 		}
 
 		#decorations {

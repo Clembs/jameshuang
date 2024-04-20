@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import { integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 export const projects = pgTable('projects', {
 	id: text('id').notNull().primaryKey(),
@@ -18,7 +18,8 @@ export const projects = pgTable('projects', {
 	type: text('type', { enum: ['PROJECT', 'OTHER'] })
 		.default('PROJECT')
 		.notNull(),
-	url: text('url')
+	url: text('url'),
+	private: boolean('private').default(false).notNull()
 });
 
 export const users = pgTable('users', {
