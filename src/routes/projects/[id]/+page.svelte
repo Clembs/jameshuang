@@ -78,10 +78,10 @@
 
 <style lang="scss">
 	article {
-		min-width: 90%;
+		width: 95%;
 		margin: 0 auto;
 		margin-top: 10rem;
-		padding: 1rem;
+		padding: 1.5rem;
 
 		@media (max-width: 500px) {
 			margin-top: 7.5rem;
@@ -164,14 +164,16 @@
 				font-size: var(--font-size-sm);
 
 				td {
-					padding: 0.25rem 1rem;
+					padding: 0.25rem 0;
 
 					&.label {
 						color: var(--color-foreground-low);
+						padding-right: 1rem;
 					}
 
 					&.value {
 						color: var(--color-foreground-medium);
+						padding-left: 1rem;
 					}
 				}
 			}
