@@ -1,9 +1,12 @@
 <script lang="ts">
+	import Meta from '$lib/components/Meta.svelte';
 	import ProjectGrid from '$lib/components/ProjectGrid.svelte';
 	import BackArrow from '$lib/svg/BackArrow.svelte';
 
 	export let data;
 </script>
+
+<Meta title="Other Works - James Huang" />
 
 <main>
 	<header>

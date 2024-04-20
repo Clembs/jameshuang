@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Meta from '$lib/components/Meta.svelte';
 	import type { Project } from '$lib/db/types';
 	import BackArrow from '$lib/svg/BackArrow.svelte';
 	import '../../../styles/blog.scss';
@@ -6,9 +7,10 @@
 	export let data: Project;
 </script>
 
+<Meta title="{data.title} - James Huang" bannerImage={data.bannerUrl} />
+
 <article>
 	<header>
-		<!-- TODO: maybe add a customizable color field? -->
 		<img loading="eager" src={data.bannerThumbUrl} alt={data.title} id="background-color" />
 
 		<div class="text-info">
