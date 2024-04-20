@@ -90,7 +90,7 @@
 		&:hover {
 			img {
 				opacity: 0.8;
-				scale: 0.95;
+				scale: 0.98;
 			}
 		}
 	}
