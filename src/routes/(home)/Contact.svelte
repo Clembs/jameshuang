@@ -50,6 +50,22 @@
 				{
 					label: 'General inquiry',
 					value: 'general'
+				},
+				{
+					label: 'Advertising/Sponsorships',
+					value: 'advertising'
+				},
+				{
+					label: 'Media',
+					value: 'media'
+				},
+				{
+					label: 'Feedback/Suggestions',
+					value: 'feedback'
+				},
+				{
+					label: 'Fanmail',
+					value: 'fanmail'
 				}
 			]}
 		/>
