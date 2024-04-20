@@ -55,7 +55,6 @@
 		&.gradient {
 			background: linear-gradient(297.15deg, #ff9b7b 13.92%, rgba(138, 255, 234, 0.8) 111.83%);
 			color: var(--color-background);
-			border: 1px solid transparent;
 
 			&:hover {
 				background: linear-gradient(297.15deg, #ff9b7b 13.92%, rgba(138, 255, 234, 0.8) 111.83%);
