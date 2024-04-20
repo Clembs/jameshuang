@@ -27,6 +27,7 @@
 		width: fit-content;
 		margin: 0 auto;
 		gap: 0.5em;
+		padding: 0 var(--space-lg);
 
 		color: var(--color-foreground-low);
 		text-decoration: none;

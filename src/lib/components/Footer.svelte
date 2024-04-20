@@ -128,6 +128,8 @@
 		justify-content: space-between;
 		position: relative;
 		overflow: hidden;
+		width: 95%;
+		margin: 0 auto;
 
 		#about {
 			display: flex;
@@ -241,7 +243,7 @@
 
 		@media (max-width: 800px) {
 			flex-direction: column;
-			padding: 5rem 1.5rem;
+			padding: 5rem var(--space-lg);
 
 			#right-side {
 				align-items: flex-start;
