@@ -173,7 +173,6 @@
 
 					&.value {
 						color: var(--color-foreground-medium);
-						padding-left: 1rem;
 					}
 				}
 			}

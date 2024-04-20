@@ -284,7 +284,7 @@
 				color: var(--color-foreground-low);
 				margin: 0 auto;
 				padding: 0 1rem;
-				bottom: 2rem;
+				bottom: 0;
 				left: 50%;
 				transform: translateX(-50%);
 				text-align: center;
