@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import Button from '$lib/components/Button.svelte';
 	import SelectMenu from '$lib/components/SelectMenu.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
@@ -6,6 +7,15 @@
 	let fullName: string;
 	let email: string;
 	let message: string;
+
+	let loading = false;
+
+	let errors = {
+		fullName: '',
+		email: '',
+		reason: '',
+		message: ''
+	};
 </script>
 
 <section id="contact">
@@ -26,14 +36,41 @@
 		</p>
 	</div>
 
-	<!-- TODO: add actual form action lol -->
-	<form action="?/sendContact" method="post" id="contact-right">
+	<form
+		use:enhance={async () => {
+			loading = true;
+
+			return async ({ result, update }) => {
+				loading = false;
+
+				if (result.type === 'failure' && result.data) {
+					// @ts-ignore
+					errors = result.data;
+				} else {
+					errors = {
+						fullName: '',
+						email: '',
+						reason: '',
+						message: ''
+					};
+				}
+
+				await update({
+					reset: result.type !== 'failure' && result.type !== 'error'
+				});
+			};
+		}}
+		action="?/contact"
+		method="post"
+		id="contact-right"
+	>
 		<TextInput
 			wide
 			name="full-name"
 			label="Full name"
 			placeholder="John Smith"
 			bind:value={fullName}
+			error={errors.fullName}
 		/>
 		<TextInput
 			wide
@@ -42,6 +79,7 @@
 			label="Email"
 			placeholder="john@smith.com"
 			bind:value={email}
+			error={errors.email}
 		/>
 		<SelectMenu
 			label="Reason for contact"
@@ -68,6 +106,7 @@
 					value: 'fanmail'
 				}
 			]}
+			error={errors.reason}
 		/>
 		<TextInput
 			maxlength={500}
@@ -77,11 +116,21 @@
 			label="Message"
 			placeholder="Write your message here..."
 			bind:value={message}
+			error={errors.message}
 		/>
 
-		<Button disabled={!fullName || !email || !message} inline style="gradient" type="submit"
-			>Submit</Button
+		<Button
+			disabled={!fullName || !email || !message || loading}
+			inline
+			style="gradient"
+			type="submit"
 		>
+			{#if loading}
+				Submitting...
+			{:else}
+				Submit
+			{/if}
+		</Button>
 	</form>
 </section>
 
