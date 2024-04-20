@@ -26,7 +26,7 @@
 			flex: 0 0 28px;
 		}
 
-		@media (max-width: 1020px) {
+		@media (max-width: 800px) {
 			width: 100%;
 			br {
 				display: none;

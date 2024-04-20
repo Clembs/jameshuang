@@ -153,10 +153,6 @@
 		@media (max-width: 800px) {
 			#status ul {
 				flex-direction: column;
-
-				br {
-					display: none;
-				}
 			}
 
 			#intro h2 br {
