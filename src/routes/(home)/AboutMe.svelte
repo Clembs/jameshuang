@@ -100,7 +100,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.5rem;
-			min-width: 350px;
+			// min-width: 350px;
 		}
 
 		#intro {

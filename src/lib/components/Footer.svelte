@@ -147,7 +147,6 @@
 			#socials {
 				display: flex;
 				align-items: center;
-				gap: 1rem;
 				color: var(--color-foreground-lowest);
 
 				#links {
@@ -192,7 +191,7 @@
 						}
 					}
 
-					@media (max-width: 1350px) {
+					@media (max-width: 1110px) {
 						display: none;
 					}
 				}

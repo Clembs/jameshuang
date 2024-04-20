@@ -195,6 +195,7 @@
 					animation: none;
 					height: 500%;
 					top: 20%;
+					max-width: 100%;
 				}
 			}
 
