@@ -142,6 +142,7 @@
 		gap: var(--space-xxl);
 		padding: var(--space-xxl) var(--space-xl);
 		position: relative;
+		width: 90%;
 
 		#contact-left {
 			display: flex;

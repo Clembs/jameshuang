@@ -91,7 +91,7 @@
 		display: flex;
 		gap: 5rem;
 		max-width: 900px;
-		width: 80%;
+		width: 90%;
 		margin: 0 auto;
 		padding: 3rem 0;
 		opacity: 0;
