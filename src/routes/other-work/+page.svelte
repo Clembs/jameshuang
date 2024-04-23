@@ -13,7 +13,7 @@
 		<h1>Other Work</h1>
 
 		<p>
-			Here is a collection of some other pieces of work from me, including art, photography or older
+			A collection of some other pieces of work from me, including art, photography or older
 			design work.
 		</p>
 	</header>
