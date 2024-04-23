@@ -51,7 +51,7 @@
 			and motion design, along with some art and photography. <br />
 			<br />
 			I'm currently a high school student primarily occupied with academic commitments, though in my spare time you'll find
-			me reading a book or the news, working on a project or taking a walk around national parks and the
+			me reading, working on a project, or taking a walk around national parks and the
 			city.<br />
 			<br />
 		</p>
