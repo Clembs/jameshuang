@@ -47,8 +47,8 @@
 			startups, businesses, creators, while pursuing some personal projects as a hobby.<br />
 			<br />
 			I'm inspired and intrigued by how appealing design channels impactful experiences and stories.
-			You'll find that I try to reflect this notion throughout my work across mediums like print, UI, web,
-			and motion design, along other works like my art and photography. <br />
+			You'll find that I try to reflect this notion through my works of print, UI, web,
+			and motion design, along with some art and photography. <br />
 			<br />
 			I'm currently a high school student primarily occupied with academic commitments, though in my spare time you'll find
 			me reading a book or the news, working on a project or taking a walk around national parks and the
