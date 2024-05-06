@@ -22,7 +22,7 @@ export async function uploadFiles(basePath: string, ...files: File[]) {
 			const { thumbnail: thumb, highQuality: hq, height, width } = await getOptimizedImages(buffer);
 
 			for (const [key, value] of Object.entries({ thumb, hq })) {
-				returnFiles.set(`${name}-${key}.webp`, {
+				returnFiles.set(`${name}-${encodeURI(key)}.webp`, {
 					buffer: value,
 					height,
 					width,
@@ -50,7 +50,7 @@ export async function uploadFiles(basePath: string, ...files: File[]) {
 			throw error;
 		}
 
-		returnFiles.set(name, {
+		returnFiles.set(encodeURI(name), {
 			buffer,
 			type,
 			width,
