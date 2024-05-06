@@ -17,7 +17,9 @@ export const Video = Node.create({
 			controls: {
 				default: true,
 				autoplay: true,
-				loop: true
+				loop: true,
+				muted: true,
+				playsinline: true
 			}
 		};
 	},
