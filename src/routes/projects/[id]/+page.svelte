@@ -19,33 +19,38 @@
 					{data.year}
 				</span>
 				<h1>{data.title}</h1>
-				<p id="mediums">
-					{#each data.mediums as medium, i}
-						<span class="medium">
-							{medium}
-						</span>
-						{#if i !== data.mediums.length - 1}
-							•
-						{/if}
-					{/each}
-				</p>
 			</div>
 			<!-- <hr /> -->
 			<table id="details">
-				<tr class="detail">
-					<td class="label">Timeline</td>
-					<td class="value">
-						{data.timeline || 'N/A'}
-					</td>
-				</tr>
-				<tr class="detail">
-					<td class="label">Tools</td>
-					<td class="value">{data.tools.join(', ')}</td>
-				</tr>
-				<tr class="detail">
-					<td class="label">Roles</td>
-					<td class="value">{data.roles}</td>
-				</tr>
+				<tbody>
+					<tr class="detail">
+						<td class="label">Medium</td>
+						<td class="value">
+							{#each data.mediums as medium, i}
+								<span class="medium">
+									{medium}
+								</span>
+								{#if i !== data.mediums.length - 1}
+									•
+								{/if}
+							{/each}
+						</td>
+					</tr>
+					<tr class="detail">
+						<td class="label">Timeline</td>
+						<td class="value">
+							{data.timeline || 'N/A'}
+						</td>
+					</tr>
+					<tr class="detail">
+						<td class="label">Tools</td>
+						<td class="value">{data.tools.join(', ')}</td>
+					</tr>
+					<tr class="detail">
+						<td class="label">Roles</td>
+						<td class="value">{data.roles}</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 
@@ -127,36 +132,11 @@
 				}
 
 				h1 {
-					font-size: var(--font-size-xl);
+					font-size: var(--font-size-xxl);
 					font-family: var(--fonts-paragraphs);
 					font-weight: 500;
 				}
-
-				#mediums {
-					font-size: var(--font-size-base);
-					text-transform: uppercase;
-					font-weight: 500;
-					color: var(--color-foreground-lowest);
-					display: flex;
-					gap: 0.5rem;
-
-					.medium {
-						color: var(--color-foreground-low);
-					}
-				}
 			}
-
-			// hr {
-			// 	width: 100%;
-			// 	height: 1px;
-			// 	border: none;
-			// 	background: linear-gradient(
-			// 		to right,
-			// 		var(--color-foreground-medium),
-			// 		var(--color-foreground-lowest)
-			// 	);
-			// 	margin: 1rem 0;
-			// }
 
 			#details {
 				margin: 0;
@@ -164,15 +144,13 @@
 				font-size: var(--font-size-sm);
 
 				td {
-					padding: 0.25rem 0;
-
 					&.label {
-						color: var(--color-foreground-low);
+						color: var(--color-foreground-lowest);
 						padding-right: 1rem;
 					}
 
 					&.value {
-						color: var(--color-foreground-medium);
+						color: var(--color-foreground-low);
 					}
 				}
 			}
