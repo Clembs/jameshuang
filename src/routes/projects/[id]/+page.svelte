@@ -1,10 +1,9 @@
 <script lang="ts">
 	import Meta from '$lib/components/Meta.svelte';
-	import type { Project } from '$lib/db/types';
 	import BackArrow from '$lib/svg/BackArrow.svelte';
 	import '../../../styles/blog.scss';
 
-	export let data: Project;
+	export let data;
 </script>
 
 <Meta title="{data.title} - James Huang" bannerImage={data.bannerUrl} />
@@ -54,17 +53,15 @@
 			</table>
 		</div>
 
-		{#if data.type === 'PROJECT'}
-			<img
-				loading="lazy"
-				src={data.bannerUrl}
-				alt={data.title}
-				id="banner"
-				style="background-image: url({data.bannerThumbUrl});"
-				height={data.bannerHeight}
-				width={data.bannerWidth}
-			/>
-		{/if}
+		<img
+			loading="lazy"
+			src={data.bannerUrl}
+			alt={data.title}
+			id="banner"
+			style="background-image: url({data.bannerThumbUrl});"
+			height={data.bannerHeight}
+			width={data.bannerWidth}
+		/>
 	</header>
 
 	<main class="blog-article-content">
