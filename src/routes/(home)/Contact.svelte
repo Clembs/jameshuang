@@ -3,6 +3,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import SelectMenu from '$lib/components/SelectMenu.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import { onMount } from 'svelte';
 
 	let fullName: string;
 	let email: string;
@@ -16,9 +17,32 @@
 		reason: '',
 		message: ''
 	};
+
+	let sectionEl: HTMLElement;
+	let sectionAnimationPercent = 0;
+
+	// the more you scroll down, the more the opacity increases and the more the section moves up
+	function animateSection() {
+		const sectionRect = sectionEl.getBoundingClientRect();
+
+		sectionAnimationPercent = Math.max(
+			(window.innerHeight - (sectionRect.top - sectionRect.height / 2)) / window.innerHeight,
+			0
+		);
+	}
+
+	onMount(animateSection);
 </script>
 
-<section id="contact">
+<svelte:window on:scroll={animateSection} />
+
+<section
+	bind:this={sectionEl}
+	id="contact"
+	style="opacity: {sectionAnimationPercent};
+	transform: translateY(calc(50px * {sectionAnimationPercent}));
+"
+>
 	<div id="contact-left">
 		<img
 			id="contact-background"

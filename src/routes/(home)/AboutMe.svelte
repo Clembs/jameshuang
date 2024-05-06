@@ -17,21 +17,26 @@
 		'After Effects'
 	];
 
+	let sectionEl: HTMLElement;
 	let sectionAnimationPercent = 0;
 
+	// the more you scroll down, the more the opacity increases and the more the section moves up
 	function animateSection() {
-		sectionAnimationPercent = Math.min(window.scrollY / 400, 1);
+		const sectionRect = sectionEl.getBoundingClientRect();
+
+		sectionAnimationPercent = Math.max(
+			(window.innerHeight - (sectionRect.top - sectionRect.height / 2)) / window.innerHeight,
+			0
+		);
 	}
 
-	onMount(() => {
-		// the more you scroll down, the more the opacity increases and the more the section moves up
-		animateSection();
-	});
+	onMount(animateSection);
 </script>
 
 <svelte:window on:scroll={animateSection} />
 
 <section
+	bind:this={sectionEl}
 	id="about-me"
 	style="opacity: {sectionAnimationPercent};
 	transform: translateY(calc(50px * {sectionAnimationPercent}))
