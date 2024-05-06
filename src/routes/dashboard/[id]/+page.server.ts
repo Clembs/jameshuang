@@ -96,7 +96,7 @@ export const actions = {
 			banner.width = bannerHq.width || 0;
 		}
 
-		const type = url.searchParams.get('type') as Project['type'];
+		const type = url.searchParams.get('type')?.toUpperCase() as Project['type'];
 		let workUrl;
 
 		if (type === 'OTHER') {
