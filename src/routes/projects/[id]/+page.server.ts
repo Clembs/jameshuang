@@ -8,9 +8,16 @@ export async function load({ params }) {
 			PRIVATE_MODE === '1' ? eq(id, params.id) : and(eq(id, params.id), eq(privateMode, false))
 	});
 
+	const mediaRegex = /(https?:\/\/[^\s/$.?#].[^\s]*)\.(?:webp|jpg|jpeg|png|gif|mp4)/g;
+
+	const media = Array.from(project?.article.match(mediaRegex) || []);
+
 	if (!project) {
 		throw error(404);
 	}
 
-	return project;
+	return {
+		...project,
+		media
+	};
 }

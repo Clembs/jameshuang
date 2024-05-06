@@ -1,10 +1,36 @@
 <script lang="ts">
+	import Gallery from '$lib/components/Gallery.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import BackArrow from '$lib/svg/BackArrow.svelte';
 	import '../../../styles/blog.scss';
+	import { onMount } from 'svelte';
+
+	let currentImage = 0;
+	let galleryOpen = false;
 
 	export let data;
+
+	onMount(() => {
+		const main = document.querySelector('main.blog-article-content');
+		const gallery = document.querySelector('.gallery-images');
+		if (!main || !gallery) return;
+
+		const images = Array.from(main.querySelectorAll('img')).filter((img) =>
+			data.media.includes(img.src)
+		);
+
+		images.forEach((image, i) => {
+			image.addEventListener('click', () => {
+				galleryOpen = true;
+				currentImage = i;
+			});
+		});
+	});
 </script>
+
+<Gallery images={data.media} bind:open={galleryOpen} {currentImage}>
+	<img slot="image" let:image let:index src={image} alt="Image {index}" />
+</Gallery>
 
 <Meta title="{data.title} - James Huang" bannerImage={data.bannerUrl} />
 
@@ -157,6 +183,10 @@
 			// padding: 2rem 0;
 			max-width: 700px;
 			margin: 2rem auto;
+
+			:global(img) {
+				cursor: pointer;
+			}
 		}
 
 		#back-button {
