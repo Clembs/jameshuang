@@ -20,7 +20,7 @@
 			img: '/work.webp'
 		},
 		{
-			href: '/#about-me',
+			href: '/#contact',
 			label: 'contact',
 			img: '/contact.webp'
 		}
