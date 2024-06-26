@@ -141,7 +141,7 @@
 					</svg>
 				</a>
 				<a href="#contact">
-					Contact
+					<span>Contact</span>
 					<svg
 						width="18"
 						height="19"
