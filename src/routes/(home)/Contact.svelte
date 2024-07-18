@@ -48,6 +48,7 @@
 			id="contact-background"
 			loading="eager"
 			aria-hidden
+			inert
 			alt=""
 			src="/contact-background.webp"
 		/>
