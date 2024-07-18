@@ -213,6 +213,7 @@
 		@media (max-width: 1050px) {
 			flex-direction: column;
 			gap: var(--space-xl);
+			padding: var(--space-xl) var(--space-base);
 
 			#contact-left {
 				max-width: none;
@@ -222,7 +223,8 @@
 					animation: none;
 					height: 500%;
 					top: 20%;
-					max-width: 100%;
+					width: 100%;
+					left: 130px;
 				}
 			}
 
