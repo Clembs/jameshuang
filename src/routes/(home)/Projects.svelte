@@ -28,6 +28,7 @@
 		margin: 0 auto;
 		gap: 0.5em;
 		padding: 0 var(--space-lg);
+		margin-bottom: var(--space-xxl);
 
 		color: var(--color-foreground-low);
 		text-decoration: none;
