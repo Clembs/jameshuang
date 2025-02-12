@@ -1,48 +1,8 @@
 <script lang="ts">
 	import FooterDecoration from '$lib/svg/decorations/FooterDecoration.svelte';
 	import UpArrow from '$lib/svg/UpArrow.svelte';
-	import {
-		Coffee,
-		FileText,
-		LinkedinLogo,
-		PaperPlaneTilt,
-		XLogo,
-		YoutubeLogo
-	} from 'phosphor-svelte';
 	import { readable } from 'svelte/store';
-
-	const links = [
-		{
-			label: 'LinkedIn',
-			href: 'https://www.linkedin.com/in/jameshuang01',
-			icon: LinkedinLogo
-		},
-		{
-			label: 'Resume',
-			href: 'https://www.playbook.com/s/jameshuang/UyAaudqCXzAUBanvjuMnfSP7?assetToken=cT1rGhb29GrvgCwxhAoeiDaA',
-			icon: FileText
-		},
-		{
-			label: 'YouTube',
-			href: 'https://www.youtube.com/@jamesdesigns',
-			icon: YoutubeLogo
-		},
-		{
-			label: 'X',
-			href: 'https://x.com/jamesdesigns_',
-			icon: XLogo
-		},
-		{
-			label: 'Email',
-			href: 'mailto:hello@jameshuang.design',
-			icon: PaperPlaneTilt
-		},
-		{
-			label: 'Ko-Fi',
-			href: 'https://ko-fi.com/jamesdesigns',
-			icon: Coffee
-		}
-	];
+	import { links } from '$lib/helpers/links';
 
 	const clock = readable(new Date(), (set) => {
 		const interval = setInterval(() => {
@@ -153,6 +113,7 @@
 		overflow: hidden;
 		width: 95%;
 		margin: 0 auto;
+		align-items: flex-end;
 
 		#about {
 			display: flex;
@@ -214,13 +175,10 @@
 			}
 
 			#clock {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-
 				time {
 					color: var(--color-foreground-full);
 					font-size: var(--font-size-md);
+					margin-right: var(--space-sm);
 				}
 
 				#timezone-description {
