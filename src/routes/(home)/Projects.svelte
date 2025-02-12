@@ -1,18 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import ProjectGrid from '$lib/components/ProjectGrid.svelte';
+	import { ArrowRight } from 'phosphor-svelte';
 	import ScrollToButton from './ScrollToButton.svelte';
-	import RightArrow from '$lib/svg/RightArrow.svelte';
 </script>
 
 <ProjectGrid projects={$page.data.projects} />
 
 <a id="other-work" href="/other-work">
 	<div class="text">
-		<b>Other Work</b> <span> Art, Photography, Miscellaneous, Archive </span>
+		<b>Miscellaneous work</b>
+		<span>Art, Photography, Archive </span>
 	</div>
 	<div id="right-arrow">
-		<RightArrow />
+		<ArrowRight />
 	</div>
 </a>
 
@@ -26,9 +27,12 @@
 		align-items: center;
 		width: fit-content;
 		margin: 0 auto;
-		gap: 0.5em;
+		gap: 0.75rem;
 		padding: 0 var(--space-lg);
 		margin-bottom: var(--space-xxl);
+		background-color: hsla(0, 0%, 100%, 0.06);
+		padding: 1rem 1.25rem;
+		border-radius: 1rem;
 
 		color: var(--color-foreground-low);
 		text-decoration: none;
@@ -37,8 +41,9 @@
 			color: var(--color-foreground-full);
 		}
 
-		span::before {
-			content: '/ ';
+		.text {
+			display: flex;
+			flex-direction: column;
 		}
 
 		#right-arrow {
