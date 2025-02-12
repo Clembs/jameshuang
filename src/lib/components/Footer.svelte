@@ -11,6 +11,17 @@
 
 		return () => clearInterval(interval);
 	});
+
+	const formatter = new Intl.DateTimeFormat('en-AU', {
+		timeZone: 'Australia/Sydney',
+		timeZoneName: 'long'
+	});
+
+	$: timezone = formatter
+		.formatToParts($clock)
+		.find((part) => part.type === 'timeZoneName')
+		?.value.split(' ')
+		.reduce((acc, cur) => acc + cur[0], '');
 </script>
 
 <footer>
@@ -77,7 +88,9 @@
 				})}
 			</time>
 
-			<span id="timezone-description"> (AEDT) in my timezone </span>
+			<span id="timezone-description">
+				({timezone}) in my timezone
+			</span>
 		</div>
 	</section>
 
