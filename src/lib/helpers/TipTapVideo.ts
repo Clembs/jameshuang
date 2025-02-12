@@ -14,6 +14,8 @@ export const Video = Node.create({
 			src: {
 				default: null
 			},
+			muted: true,
+			autoplay: true,
 			controls: {
 				default: true,
 				autoplay: true,
