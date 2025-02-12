@@ -69,7 +69,7 @@
 
 		requestAnimationFrame(() => {
 			// reanimate the list
-			const a = animate(
+			animate(
 				'.project',
 				{
 					opacity: 1,
@@ -80,8 +80,6 @@
 					duration: 0.25
 				}
 			);
-
-			console.log(a);
 		});
 	}
 
