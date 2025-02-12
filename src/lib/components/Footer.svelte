@@ -1,19 +1,64 @@
 <script lang="ts">
-	import Discord from '$lib/svg/socials/discord.svelte';
-	import KoFi from '$lib/svg/socials/ko-fi.svelte';
-	import Youtube from '$lib/svg/socials/youtube.svelte';
-	import X from '$lib/svg/socials/x.svelte';
 	import FooterDecoration from '$lib/svg/decorations/FooterDecoration.svelte';
 	import UpArrow from '$lib/svg/UpArrow.svelte';
+	import {
+		Coffee,
+		FileText,
+		LinkedinLogo,
+		PaperPlaneTilt,
+		XLogo,
+		YoutubeLogo
+	} from 'phosphor-svelte';
+	import { readable } from 'svelte/store';
+
+	const links = [
+		{
+			label: 'LinkedIn',
+			href: 'https://www.linkedin.com/in/jameshuang01',
+			icon: LinkedinLogo
+		},
+		{
+			label: 'Resume',
+			href: 'https://www.playbook.com/s/jameshuang/UyAaudqCXzAUBanvjuMnfSP7?assetToken=cT1rGhb29GrvgCwxhAoeiDaA',
+			icon: FileText
+		},
+		{
+			label: 'YouTube',
+			href: 'https://www.youtube.com/@jamesdesigns',
+			icon: YoutubeLogo
+		},
+		{
+			label: 'X',
+			href: 'https://x.com/jamesdesigns_',
+			icon: XLogo
+		},
+		{
+			label: 'Email',
+			href: 'mailto:hello@jameshuang.design',
+			icon: PaperPlaneTilt
+		},
+		{
+			label: 'Ko-Fi',
+			href: 'https://ko-fi.com/jamesdesigns',
+			icon: Coffee
+		}
+	];
+
+	const clock = readable(new Date(), (set) => {
+		const interval = setInterval(() => {
+			set(new Date());
+		}, 1000);
+
+		return () => clearInterval(interval);
+	});
 </script>
 
 <footer>
 	<section id="about">
 		<div id="designed-by">
-			Designed by
 			<svg
-				width="53"
-				height="31"
+				width="70.6732406616211"
+				height="40.07689666748047"
 				viewBox="0 0 53 31"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
@@ -42,59 +87,37 @@
 			</svg>
 		</div>
 
-		<div id="socials">
-			<div id="links">
-				<a href="https://ko-fi.com/jamesdesigns" target="_blank" rel="noopener noreferrer">
-					<KoFi />
-				</a>
-				<a href="https://discord.gg" target="_blank" rel="noopener noreferrer">
-					<Discord />
-				</a>
-				<a href="https://www.youtube.com/@jamesdesigns" target="_blank" rel="noopener noreferrer">
-					<Youtube />
-				</a>
-				<a href="https://twitter.com/jamesdesigns_" target="_blank" rel="noopener noreferrer">
-					<X />
-				</a>
+		<div id="links">
+			<div id="icons">
+				{#each links as link}
+					<a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
+						<svelte:component this={link.icon} size={24} />
+					</a>
+				{/each}
 			</div>
 			<div id="labels">
-				•
-				<a
-					href="https://ko-fi.com/jamesdesigns"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="label"
-				>
-					Support me
-				</a>
-				/
-				<a
-					href="https://dsc.gg/jamesdesigns"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="label"
-				>
-					Discord
-				</a>
-				/
-				<a
-					href="https://www.youtube.com/@jamesdesigns"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="label"
-				>
-					YouTube
-				</a>
-				/
-				<a
-					href="https://twitter.com/jamesdesigns_"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="label"
-				>
-					X
-				</a>
+				{#each links as link, index}
+					<a href={link.href} target="_blank" rel="noopener noreferrer" class="label">
+						{link.label}
+					</a>
+					{#if index !== links.length - 1}
+						/
+					{/if}
+				{/each}
 			</div>
+		</div>
+
+		<div id="clock">
+			<time datetime={$clock.toISOString()}>
+				{$clock.toLocaleTimeString('en-AU', {
+					hour: 'numeric',
+					minute: '2-digit',
+					hour12: true,
+					timeZone: 'Australia/Sydney'
+				})}
+			</time>
+
+			<span id="timezone-description"> (AEDT) in my timezone </span>
 		</div>
 	</section>
 
@@ -146,15 +169,14 @@
 				color: var(--color-foreground-full);
 			}
 
-			#socials {
+			#links {
 				display: flex;
 				align-items: center;
 				color: var(--color-foreground-lowest);
 
-				#links {
+				#icons {
 					display: flex;
-					// gap: 0.25rem;
-					margin-left: -0.5rem;
+					margin-left: -1rem;
 
 					a {
 						display: grid;
@@ -162,23 +184,15 @@
 						width: 3rem;
 						height: 3rem;
 						padding: 0.75rem;
-						color: var(--color-foreground-low);
+						color: var(--color-foreground-medium);
 						transition: color 100ms ease-in-out;
-
-						&:hover {
-							color: var(--color-foreground-medium);
-						}
-
-						:global(svg) {
-							height: 20px;
-							width: 20px;
-						}
 					}
 				}
 
 				#labels {
+					margin-left: 1rem;
 					display: flex;
-					gap: 0.5rem;
+					gap: 0.25rem;
 					text-transform: uppercase;
 					font-size: var(--font-size-xs);
 					letter-spacing: 0.075rem;
@@ -196,6 +210,22 @@
 					@media (max-width: 1110px) {
 						display: none;
 					}
+				}
+			}
+
+			#clock {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				time {
+					color: var(--color-foreground-full);
+					font-size: var(--font-size-md);
+				}
+
+				#timezone-description {
+					color: var(--color-foreground-low);
+					font-size: var(--font-size-sm);
 				}
 			}
 		}
