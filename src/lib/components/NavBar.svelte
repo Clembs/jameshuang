@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { links } from '$lib/helpers/links';
 	import JamesIcon from '$lib/svg/JamesIcon.svelte';
+	import { FileText, LinkedinLogo, X } from 'phosphor-svelte';
 	import { onMount } from 'svelte';
 
 	let navBarShown = false;
@@ -56,31 +58,69 @@
 <svelte:window on:scroll={handleScroll} />
 
 <nav class:hidden={!navBarShown}>
-	<a id="navbar-logo" href="/" on:click={() => (menuShown = false)}>
-		<JamesIcon />
-	</a>
+	<div class="left">
+		<a id="navbar-logo" href="/" on:click={() => (menuShown = false)}>
+			<JamesIcon />
+		</a>
+	</div>
+
+	<ul class="middle" class:hidden={!itemsShown}>
+		{#each items as item, i}
+			<li style:--index={i + 1}>
+				<a href={item.href}>
+					{item.label}
+				</a>
+			</li>
+		{/each}
+	</ul>
 
 	<div class="right">
-		<ul class:hidden={!itemsShown}>
-			{#each items as item, i}
-				<li style:--index={i + 1}>
-					<a href={item.href}>
-						{item.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
+		<a
+			href={links.find((l) => l.label === 'LinkedIn')?.href}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="LinkedIn"
+		>
+			<LinkedinLogo size={28} />
+		</a>
+		<a
+			href={links.find((l) => l.label === 'Resume')?.href}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Resume"
+		>
+			<FileText size={28} />
+		</a>
 
 		<button on:click={toggleMenu}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-			>
-				<circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="2" />
-			</svg>
+			{#if menuShown}
+				<X size={28} />
+			{:else}
+				<svg
+					width="28"
+					height="28"
+					viewBox="0 0 28 28"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M4.66663 8.16666C4.66663 6.23366 6.23364 4.66666 8.16662 4.66666C10.0996 4.66666 11.6666 6.23366 11.6666 8.16666C11.6666 10.0997 10.0996 11.6667 8.16662 11.6667C6.23364 11.6667 4.66663 10.0997 4.66663 8.16666Z"
+						fill="white"
+					/>
+					<path
+						d="M16.3334 8.16666C16.3334 6.23366 17.9003 4.66666 19.8333 4.66666C21.7663 4.66666 23.3334 6.23366 23.3334 8.16666C23.3334 10.0997 21.7663 11.6667 19.8333 11.6667C17.9003 11.6667 16.3334 10.0997 16.3334 8.16666Z"
+						fill="white"
+					/>
+					<path
+						d="M4.66663 19.8334C4.66663 17.9004 6.23364 16.3333 8.16662 16.3333C10.0996 16.3333 11.6666 17.9004 11.6666 19.8334C11.6666 21.7664 10.0996 23.3333 8.16662 23.3333C6.23364 23.3333 4.66663 21.7664 4.66663 19.8334Z"
+						fill="white"
+					/>
+					<path
+						d="M16.3334 19.8334C16.3334 17.9004 17.9003 16.3333 19.8333 16.3333C21.7663 16.3333 23.3334 17.9004 23.3334 19.8334C23.3334 21.7664 21.7663 23.3333 19.8333 23.3333C17.9003 23.3333 16.3334 21.7664 16.3334 19.8334Z"
+						fill="white"
+					/>
+				</svg>
+			{/if}
 		</button>
 	</div>
 </nav>
@@ -120,13 +160,19 @@
 		padding: var(--space-lg) var(--space-xl);
 		transition: transform 200ms ease;
 
-		#navbar-logo {
-			margin: -1rem;
-			padding: 1rem;
+		.left {
+			width: 100%;
 
-			:global(svg) {
-				width: 32px;
-				height: 32px;
+			#navbar-logo {
+				display: grid;
+				margin: -1rem;
+				padding: 1rem;
+				width: fit-content;
+
+				:global(svg) {
+					width: 32px;
+					height: 32px;
+				}
 			}
 		}
 
@@ -134,58 +180,62 @@
 			transform: translateY(-100%);
 		}
 
-		.right {
+		.middle {
+			width: 100%;
 			display: flex;
-			gap: 13rem;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			gap: var(--space-lg);
 			align-items: center;
-			color: var(--color-foreground-full);
+			justify-content: center;
 
-			ul {
-				display: flex;
-				margin: 0;
-				padding: 0;
-				list-style: none;
-				gap: var(--space-lg);
-				align-items: center;
-
-				&.hidden {
-					li {
-						transform: translateY(-15px);
-						opacity: 0;
-						filter: blur(2px);
-					}
-				}
-
+			&.hidden {
 				li {
-					--transition-duration: 250ms;
-					--transition-delay: calc(50ms * var(--index));
+					transform: translateY(-15px);
+					opacity: 0;
+					filter: blur(2px);
+				}
+			}
 
-					transition: transform 200ms ease, opacity 200ms ease, filter 200ms ease;
-					transition-delay: var(--transition-delay);
+			li {
+				--transition-duration: 250ms;
+				--transition-delay: calc(50ms * var(--index));
 
-					a {
-						color: var(--color-foreground-medium);
-						font-family: var(--fonts-headings);
-						text-decoration: none;
-						font-size: var(--font-size-md);
+				transition: transform 200ms ease, opacity 200ms ease, filter 200ms ease;
+				transition-delay: var(--transition-delay);
 
-						&:hover {
-							color: var(--color-foreground-full);
-						}
+				a {
+					color: var(--color-foreground-medium);
+					font-family: var(--fonts-headings);
+					text-decoration: none;
+					font-size: var(--font-size-md);
+
+					&:hover {
+						color: var(--color-foreground-full);
 					}
 				}
+			}
 
-				@media (max-width: 800px) {
-					display: none;
-				}
+			@media (max-width: 800px) {
+				display: none;
 			}
 		}
 
-		button {
-			display: grid;
-			place-items: center;
-			margin: -1rem;
-			padding: 1rem;
+		.right {
+			display: flex;
+			gap: 2rem;
+			align-items: center;
+			color: var(--color-foreground-full);
+			width: 100%;
+			justify-content: flex-end;
+
+			a,
+			button {
+				display: grid;
+				margin: -1rem;
+				padding: 1rem;
+			}
 		}
 	}
 
