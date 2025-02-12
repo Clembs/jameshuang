@@ -87,14 +87,15 @@
 		justify-content: center;
 		align-items: center;
 		gap: 6rem;
-		padding: var(--space-xl) var(--space-lg);
+		padding: var(--space-xxl) var(--space-lg);
 		position: relative;
 		width: 95%;
 		margin: 0 auto;
+		overflow: hidden;
 
 		#contact-background {
 			position: absolute;
-			width: 75%;
+			width: 50%;
 			max-width: none;
 			top: 50%;
 			left: 50%;
