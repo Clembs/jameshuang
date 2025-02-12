@@ -9,7 +9,7 @@
 
 <a id="other-work" href="/other-work">
 	<div class="text">
-		<b>Miscellaneous work</b>
+		<b>Miscellaneous Work</b>
 		<span>Art, Photography, Archive </span>
 	</div>
 	<div id="right-arrow">
@@ -27,12 +27,12 @@
 		align-items: center;
 		width: fit-content;
 		margin: 0 auto;
-		gap: 0.75rem;
+		gap: 1rem;
 		padding: 0 var(--space-lg);
 		margin-bottom: var(--space-xxl);
 		background-color: hsla(0, 0%, 100%, 0.06);
 		padding: 1rem 1.25rem;
-		border-radius: 1rem;
+		border-radius: 1.25rem;
 
 		color: var(--color-foreground-low);
 		text-decoration: none;
