@@ -47,9 +47,11 @@
 			Limited availability
 		</div>
 
-		<h2>Ready to <br /> collaborate?</h2>
+		<div id="contact-header">
+			<h2>Ready to <br /> collaborate?</h2>
 
-		<p>or just say hello...</p>
+			<p>or just say hello...</p>
+		</div>
 	</div>
 
 	<div id="contact-right">
@@ -111,6 +113,7 @@
 			padding: 0 1rem;
 			height: fit-content;
 			padding: 3rem 0;
+			gap: var(--space-md);
 
 			#availability-pill {
 				background-color: hsla(0, 0%, 100%, 0.1);
@@ -123,7 +126,6 @@
 				align-items: center;
 				gap: var(--space-sm);
 				width: fit-content;
-				margin-bottom: var(--space-md);
 			}
 
 			h2 {
@@ -157,12 +159,13 @@
 
 			#contact-links {
 				display: grid;
-				grid-template-columns: repeat(2, 1fr);
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 				gap: var(--space-lg);
 				column-gap: var(--space-xxl);
 				list-style: none;
 				margin: 0;
 				padding: 0;
+				width: 100%;
 
 				li {
 					display: contents;
@@ -174,6 +177,7 @@
 					text-decoration: none;
 					justify-content: space-between;
 					width: 100%;
+					gap: var(--space-lg);
 					color: var(--color-foreground-low);
 
 					.label {
@@ -205,14 +209,17 @@
 			flex-direction: column;
 			gap: var(--space-xl);
 			padding: var(--space-xl) var(--space-base);
-			// align-items: flex-start;
+			align-items: center;
 
 			#contact-left {
 				max-width: none;
 				padding: 0;
+				text-align: center;
+				align-items: center;
+				flex-direction: column-reverse;
 
 				p {
-					text-align: left;
+					text-align: center;
 				}
 
 				br {
@@ -225,6 +232,16 @@
 					top: 20%;
 					width: 100%;
 					left: 130px;
+				}
+			}
+
+			#contact-right {
+				min-width: 0;
+				text-align: center;
+				align-items: center;
+
+				#email {
+					font-size: var(--font-size-lg);
 				}
 			}
 		}
