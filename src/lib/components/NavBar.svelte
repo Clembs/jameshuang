@@ -75,22 +75,24 @@
 	</ul>
 
 	<div class="right">
-		<a
-			href={links.find((l) => l.label === 'LinkedIn')?.href}
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="LinkedIn"
-		>
-			<LinkedinLogo size={28} />
-		</a>
-		<a
-			href={links.find((l) => l.label === 'Resume')?.href}
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="Resume"
-		>
-			<FileText size={28} />
-		</a>
+		<ul class="links" class:hidden={!itemsShown}>
+			<a
+				href={links.find((l) => l.label === 'LinkedIn')?.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="LinkedIn"
+			>
+				<LinkedinLogo size={28} />
+			</a>
+			<a
+				href={links.find((l) => l.label === 'Resume')?.href}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="Resume"
+			>
+				<FileText size={28} />
+			</a>
+		</ul>
 
 		<button on:click={toggleMenu}>
 			{#if menuShown}
@@ -219,6 +221,26 @@
 
 			@media (max-width: 800px) {
 				display: none;
+			}
+		}
+
+		.links {
+			display: contents;
+
+			a {
+				--transition-duration: 250ms;
+				--transition-delay: calc(50ms * var(--index));
+
+				transition: transform 200ms ease, opacity 200ms ease, filter 200ms ease;
+				transition-delay: var(--transition-delay);
+			}
+
+			&.hidden {
+				a {
+					transform: translateY(-15px);
+					opacity: 0;
+					filter: blur(2px);
+				}
 			}
 		}
 
