@@ -14,14 +14,16 @@
 	onMount(() => {
 		scrollUpParallax();
 
-		while (!logoEl) {
-			logoEl = document.getElementById('logo') as HTMLVideoElement;
-		}
+		logoEl = document.getElementById('logo') as HTMLVideoElement;
 
 		if (logoEl) {
 			if (logoEl.paused) {
 				logoEl.play();
 			}
+
+			requestAnimationFrame(() => {
+				animateWebsiteFeatures();
+			});
 
 			logoEl.onloadedmetadata = () => {
 				animateWebsiteFeatures();
@@ -192,6 +194,7 @@
 		display: grid;
 		place-items: center;
 		position: relative;
+		min-height: 90vh;
 
 		#header-contents {
 			padding-top: 12rem;
