@@ -159,6 +159,14 @@
 					margin-right: var(--space-lg);
 				}
 			}
+
+			@media (max-width: 1200px) {
+				justify-content: flex-start;
+
+				button {
+					font-size: var(--font-size-lg);
+				}
+			}
 		}
 
 		ul {
