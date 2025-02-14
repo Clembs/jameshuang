@@ -57,7 +57,7 @@
 	<div id="contact-right">
 		<div id="email-eyebrow">for all general inquiries,</div>
 
-		<div id="email">hello@jameshuang.design</div>
+		<a href="mailto:hello@jameshuang.design" id="email">hello@jameshuang.design</a>
 
 		<ul id="contact-links">
 			{#each links as link}
@@ -91,7 +91,6 @@
 		position: relative;
 		width: 95%;
 		margin: 0 auto;
-		overflow: hidden;
 
 		#contact-background {
 			position: absolute;
@@ -149,6 +148,7 @@
 			flex-direction: column;
 
 			#email {
+				text-decoration: none;
 				color: var(--color-foreground-full);
 				font-size: var(--font-size-xl);
 				padding-bottom: 0.125rem;
