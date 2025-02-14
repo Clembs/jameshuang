@@ -94,6 +94,12 @@
 
 	<div id="header-contents">
 		<div id="top-part" style="transform: translateY({0 - 150 * sectionAnimationPercent}px)">
+			<h1>
+				<span class="phrase"> James Huang, </span> <br />
+				<span class="phrase"> multidisciplinary </span> <br />
+				<span class="phrase"> <span class="highlighted">designer</span>. </span>
+			</h1>
+
 			<video
 				id="logo"
 				src="https://f004.backblazeb2.com/file/jameshuangwebsite/Comp+1.mp4"
@@ -101,13 +107,6 @@
 				muted
 				playsinline
 			/>
-
-			<h1>
-				<span class="phrase"> Product-focused </span>
-				<span class="phrase highlighted"> designer </span> <br />
-				<span class="phrase"> crafting experiences </span>
-				<span class="phrase"> and identities </span>
-			</h1>
 
 			<ul id="links">
 				<a href="#about-me">
