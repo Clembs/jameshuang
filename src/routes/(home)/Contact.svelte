@@ -44,7 +44,7 @@
 				<rect width="8" height="8" rx="4" fill="#F6FF92" />
 			</svg>
 
-			Limited availability
+			<span class="label">Limited Availability</span>
 		</div>
 
 		<div id="contact-header">
@@ -85,8 +85,9 @@
 	#contact {
 		display: flex;
 		justify-content: center;
+		// justify-content: space-around;
 		align-items: center;
-		gap: 6rem;
+		gap: 9rem;
 		padding: var(--space-xxl) var(--space-lg);
 		position: relative;
 		width: 95%;
@@ -120,17 +121,25 @@
 				color: var(--color-foreground-full);
 				border: 1px solid var(--color-foreground-lowest);
 				backdrop-filter: blur(5px);
-				padding: var(--space-sm) var(--space-md);
+				padding: calc(var(--space-sm) * 0.75) calc(var(--space-md) * 1);
+				padding-right: calc(var(--space-md) * 1.125);
 				border-radius: 999px;
 				display: flex;
 				align-items: center;
-				gap: var(--space-sm);
+				gap: var(--space-md);
 				width: fit-content;
+				font-weight: 400;
+				font-size: var(--font-size-sm);
+
+				.label {
+					transform: translateY(1px);
+				}
 			}
 
 			h2 {
 				font-family: var(--fonts-headings);
 				font-size: var(--font-size-xxl);
+				line-height: 1.25;
 			}
 
 			p {
@@ -147,6 +156,10 @@
 			display: flex;
 			flex-direction: column;
 
+			#email-eyebrow {
+				color: var(--color-foreground-low);
+			}
+
 			#email {
 				text-decoration: none;
 				color: var(--color-foreground-full);
@@ -154,8 +167,9 @@
 				padding-bottom: 0.125rem;
 				border-bottom: 2px solid var(--color-foreground-full);
 				width: fit-content;
-				margin-top: var(--space-md);
+				margin-top: var(--space-sm);
 				margin-bottom: var(--space-lg);
+				font-weight: 400;
 			}
 
 			#contact-links {
@@ -180,6 +194,7 @@
 					width: 100%;
 					gap: var(--space-lg);
 					color: var(--color-foreground-low);
+					font-weight: 400;
 
 					.label {
 						display: flex;
@@ -208,7 +223,7 @@
 
 		@media (max-width: 1050px) {
 			flex-direction: column;
-			gap: var(--space-xl);
+			gap: var(--space-xxl);
 			padding: var(--space-xl) var(--space-base);
 			align-items: center;
 
@@ -221,10 +236,6 @@
 
 				p {
 					text-align: center;
-				}
-
-				br {
-					display: none;
 				}
 
 				#contact-background {
