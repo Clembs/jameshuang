@@ -244,7 +244,11 @@
 
 		@media (max-width: 800px) {
 			flex-direction: column;
-			padding: 5rem var(--space-lg);
+			padding: 0 var(--space-lg);
+			margin-top: 5rem;
+			padding-top: 2rem;
+			padding-bottom: 5rem;
+			align-items: flex-start;
 
 			#right-side {
 				align-items: flex-start;
