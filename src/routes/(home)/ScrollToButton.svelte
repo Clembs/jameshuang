@@ -11,7 +11,7 @@
 
 	function hideOnScroll() {
 		const topDistance = el.getBoundingClientRect().top;
-		opacity = Math.max(Math.min((topDistance - 100) / window.innerHeight, 1), 0);
+		opacity = Math.max(Math.min(topDistance / window.innerHeight, 1), 0);
 	}
 </script>
 
@@ -39,6 +39,7 @@
 		text-decoration: none;
 		width: fit-content;
 		margin: var(--space-xl) auto;
+		padding: var(--space-xxl) 0;
 
 		#arrow {
 			transition: transform 200ms ease;
