@@ -61,6 +61,8 @@
 				!!project.mediums.find((m) => m.toLowerCase().includes('branding'))
 		}
 	};
+
+	export let showFilters: boolean = true;
 	export let projects: Project[];
 	let selectedFilter: string = 'all';
 
@@ -87,19 +89,19 @@
 </script>
 
 <section id="projects">
-	<!-- <div id="project-filters-wrapper"> -->
-	<div role="tablist" id="project-filters">
-		{#each Object.entries(filters) as [filterKey, filter]}
-			<button
-				role="tab"
-				on:click={() => selectFilter(filterKey)}
-				aria-selected={selectedFilter === filterKey}
-			>
-				{filter.label}
-			</button>
-		{/each}
-	</div>
-	<!-- </div> -->
+	{#if showFilters}
+		<div role="tablist" id="project-filters">
+			{#each Object.entries(filters) as [filterKey, filter]}
+				<button
+					role="tab"
+					on:click={() => selectFilter(filterKey)}
+					aria-selected={selectedFilter === filterKey}
+				>
+					{filter.label}
+				</button>
+			{/each}
+		</div>
+	{/if}
 
 	<ul id="project-grid">
 		{#each filteredProjects as project}
@@ -124,7 +126,8 @@
 			display: flex;
 			gap: 1rem;
 			align-items: center;
-			align-self: flex-start;
+			justify-content: center;
+			// align-self: flex-start;
 			overflow-x: scroll;
 			width: 100%;
 

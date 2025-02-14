@@ -13,12 +13,12 @@
 		<h1>Other Work</h1>
 
 		<p>
-			A collection of some other pieces of work from me, including art, photography or older
-			design work.
+			A collection of some other pieces of work from me, including art, photography or older design
+			work.
 		</p>
 	</header>
 
-	<ProjectGrid projects={data.projects} />
+	<ProjectGrid showFilters={false} projects={data.projects} />
 
 	<a href="/" id="back-button">
 		<BackArrow />
