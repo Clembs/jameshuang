@@ -39,7 +39,7 @@
 	bind:this={sectionEl}
 	id="about-me"
 	style="opacity: {sectionAnimationPercent};
-	transform: translateY(calc(50px * {sectionAnimationPercent}))
+	transform: translateY(calc(-50px * {sectionAnimationPercent}))
 "
 >
 	<section id="intro">

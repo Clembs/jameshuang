@@ -25,7 +25,7 @@
 	bind:this={sectionEl}
 	id="contact"
 	style="opacity: {sectionAnimationPercent};
-	transform: translateY(calc(50px * {sectionAnimationPercent}));
+	transform: translateY(calc(-50px * {sectionAnimationPercent}));
 "
 >
 	<img
