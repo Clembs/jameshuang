@@ -5,9 +5,10 @@
 	import { FileText, LinkedinLogo, X } from 'phosphor-svelte';
 	import { onMount } from 'svelte';
 
-	let navBarShown = false;
+	let navBarShown = true;
 	let menuShown = false;
-	let itemsShown = false;
+	let itemsShown = true;
+	let linksShown = false;
 	let scrollY = 0;
 
 	const items = [
@@ -31,6 +32,7 @@
 	function toggleMenu() {
 		menuShown = !menuShown;
 		itemsShown = !menuShown;
+		linksShown = menuShown;
 	}
 
 	function handleScroll() {
@@ -39,14 +41,17 @@
 		const currentScrollY = window.scrollY;
 
 		if (currentScrollY < 300 && $page.url.pathname === '/') {
-			navBarShown = false;
-			itemsShown = false;
+			// navBarShown = false;
+			// itemsShown = false;
+			linksShown = false;
 		} else if (currentScrollY > scrollY) {
+			// navBarShown = true;
 			itemsShown = false;
-			navBarShown = true;
+			linksShown = false;
 		} else {
+			// navBarShown = true;
 			itemsShown = true;
-			navBarShown = true;
+			linksShown = true;
 		}
 
 		scrollY = currentScrollY;
@@ -75,7 +80,7 @@
 	</ul>
 
 	<div class="right">
-		<ul class="links" class:hidden={!itemsShown}>
+		<ul class="links" class:hidden={!linksShown}>
 			<a
 				href={links.find((l) => l.label === 'LinkedIn')?.href}
 				target="_blank"
