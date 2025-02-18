@@ -39,7 +39,6 @@
 		text-decoration: none;
 		width: fit-content;
 		margin: var(--space-xl) auto;
-		padding: var(--space-xxl) 0;
 
 		#arrow {
 			transition: transform 200ms ease;
