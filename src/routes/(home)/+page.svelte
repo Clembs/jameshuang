@@ -4,6 +4,7 @@
 	import Contact from './Contact.svelte';
 	import Header from './Header.svelte';
 	import Projects from './Projects.svelte';
+	import Testimonials from './Testimonials.svelte';
 </script>
 
 <Meta title="James Huang - Graphic Designer Based in Sydney" />
@@ -13,6 +14,7 @@
 	<AboutMe />
 	<Projects />
 	<Contact />
+	<Testimonials />
 </main>
 
 <style lang="scss">
